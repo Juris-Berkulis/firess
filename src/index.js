@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import {Message as App} from './Message';
 import reportWebVitals from './reportWebVitals';
+
+const message = 'Какой-то длинный текст!!!';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App text={message}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
