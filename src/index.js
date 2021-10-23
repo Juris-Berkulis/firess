@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import {Message as App} from './Message';
+import './styles/index.css';
+import {Message as App} from './components/Message';
 import reportWebVitals from './reportWebVitals';
 
 const message = 'Какой-то длинный текст!!!';
