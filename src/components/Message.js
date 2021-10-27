@@ -1,4 +1,4 @@
-import './Message.css';
+import '../styles/Message.css';
 
 export const Message = (props) => {
   return (
