@@ -4,4 +4,14 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+
+.center {
+  padding: 0 calc((100% - 90vw) / 2);
+}
+
+.main {
+  min-height: 100vh;
+  background-color: #cccccc;
+  padding: 10vh 0;
+}
 /*# sourceMappingURL=index.css.map */
