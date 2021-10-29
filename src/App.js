@@ -4,14 +4,14 @@ import './styles/App.css';
 export const App = () => {
   const [messageList, setMessageList] = useState([]);
   const [value, setValue] = useState('');
-  const [key, setKey] = useState(0);
 
   const onSaveValueFromInput = (event) => {
     setValue(event.target.value);
   };
 
   const nextKey = () => {
-    setKey(key + 1);
+    const now = new Date().getTime();
+    return now
   };
 
   const sendMessage = (objectMessage) => {
@@ -26,9 +26,9 @@ export const App = () => {
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
     if (value !== '') {
-        nextKey();
+        const moment = nextKey();
         const userMessage = {
-            id: key,
+            id: moment,
             author: 'User',
             text: value,
         };
@@ -38,13 +38,13 @@ export const App = () => {
   };
 
   useEffect(() => {
-      if (messageList != false) {
+      if (messageList.length !== 0) {
         const timerId = setTimeout(() => {
             const listLastElement = messageList[messageList.length - 1];
             if (listLastElement.author !== 'bot') {
-                nextKey();
+              const moment = nextKey();
                 const botMessage = {
-                    id: key,
+                    id: moment,
                     author: 'bot',
                     text: `Ok, ${listLastElement.author}, принято!`,
                 };
