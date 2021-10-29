@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {CHAT_LIST as chatList} from './data/chat list'
 import './styles/App.css';
 
 export const App = () => {
@@ -57,16 +58,23 @@ export const App = () => {
   }, [messageList]);
 
   return (
-    <div className='app'>
-      <form className='app__form' onSubmit={onSubmit}>
-        <input className='app__form_input' type="text" onChange={onSaveValueFromInput} value={value} />
-        <button className='app__form_btn'>Отправить</button>
-      </form>
-      <ul className='app__ul'>
-          {
-            messageList.map((item) => <li className='app__ul_li' key={item.id}>{item.author}: {item.text}</li>)
-          }
-      </ul>
+    <div>
+      <div>
+        {
+          chatList.map((item) => <li key={item.id}>{item.name}</li>)
+        }
+      </div>
+      <div className='app'>
+        <form className='app__form' onSubmit={onSubmit}>
+          <input className='app__form_input' type="text" onChange={onSaveValueFromInput} value={value} />
+          <button className='app__form_btn'>Отправить</button>
+        </form>
+        <ul className='app__ul'>
+            {
+              messageList.map((item) => <li className='app__ul_li' key={item.id}>{item.author}: {item.text}</li>)
+            }
+        </ul>
+      </div>
     </div>
   );
 };
