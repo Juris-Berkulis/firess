@@ -85,11 +85,25 @@ export const App = () => {
     }
   };
 
+  const scrollDown = () => {
+    let scrollHeight = Math.max(
+      document.body.scrollHeight, document.documentElement.scrollHeight,
+      document.body.offsetHeight, document.documentElement.offsetHeight,
+      document.body.clientHeight, document.documentElement.clientHeight,
+    );
+
+    window.scrollTo(0, scrollHeight);
+  };
+
+  useEffect((() => {
+    scrollDown();
+  }), [messageList]);
+
   useEffect((() => {
     if (messageList.length === 0 || messageList[messageList.length - 1].author !== 'bot') {
       refInput.current.focus();
     }
-  }),[messageList])
+  }),[messageList]);
 
   useEffect(() => {
       if (messageList.length !== 0) {
