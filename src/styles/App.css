@@ -1,6 +1,5 @@
 .app {
   width: 80vw;
-  min-width: 900px;
   margin: 0 auto;
   background-color: #88bbdd;
   display: -webkit-box;
@@ -21,11 +20,17 @@
   height: 5vh;
   width: 100%;
   min-height: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .app__form_input {
   height: 100%;
-  width: 90%;
+  width: 20px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   border-top-left-radius: 5vw;
   border-bottom-left-radius: 5vw;
   border-right: none;
@@ -40,7 +45,7 @@
 
 .app__form_btn {
   height: 100%;
-  width: 10%;
+  width: 90px;
   border-top-right-radius: 5vw;
   border-bottom-right-radius: 5vw;
   border-left: none;
