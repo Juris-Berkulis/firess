@@ -24,10 +24,4 @@ yarn-error.log*
 node_modules
 src/old/
 info/
-src/components/Message.js
-src/styles/Message.scss
-src/styles/Message.css.map
-src/styles/Message.css
-src/styles/App.scss
-src/styles/App.css.map
-src/styles/App.css
+archive/
