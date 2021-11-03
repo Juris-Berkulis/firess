@@ -69,12 +69,12 @@ export const App = () => {
           <Route path='/messenger'>
             <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white">
               <ChatsList></ChatsList>
-                <Route path='/messenger/error404'>
-                  <Error404></Error404>
-                </Route>
-                <Route path='/messenger/:chatId'>
-                  <Chat sendMessage={sendMessage} nextKey={nextKey} messageList={messageList}></Chat>
-                </Route>
+              <Route path='/messenger/error404'>
+                <Error404></Error404>
+              </Route>
+              <Route path='/messenger/:chatId'>
+                <Chat sendMessage={sendMessage} nextKey={nextKey} messageList={messageList}></Chat>
+              </Route>
             </Box>
           </Route>
         </Box>
