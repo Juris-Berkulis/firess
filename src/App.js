@@ -6,10 +6,12 @@ import { Profile } from './routes/Profile/Profile';
 import { ChatsList } from './routes/ChatsList/ChatsList';
 import { Chat } from './routes/Chat/Chat';
 import { Error404 } from './routes/Error404/Error404';
+import { CHAT_LIST as chatsList } from './data/chat list';
 import { Box } from '@material-ui/core';
 
 export const App = () => {
   const [messageList, setMessageList] = useState([]);
+  const [stateChatsList, setStateChatsList] = useState(chatsList);
 
   const nextKey = () => {
     const now = new Date().getTime();
@@ -68,12 +70,12 @@ export const App = () => {
           </Route>
           <Route path='/messenger'>
             <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white">
-              <ChatsList></ChatsList>
+              <ChatsList stateChatsList={stateChatsList} setStateChatsList={setStateChatsList}></ChatsList>
               <Route path='/messenger/error404'>
                 <Error404></Error404>
               </Route>
               <Route path='/messenger/:chatId'>
-                <Chat sendMessage={sendMessage} nextKey={nextKey} messageList={messageList}></Chat>
+                <Chat stateChatsList={stateChatsList} setStateChatsList={setStateChatsList} sendMessage={sendMessage} nextKey={nextKey} messageList={messageList}></Chat>
               </Route>
             </Box>
           </Route>

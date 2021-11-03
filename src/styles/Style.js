@@ -8,6 +8,32 @@ export const useStyles = makeStyles({
     headerNavItem: {
       color: '#cccccc'
     },
+    textAttention: {
+      color: '#ff0000',
+      textAlign: 'center',
+      backgroundColor: '#eeeeee',
+      margin: '0 1.8vw',
+      borderBottomLeftRadius: '2.5vw',
+      borderBottomRightRadius: '2.5vw',
+    },
+    changeContactNameForm: {
+      width: '100%',
+      padding: '0 5px',
+    },
+    changeContactNameInput: {
+      width: '100%',
+      backgroundColor: '#eeeeee',
+      padding: '0 2.5vw',
+      borderRadius: '5vw',
+    },
+    changeContactNameButtons: {
+      display: 'flex',
+      justifyContent: 'space-around',
+      borderBottom: '1px solid #ffffff'
+    },
+    changeContactNameIcon: {
+      color: '#eeeeee',
+    },
     allChatsListItem: {
       marginBottom: '0.1vh',
       color: '#dddddd',

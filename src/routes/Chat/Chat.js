@@ -2,7 +2,6 @@ import React from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { ChatList } from './ChatList/ChatList';
 import { ChartForm } from './ChatForm/ChatForm';
-import { CHAT_LIST as chatList } from '../../data/chat list';
 import { Box } from '@material-ui/core';
 import { useStyles } from '../../styles/Style';
 
@@ -11,7 +10,7 @@ export const Chat = (props) => {
 
     const { chatId } = useParams();
 
-    if (!(chatList.find((item) => item.id === chatId))) {
+    if (!(props.stateChatsList.find((item) => String(item.id) === chatId))) {
         return (
             <Redirect to='/messenger/error404'></Redirect>
         )
