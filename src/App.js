@@ -1,61 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { List, ListItem, Box, InputBase, IconButton } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { Send } from '@material-ui/icons';
-import {CHAT_LIST as chatList} from './data/chat list'
-
-const useStyles = makeStyles({
-  allChatsListItem: {
-    marginBottom: '0.1vh',
-    color: '#dddddd',
-    fontSize: '36px',
-  },
-  chat: {
-    width: '60vw',
-    minHeight: '77vh',
-    margin: '0',
-    backgroundColor: '#88bbdd',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '5vh 5vw',
-    borderRadius: '5vw',
-  },
-  form: {
-    height: '5vh',
-    width: '100%',
-    minHeight: '25px',
-    display: 'flex',
-    borderBottom: '1px solid #333333'
-  },
-  input: {
-    width: '20px',
-    flexGrow: 1,
-    borderRight: 'none',
-    outline: 'none',
-  },
-  chatList: {
-    width: '100%',
-  },
-  chatListItem: {
-    marginTop: '1vh',
-    color: '#555555',
-    fontSize: '24px',
-  },
-});
+import React, { useState, useEffect } from 'react';
+import { Switch, Route } from 'react-router-dom';
+import { Header } from './routes/Header/Header';
+import { Home } from './routes/Home/Home';
+import { Profile } from './routes/Profile/Profile';
+import { ChatsList } from './routes/ChatsList/ChatsList';
+import { Chat } from './routes/Chat/Chat';
+import { Error404 } from './routes/Error404/Error404';
+import { CHAT_LIST as chatsList } from './data/chat list';
+import { Box } from '@material-ui/core';
 
 export const App = () => {
-  const classes = useStyles();
-
   const [messageList, setMessageList] = useState([]);
-  const [value, setValue] = useState('');
-
-  const refInput = useRef(null);
-
-  const onSaveValueFromInput = (event) => {
-    setValue(event.target.value);
-  };
+  const [stateChatsList, setStateChatsList] = useState(chatsList);
 
   const nextKey = () => {
     const now = new Date().getTime();
@@ -65,24 +21,6 @@ export const App = () => {
   const sendMessage = (objectMessage) => {
         const newMessagesList = [...messageList, objectMessage];
         setMessageList(newMessagesList);
-  };
-
-  const resetValue = () => {
-    setValue('');
-  };
-
-  const onSubmit = (event) => {
-    event.preventDefault(); //* Cancel page reload.
-    if (value !== '') {
-        const moment = nextKey();
-        const userMessage = {
-            id: moment,
-            author: 'User',
-            text: value,
-        };
-        sendMessage(userMessage);
-        resetValue();
-    }
   };
 
   const scrollDown = () => {
@@ -95,53 +33,54 @@ export const App = () => {
     window.scrollTo(0, scrollHeight);
   };
 
-  useEffect((() => {
-    scrollDown();
-  }), [messageList]);
-
-  useEffect((() => {
-    if (messageList.length === 0 || messageList[messageList.length - 1].author !== 'bot') {
-      refInput.current.focus();
-    }
-  }),[messageList]);
+  const botResponse = () => {
+    const listLastElement = messageList[messageList.length - 1];
+    if (listLastElement.author !== 'bot') {
+      const moment = nextKey();
+        const botMessage = {
+            id: moment,
+            author: 'bot',
+            text: `Ok, ${listLastElement.author}, принято!`,
+        };
+        sendMessage(botMessage);
+    };
+  };
 
   useEffect(() => {
-      if (messageList.length !== 0) {
-        const timerId = setTimeout(() => {
-            const listLastElement = messageList[messageList.length - 1];
-            if (listLastElement.author !== 'bot') {
-              const moment = nextKey();
-                const botMessage = {
-                    id: moment,
-                    author: 'bot',
-                    text: `Ok, ${listLastElement.author}, принято!`,
-                };
-                sendMessage(botMessage);
-            };
-        }, 1500);
+    scrollDown();
+    if (messageList.length !== 0) {
+      const timerId = setTimeout(() => {
+        botResponse();
+      }, 1500);
 
-        return () => {clearTimeout(timerId)}
-      };
+      return () => {clearTimeout(timerId)}
+    };
   }, [messageList]);
 
   return (
-    <Box display="flex" justifyContent="space-between" mx='10vw' p={1} bgcolor="trancend" color="white">
-      <List component="nav">
-        {
-          chatList.map((item) => <ListItem className={classes.allChatsListItem} button key={item.id}>{item.name}</ListItem>)
-        }
-      </List>
-      <Box className={classes.chat}>
-        <List className={classes.chatList}>
-          {
-            messageList.map((item) => <ListItem className={classes.chatListItem} key={item.id}>{item.author}: {item.text}</ListItem>)
-          }
-        </List>
-        <Box className={classes.form} component='form' onSubmit={onSubmit}>
-          <InputBase className={classes.input} inputRef={refInput} placeholder="Сообщение" label="Сообщение" type="text" onChange={onSaveValueFromInput} value={value} />
-          <IconButton type='submit'><Send /></IconButton>
+    <Switch>
+      <>
+        <Header></Header>
+        <Box mx='10vw' p={1}>
+          <Route exact path='/'>
+            <Home></Home>
+          </Route>
+          <Route path='/profile'>
+            <Profile></Profile>
+          </Route>
+          <Route path='/messenger'>
+            <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white">
+              <ChatsList stateChatsList={stateChatsList} setStateChatsList={setStateChatsList}></ChatsList>
+              <Route path='/messenger/error404'>
+                <Error404></Error404>
+              </Route>
+              <Route path='/messenger/:chatId'>
+                <Chat stateChatsList={stateChatsList} setStateChatsList={setStateChatsList} sendMessage={sendMessage} nextKey={nextKey} messageList={messageList}></Chat>
+              </Route>
+            </Box>
+          </Route>
         </Box>
-      </Box>
-    </Box>
+      </>
+    </Switch>
   );
 };
