@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Chat } from './components/Chat/Chat';
-import { ChatsList } from './components/ChatsList/ChatsList';
+import { Chat } from './routes/Chat/Chat';
+import { ChatsList } from './routes/ChatsList/ChatsList';
 import { Box } from '@material-ui/core';
 
 export const App = () => {
