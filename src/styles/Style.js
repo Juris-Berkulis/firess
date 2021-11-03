@@ -1,6 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles({
+    headerNav: {
+      backgroundColor: '#000099',
+      marginBottom: '10vh'
+    },
+    headerNavItem: {
+      color: '#cccccc'
+    },
     allChatsListItem: {
       marginBottom: '0.1vh',
       color: '#dddddd',
