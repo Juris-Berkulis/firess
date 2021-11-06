@@ -12,7 +12,7 @@ export const ChatsList = (props) => {
             <ChangeChatsList stateChatsList={props.stateChatsList} setStateChatsList={props.setStateChatsList}></ChangeChatsList>
             <List component="nav">
                 {
-                props.stateChatsList.map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}</ListItem>)
+                    props.stateChatsList.map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}</ListItem>)
                 }
             </List>
         </Box>

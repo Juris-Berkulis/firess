@@ -43,8 +43,10 @@ export const ChartForm = (props) => {
 
     return (
         <Box className={classes.form} component='form' onSubmit={onSubmit}>
-            <InputBase className={classes.input} inputRef={refInput} placeholder="Сообщение" label="Сообщение" type="text" onChange={onSaveValueFromInput} value={value} />
-            <IconButton type='submit'><Send /></IconButton>
+          <InputBase className={classes.input} inputRef={refInput} placeholder="Сообщение" label="Сообщение" type="text" onChange={onSaveValueFromInput} value={value} />
+          <IconButton type='submit'>
+            <Send />
+          </IconButton>
         </Box>
     )
 };

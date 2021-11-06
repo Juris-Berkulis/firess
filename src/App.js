@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import { Header } from './routes/Header/Header';
 import { Home } from './routes/Home/Home';
 import { Profile } from './routes/Profile/Profile';
@@ -7,6 +8,7 @@ import { ChatsList } from './routes/ChatsList/ChatsList';
 import { Chat } from './routes/Chat/Chat';
 import { Error404 } from './routes/Error404/Error404';
 import { CHAT_LIST as chatsList } from './data/chat list';
+import { store } from './store/Store';
 import { Box } from '@material-ui/core';
 
 export const App = () => {
@@ -58,29 +60,31 @@ export const App = () => {
   }, [messageList]);
 
   return (
+    <Provider store={store}>
     <Switch>
-      <>
-        <Header></Header>
-        <Box mx='10vw' p={1}>
-          <Route exact path='/'>
-            <Home></Home>
-          </Route>
-          <Route path='/profile'>
-            <Profile></Profile>
-          </Route>
-          <Route path='/messenger'>
-            <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white">
-              <ChatsList stateChatsList={stateChatsList} setStateChatsList={setStateChatsList}></ChatsList>
-              <Route path='/messenger/error404'>
-                <Error404></Error404>
-              </Route>
-              <Route path='/messenger/:chatId'>
-                <Chat stateChatsList={stateChatsList} setStateChatsList={setStateChatsList} sendMessage={sendMessage} nextKey={nextKey} messageList={messageList}></Chat>
-              </Route>
-            </Box>
-          </Route>
-        </Box>
-      </>
+    <>
+      <Header></Header>
+      <Box mx='10vw' p={1}>
+        <Route exact path='/'>
+          <Home></Home>
+        </Route>
+        <Route path='/profile'>
+          <Profile></Profile>
+        </Route>
+        <Route path='/messenger'>
+          <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white">
+            <ChatsList stateChatsList={stateChatsList} setStateChatsList={setStateChatsList}></ChatsList>
+            <Route path='/messenger/error404'>
+              <Error404></Error404>
+            </Route>
+            <Route path='/messenger/:chatId'>
+              <Chat stateChatsList={stateChatsList} setStateChatsList={setStateChatsList} sendMessage={sendMessage} nextKey={nextKey} messageList={messageList}></Chat>
+            </Route>
+          </Box>
+        </Route>
+      </Box>
+    </>
     </Switch>
+    </Provider>
   );
 };
