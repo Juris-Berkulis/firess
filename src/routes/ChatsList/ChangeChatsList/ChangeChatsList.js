@@ -63,8 +63,12 @@ export const ChangeChatsList = (props) => {
             {nameAlreadyExists ? <p className={classes.textAttention}>Имя уже существует</p> : null}
             {nameNotFound ? <p className={classes.textAttention}>Имя не найдено</p> : null}
             <div className={classes.changeContactNameButtons}>
-                <IconButton type='submit'><PersonAdd className={classes.changeContactNameIcon} /></IconButton>
-                <IconButton onClick={deliteContact}><DeleteForever className={classes.changeContactNameIcon} /></IconButton>
+              <IconButton type='submit'>
+                <PersonAdd className={classes.changeContactNameIcon} />
+              </IconButton>
+              <IconButton onClick={deliteContact}>
+                <DeleteForever className={classes.changeContactNameIcon} />
+              </IconButton>
             </div>
         </Box>
     )

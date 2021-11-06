@@ -8,7 +8,7 @@ export const ChatList = (props) => {
     return (
         <List className={classes.chatList}>
             {
-            props.messageList.map((item) => <ListItem className={classes.chatListItem} key={item.id}>{item.author}: {item.text}</ListItem>)
+                props.messageList.map((item) => <ListItem className={classes.chatListItem} key={item.id}>{item.author}: {item.text}</ListItem>)
             }
         </List>
     )
