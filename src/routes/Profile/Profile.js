@@ -7,7 +7,7 @@ export const Profile = () => {
     // const classes = useStyles();
 
     const dispatch = useDispatch();
-    const isChecked = useSelector((state) => state.checked)
+    const isChecked = useSelector((state) => state.profile.checked);
 
     return (
         <div>
