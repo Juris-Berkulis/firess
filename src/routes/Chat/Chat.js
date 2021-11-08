@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { ChatList } from './ChatList/ChatList';
 import { ChartForm } from './ChatForm/ChatForm';
 import { Box } from '@material-ui/core';
@@ -10,7 +11,9 @@ export const Chat = (props) => {
 
     const { chatId } = useParams();
 
-    if (!(props.stateChatsList.find((item) => String(item.id) === chatId))) {
+    const chatsListRed = useSelector((state) => state.chatsListReducer);
+
+    if (!(chatsListRed.find((item) => String(item.id) === chatId))) {
         return (
             <Redirect to='/messenger/error404'></Redirect>
         )
