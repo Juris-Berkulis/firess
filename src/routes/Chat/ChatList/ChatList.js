@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { getChatListMessagesSelector } from '../../../store/ChatList/Selectors';
 import { List, ListItem } from '@material-ui/core';
 import { useStyles } from '../../../styles/Style';
 
@@ -9,9 +10,10 @@ export const ChatList = (props) => {
 
     const { chatId } = useParams();
 
-    const chatListRed = useSelector((state) => state.chatListReducer.messages);
+    const chatListRed = useSelector(getChatListMessagesSelector);
+    console.log(Object.entries(chatListRed).length)
 
-    if (Object.keys(chatListRed).length === 0 || !chatListRed[chatId]) {
+    if (Object.entries(chatListRed).length === 0 || !chatListRed[chatId]) {
         return null
     }
 

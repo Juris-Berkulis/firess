@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessageInChatListAction } from '../../../store/ChatList/Action';
+import { getChatsListRootSelector } from '../../../store/ChatsList/Selectors';
+import { getChatListMessagesSelector } from '../../../store/ChatList/Selectors';
 import { Box, InputBase, IconButton } from '@material-ui/core';
 import { Send } from '@material-ui/icons';
 import { useStyles } from '../../../styles/Style';
@@ -13,10 +15,10 @@ export const ChartForm = (props) => {
   const refInput = useRef(null);
 
   const { chatId } = useParams();
-  const chatsListRed = useSelector((state) => state.chatsListReducer);
+  const chatsListRed = useSelector(getChatsListRootSelector);
   const [openContact] = chatsListRed.filter((item) => item.id === chatId);
 
-  const chatListRed = useSelector((state) => state.chatListReducer.messages);
+  const chatListRed = useSelector(getChatListMessagesSelector);
   console.log(chatListRed)
 
   const dispatch = useDispatch();

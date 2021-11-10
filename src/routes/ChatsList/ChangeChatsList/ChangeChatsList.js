@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addInChatsListAction, removeFromChatsListAction } from '../../../store/ChatsList/Action';
 import { removeMessageInChatListAction } from '../../../store/ChatList/Action';
+import { getChatsListRootSelector } from '../../../store/ChatsList/Selectors';
 import { Box, InputBase, IconButton } from '@material-ui/core';
 import { PersonAdd, DeleteForever } from '@material-ui/icons';
 import { useStyles } from '../../../styles/Style';
@@ -13,7 +14,7 @@ export const ChangeChatsList = (props) => {
   const [nameNotFound, setNameNotFound] = useState(false);
 
   const dispatch = useDispatch();
-  const chatsListRed = useSelector((state) => state.chatsListReducer);
+  const chatsListRed = useSelector(getChatsListRootSelector);
 
   const onSaveNameFromInput = (event) => {
     setValueName(event.target.value);
