@@ -1,4 +1,3 @@
-//! At the moment, nothing from this file is being used!
 import { ADD_MESSAGE_IN_CHAT_LIST, REMOVE_MESSAGE_IN_CHAT_LIST } from './Action';
 
 const initialState = {
@@ -17,9 +16,6 @@ export const chatListReducer = (state = initialState, action) => {
             }
         }
         case REMOVE_MESSAGE_IN_CHAT_LIST: {
-            // if(!state.messages.hasOwnProperty(action.payload)) {
-            //     return state
-            // }
             const newMessages = {...state.messages};
             console.log(newMessages[action.payload])
             delete newMessages[action.payload];

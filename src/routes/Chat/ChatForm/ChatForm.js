@@ -29,41 +29,18 @@ export const ChartForm = (props) => {
     setValue('');
   };
 
-  // const onSubmit = (event) => {
-  //   event.preventDefault(); //* Cancel page reload.
-  //   if (value !== '') {
-  //       const moment = props.nextKey();
-  //       const userMessage = {
-  //           id: moment,
-  //           author: 'User',
-  //           text: value,
-  //       };
-  //       props.sendMessage(userMessage);
-  //       resetValue();
-  //   }
-  // };
-
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
     if (value !== '') {
-        // const moment = props.nextKey();
         const userMessage = {
           message: {author: openContact.name, text: value},
           chatId: openContact.id,
         };
-        // props.sendMessage(userMessage);
         dispatch(addMessageInChatListAction(userMessage));
         scrollDown();
         resetValue();
-        // botDelay();
     }
   };
-
-    //todo: Перенести все следующие функции в "ChatForm" и переделать.
-//     const sendMessage = (objectMessage) => {
-//       const newMessagesList = [...messageList, objectMessage];
-//       setMessageList(newMessagesList);
-// };
 
 const scrollDown = () => {
   let scrollHeight = Math.max(
@@ -88,16 +65,6 @@ const botResponse = () => {
   };
 };
 
-// const botDelay = () => {
-//   if (Object.entries(chatListRed).length !== 0) {
-//     const timerId = setTimeout(() => {
-//       botResponse();
-//     }, 1500);
-
-//     return () => {clearTimeout(timerId)}
-//   };
-// };
-
 useEffect(() => {
   scrollDown();
   console.log(Object.entries(chatListRed).length)
@@ -110,12 +77,10 @@ useEffect(() => {
   };
 }, [chatListRed]);
 
-  //todo: Переделать.
   const focusOnInput = () => {
     if (Object.entries(chatListRed).length === 0 || chatListRed[chatId][chatListRed[chatId].length - 1].author !== 'bot') {
       refInput.current.focus();
     }
-    // refInput.current.focus();
   };
 
   useEffect((() => {

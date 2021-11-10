@@ -1,4 +1,3 @@
-//! At the moment, nothing from this file is being used!
 export const ADD_MESSAGE_IN_CHAT_LIST = 'ADD_MESSAGE_IN_CHAT_LIST';
 
 export const addMessageInChatListAction = ({message, chatId}) => ({

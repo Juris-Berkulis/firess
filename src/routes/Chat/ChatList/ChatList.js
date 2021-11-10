@@ -9,9 +9,6 @@ export const ChatList = (props) => {
 
     const { chatId } = useParams();
 
-    const chatsListRed = useSelector((state) => state.chatsListReducer);
-    // const [openContact] = chatsListRed.filter((item) => item.id === chatId);
-
     const chatListRed = useSelector((state) => state.chatListReducer.messages);
 
     if (Object.keys(chatListRed).length === 0 || !chatListRed[chatId]) {
