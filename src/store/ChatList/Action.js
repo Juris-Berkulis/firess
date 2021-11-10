@@ -1,7 +1,17 @@
 //! At the moment, nothing from this file is being used!
-export const MESSAGES_LIST = 'MESSAGE_LIST';
+export const ADD_MESSAGE_IN_CHAT_LIST = 'ADD_MESSAGE_IN_CHAT_LIST';
 
-export const messagesListAction = (payload) => ({
-    type: MESSAGES_LIST,
-    payload
+export const addMessageInChatListAction = ({message, chatId}) => ({
+    type: ADD_MESSAGE_IN_CHAT_LIST,
+    payload: {
+        message,
+        chatId,
+    },
+});
+
+export const REMOVE_MESSAGE_IN_CHAT_LIST = 'REMOVE_MESSAGE_IN_CHAT_LIST';
+
+export const removeMessageInChatListAction = (chatId) => ({
+    type: REMOVE_MESSAGE_IN_CHAT_LIST,
+    payload: chatId,
 });

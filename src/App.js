@@ -18,44 +18,45 @@ export const App = () => {
     return now
   };
 
-  const sendMessage = (objectMessage) => {
-        const newMessagesList = [...messageList, objectMessage];
-        setMessageList(newMessagesList);
-  };
+  // //todo: Перенести все следующие функции в "ChatForm" и переделать.
+  // const sendMessage = (objectMessage) => {
+  //       const newMessagesList = [...messageList, objectMessage];
+  //       setMessageList(newMessagesList);
+  // };
 
-  const scrollDown = () => {
-    let scrollHeight = Math.max(
-      document.body.scrollHeight, document.documentElement.scrollHeight,
-      document.body.offsetHeight, document.documentElement.offsetHeight,
-      document.body.clientHeight, document.documentElement.clientHeight,
-    );
+  // const scrollDown = () => {
+  //   let scrollHeight = Math.max(
+  //     document.body.scrollHeight, document.documentElement.scrollHeight,
+  //     document.body.offsetHeight, document.documentElement.offsetHeight,
+  //     document.body.clientHeight, document.documentElement.clientHeight,
+  //   );
 
-    window.scrollTo(0, scrollHeight);
-  };
+  //   window.scrollTo(0, scrollHeight);
+  // };
 
-  const botResponse = () => {
-    const listLastElement = messageList[messageList.length - 1];
-    if (listLastElement.author !== 'bot') {
-      const moment = nextKey();
-        const botMessage = {
-            id: moment,
-            author: 'bot',
-            text: `Ok, ${listLastElement.author}, принято!`,
-        };
-        sendMessage(botMessage);
-    };
-  };
+  // const botResponse = () => {
+  //   const listLastElement = messageList[messageList.length - 1];
+  //   if (listLastElement.author !== 'bot') {
+  //     const moment = nextKey();
+  //       const botMessage = {
+  //           id: moment,
+  //           author: 'bot',
+  //           text: `Ok, ${listLastElement.author}, принято!`,
+  //       };
+  //       sendMessage(botMessage);
+  //   };
+  // };
 
-  useEffect(() => {
-    scrollDown();
-    if (messageList.length !== 0) {
-      const timerId = setTimeout(() => {
-        botResponse();
-      }, 1500);
+  // useEffect(() => {
+  //   scrollDown();
+  //   if (messageList.length !== 0) {
+  //     const timerId = setTimeout(() => {
+  //       botResponse();
+  //     }, 1500);
 
-      return () => {clearTimeout(timerId)}
-    };
-  }, [messageList]);
+  //     return () => {clearTimeout(timerId)}
+  //   };
+  // }, [messageList]);
 
   return (
     <Provider store={store}>
@@ -76,7 +77,7 @@ export const App = () => {
               <Error404></Error404>
             </Route>
             <Route path='/messenger/:chatId'>
-              <Chat sendMessage={sendMessage} nextKey={nextKey} messageList={messageList}></Chat>
+              <Chat></Chat>
             </Route>
           </Box>
         </Route>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addInChatsListAction, removeFromChatsListAction } from '../../../store/ChatsList/Action';
+import { removeMessageInChatListAction } from '../../../store/ChatList/Action';
 import { Box, InputBase, IconButton } from '@material-ui/core';
 import { PersonAdd, DeleteForever } from '@material-ui/icons';
 import { useStyles } from '../../../styles/Style';
@@ -26,7 +27,8 @@ export const ChangeChatsList = (props) => {
 
   const newContactId = () => {
     const now = new Date().getTime();
-    return now
+    const nowString = String(now);
+    return nowString
   };
 
   const addContact = (newName) => {
@@ -58,6 +60,8 @@ export const ChangeChatsList = (props) => {
     if (chatsListRed.find((item) => item.name === valueName)) {
       setNameNotFound(false);
       const newChatsListRed = chatsListRed.filter((item) => item.name !== valueName);
+      const [delChatsListRed] = chatsListRed.filter((item) => item.name === valueName);
+      dispatch(removeMessageInChatListAction(delChatsListRed.id));
       dispatch(removeFromChatsListAction(newChatsListRed));
       resetValue();
     } else {

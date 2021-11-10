@@ -1,15 +1,32 @@
 //! At the moment, nothing from this file is being used!
-// import { MESSAGES_LIST } from './Action';
+import { ADD_MESSAGE_IN_CHAT_LIST, REMOVE_MESSAGE_IN_CHAT_LIST } from './Action';
 
-const initialState = [];
+const initialState = {
+    messages: {},
+};
 
 export const chatListReducer = (state = initialState, action) => {
     switch(action.type) {
-        // case MESSAGES_LIST: {
-        //     return [
-        //         ...state, ...action.payload
-        //     ]
-        // }
+        case ADD_MESSAGE_IN_CHAT_LIST: {
+            const {message, chatId} = action.payload;
+            const newMessages = {...state.messages};
+            newMessages[chatId] = [...(newMessages[chatId] || []), message,];
+            console.log(newMessages)
+            return {
+                messages: newMessages
+            }
+        }
+        case REMOVE_MESSAGE_IN_CHAT_LIST: {
+            // if(!state.messages.hasOwnProperty(action.payload)) {
+            //     return state
+            // }
+            const newMessages = {...state.messages};
+            console.log(newMessages[action.payload])
+            delete newMessages[action.payload];
+            return {
+                messages: newMessages
+            }
+        }
         default: {
             return state
         }
