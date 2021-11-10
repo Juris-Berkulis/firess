@@ -11,7 +11,6 @@ export const ChatList = (props) => {
     const { chatId } = useParams();
 
     const chatListRed = useSelector(getChatListMessagesSelector);
-    console.log(Object.entries(chatListRed).length)
 
     if (Object.entries(chatListRed).length === 0 || !chatListRed[chatId]) {
         return null

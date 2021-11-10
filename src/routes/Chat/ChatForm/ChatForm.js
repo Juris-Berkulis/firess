@@ -19,7 +19,6 @@ export const ChartForm = (props) => {
   const [openContact] = chatsListRed.filter((item) => item.id === chatId);
 
   const chatListRed = useSelector(getChatListMessagesSelector);
-  console.log(chatListRed)
 
   const dispatch = useDispatch();
 
@@ -56,7 +55,6 @@ const scrollDown = () => {
 
 const botResponse = () => {
   const listLastElement = chatListRed[chatId][chatListRed[chatId].length - 1];
-  console.log(listLastElement)
   if (listLastElement.author !== 'bot') {
     const botMessage = {
       message: {author: 'bot', text: `Ok, ${openContact.name}, принято!`},
@@ -69,7 +67,6 @@ const botResponse = () => {
 
 useEffect(() => {
   scrollDown();
-  console.log(Object.entries(chatListRed).length)
   if (Object.entries(chatListRed).length !== 0) {
     const timerId = setTimeout(() => {
       botResponse();
