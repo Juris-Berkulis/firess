@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addInChatsListAction, removeFromChatsListAction } from '../../../store/ChatsList/Action';
+import { removeMessageInChatListAction } from '../../../store/ChatList/Action';
+import { getChatsListRootSelector } from '../../../store/ChatsList/Selectors';
 import { Box, InputBase, IconButton } from '@material-ui/core';
 import { PersonAdd, DeleteForever } from '@material-ui/icons';
 import { useStyles } from '../../../styles/Style';
@@ -9,8 +13,13 @@ export const ChangeChatsList = (props) => {
   const [nameAlreadyExists, setNameAlreadyExists] = useState(false);
   const [nameNotFound, setNameNotFound] = useState(false);
 
+  const dispatch = useDispatch();
+  const chatsListRed = useSelector(getChatsListRootSelector);
+
   const onSaveNameFromInput = (event) => {
     setValueName(event.target.value);
+    setNameAlreadyExists(false);
+    setNameNotFound(false);
   };
 
   const resetValue = () => {
@@ -19,7 +28,8 @@ export const ChangeChatsList = (props) => {
 
   const newContactId = () => {
     const now = new Date().getTime();
-    return now
+    const nowString = String(now);
+    return nowString
   };
 
   const addContact = (newName) => {
@@ -35,10 +45,10 @@ export const ChangeChatsList = (props) => {
     event.preventDefault(); //* Cancel page reload.
     setNameNotFound(false);
     if (valueName !== '') {
-      if (!(props.stateChatsList.find((item) => item.name === valueName))) {
+      if (!(chatsListRed.find((item) => item.name === valueName))) {
         setNameAlreadyExists(false);
         const newContact = addContact(valueName);
-        props.setStateChatsList([...props.stateChatsList, newContact]);
+        dispatch(addInChatsListAction(newContact));
         resetValue();
       } else {
         setNameAlreadyExists(true);
@@ -48,9 +58,12 @@ export const ChangeChatsList = (props) => {
 
   const deliteContact = () => {
     setNameAlreadyExists(false);
-    if (props.stateChatsList.find((item) => item.name === valueName)) {
+    if (chatsListRed.find((item) => item.name === valueName)) {
       setNameNotFound(false);
-      props.setStateChatsList(props.stateChatsList.filter((item) => item.name !== valueName))
+      const newChatsListRed = chatsListRed.filter((item) => item.name !== valueName);
+      const [delChatsListRed] = chatsListRed.filter((item) => item.name === valueName);
+      dispatch(removeMessageInChatListAction(delChatsListRed.id));
+      dispatch(removeFromChatsListAction(newChatsListRed));
       resetValue();
     } else {
       setNameNotFound(true);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { Header } from './routes/Header/Header';
@@ -7,58 +7,10 @@ import { Profile } from './routes/Profile/Profile';
 import { ChatsList } from './routes/ChatsList/ChatsList';
 import { Chat } from './routes/Chat/Chat';
 import { Error404 } from './routes/Error404/Error404';
-import { CHAT_LIST as chatsList } from './data/chat list';
 import { store } from './store/Store';
 import { Box } from '@material-ui/core';
 
 export const App = () => {
-  const [messageList, setMessageList] = useState([]);
-  const [stateChatsList, setStateChatsList] = useState(chatsList);
-
-  const nextKey = () => {
-    const now = new Date().getTime();
-    return now
-  };
-
-  const sendMessage = (objectMessage) => {
-        const newMessagesList = [...messageList, objectMessage];
-        setMessageList(newMessagesList);
-  };
-
-  const scrollDown = () => {
-    let scrollHeight = Math.max(
-      document.body.scrollHeight, document.documentElement.scrollHeight,
-      document.body.offsetHeight, document.documentElement.offsetHeight,
-      document.body.clientHeight, document.documentElement.clientHeight,
-    );
-
-    window.scrollTo(0, scrollHeight);
-  };
-
-  const botResponse = () => {
-    const listLastElement = messageList[messageList.length - 1];
-    if (listLastElement.author !== 'bot') {
-      const moment = nextKey();
-        const botMessage = {
-            id: moment,
-            author: 'bot',
-            text: `Ok, ${listLastElement.author}, принято!`,
-        };
-        sendMessage(botMessage);
-    };
-  };
-
-  useEffect(() => {
-    scrollDown();
-    if (messageList.length !== 0) {
-      const timerId = setTimeout(() => {
-        botResponse();
-      }, 1500);
-
-      return () => {clearTimeout(timerId)}
-    };
-  }, [messageList]);
-
   return (
     <Provider store={store}>
     <Switch>
@@ -73,12 +25,12 @@ export const App = () => {
         </Route>
         <Route path='/messenger'>
           <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white">
-            <ChatsList stateChatsList={stateChatsList} setStateChatsList={setStateChatsList}></ChatsList>
+            <ChatsList></ChatsList>
             <Route path='/messenger/error404'>
               <Error404></Error404>
             </Route>
             <Route path='/messenger/:chatId'>
-              <Chat stateChatsList={stateChatsList} setStateChatsList={setStateChatsList} sendMessage={sendMessage} nextKey={nextKey} messageList={messageList}></Chat>
+              <Chat></Chat>
             </Route>
           </Box>
         </Route>
