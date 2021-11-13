@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessageInChatListAction } from '../../../store/ChatList/Action';
+import { addMessageInChatListWithThunkAction } from '../../../store/ChatList/Action';
 import { getChatsListRootSelector } from '../../../store/ChatsList/Selectors';
 import { getChatListMessagesSelector } from '../../../store/ChatList/Selectors';
+// import { BOT_NAME } from '../../../data/consts';
 import { Box, InputBase, IconButton } from '@material-ui/core';
 import { Send } from '@material-ui/icons';
 import { useStyles } from '../../../styles/Style';
@@ -30,19 +31,20 @@ export const ChartForm = (props) => {
     setValue('');
   };
 
-  const sendMessage = (author, text, chatId) => {
-    const somebodyMessage = {
-      message: {author: author, text: text},
-      chatId: chatId,
-    };
-    return somebodyMessage
-  };
+  // const sendMessage = (author, text, chatId) => {
+  //   const somebodyMessage = {
+  //     message: {author: author, text: text},
+  //     chatId: chatId,
+  //   };
+  //   return somebodyMessage
+  // };
 
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
     if (value !== '') {
-        const userMessage = sendMessage(openContact.name, value, openContact.id);
-        dispatch(addMessageInChatListAction(userMessage));
+        // const userMessage = sendMessage(openContact.name, value, openContact.id);
+        // dispatch(addMessageInChatListAction(userMessage));
+        dispatch(addMessageInChatListWithThunkAction(openContact.name, value, openContact.id));
         scrollDown();
         resetValue();
     }
@@ -58,29 +60,33 @@ const scrollDown = () => {
   window.scrollTo(0, scrollHeight);
 };
 
-const botResponse = () => {
-  const listLastElement = chatListRed[chatId][chatListRed[chatId].length - 1];
-  if (listLastElement.author !== 'bot') {
-    const botMessage = sendMessage('bot', `Ok, ${openContact.name}, принято!`, openContact.id);
-    dispatch(addMessageInChatListAction(botMessage))
-  };
-};
+// const botResponse = () => {
+//   const listLastElement = chatListRed[chatId][chatListRed[chatId].length - 1];
+//   if (listLastElement.author !== 'bot') {
+//     const botMessage = sendMessage('bot', `Ok, ${openContact.name}, принято!`, openContact.id);
+//     dispatch(addMessageInChatListAction(botMessage))
+//   };
+// };
 
-useEffect(() => {
-  scrollDown();
-  if (Object.entries(chatListRed).length !== 0) {
-    const timerId = setTimeout(() => {
-      botResponse();
-    }, 1500);
+// useEffect(() => {
+//   scrollDown();
+//   if (Object.entries(chatListRed).length !== 0) {
+//     const timerId = setTimeout(() => {
+//       botResponse();
+//     }, 1500);
 
-    return () => {clearTimeout(timerId)}
-  };
-}, [chatListRed]);
+//     return () => {clearTimeout(timerId)}
+//   };
+// }, [chatListRed]);
+
+  // const focusOnInput = () => {
+  //   if (Object.entries(chatListRed).length === 0 || chatListRed[chatId][chatListRed[chatId].length - 1].author !== BOT_NAME) {
+  //     refInput.current.focus();
+  //   }
+  // };
 
   const focusOnInput = () => {
-    if (Object.entries(chatListRed).length === 0 || chatListRed[chatId][chatListRed[chatId].length - 1].author !== 'bot') {
       refInput.current.focus();
-    }
   };
 
   useEffect((() => {
