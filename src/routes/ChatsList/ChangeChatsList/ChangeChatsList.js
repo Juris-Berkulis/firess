@@ -3,15 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addInChatsListAction, removeFromChatsListAction } from '../../../store/ChatsList/Action';
 import { removeMessageInChatListAction } from '../../../store/ChatList/Action';
 import { getChatsListRootSelector } from '../../../store/ChatsList/Selectors';
-import { Box, InputBase, IconButton } from '@material-ui/core';
-import { PersonAdd, DeleteForever } from '@material-ui/icons';
 import { useStyles } from '../../../styles/Style';
+import { ChangeChatsListUI } from '../../../ui_components/ChangeChatsListUI.jsx';
 
 export const ChangeChatsList = (props) => {
   const classes = useStyles();
   const [valueName, setValueName] = useState('');
   const [nameAlreadyExists, setNameAlreadyExists] = useState(false);
   const [nameNotFound, setNameNotFound] = useState(false);
+
+  const nameAlreadyExistsForProps = nameAlreadyExists ? <p className={classes.textAttention}>Имя уже существует</p> : null;
+  const nameNotFoundForProps = nameNotFound ? <p className={classes.textAttention}>Имя не найдено</p> : null
 
   const dispatch = useDispatch();
   const chatsListRed = useSelector(getChatsListRootSelector);
@@ -70,19 +72,7 @@ export const ChangeChatsList = (props) => {
     }
   };
 
-    return (
-        <Box className={classes.changeContactNameForm} component='form' onSubmit={onSubmit}>
-            <InputBase className={classes.changeContactNameInput} placeholder="Имя" label="Имя" type="text" onChange={onSaveNameFromInput} value={valueName} />
-            {nameAlreadyExists ? <p className={classes.textAttention}>Имя уже существует</p> : null}
-            {nameNotFound ? <p className={classes.textAttention}>Имя не найдено</p> : null}
-            <div className={classes.changeContactNameButtons}>
-              <IconButton type='submit'>
-                <PersonAdd className={classes.changeContactNameIcon} />
-              </IconButton>
-              <IconButton onClick={deliteContact}>
-                <DeleteForever className={classes.changeContactNameIcon} />
-              </IconButton>
-            </div>
-        </Box>
-    )
+  return (
+    <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} nameAlreadyExistsForProps={nameAlreadyExistsForProps} nameNotFoundForProps={nameNotFoundForProps} deliteContact={deliteContact}></ChangeChatsListUI>
+  )
 };

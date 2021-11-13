@@ -1,13 +1,11 @@
 import React from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { ChatList } from './ChatList/ChatList';
-import { ChartForm } from './ChatForm/ChatForm';
 import { getChatsListRootSelector } from '../../store/ChatsList/Selectors';
-import { Box } from '@material-ui/core';
 import { useStyles } from '../../styles/Style';
+import { ChatUI } from '../../ui_components/ChatUI.jsx';
 
-export const Chat = (props) => {
+export const Chat = () => {
     const classes = useStyles();
 
     const { chatId } = useParams();
@@ -21,9 +19,6 @@ export const Chat = (props) => {
     };
 
     return (
-        <Box className={classes.chat}>
-            <ChatList messageList={props.messageList}></ChatList>
-            <ChartForm sendMessage={props.sendMessage} nextKey={props.nextKey} messageList={props.messageList}></ChartForm>
-        </Box>
+        <ChatUI classes={classes}></ChatUI>
     )
 };
