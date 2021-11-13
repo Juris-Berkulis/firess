@@ -20,11 +20,6 @@ export const ChatList = () => {
     const chatListRedForProps = chatListRed[chatId].map((item, index) => <ListItem className={classes.chatListItem} key={index}>{item.author}: {item.text}</ListItem>);
 
     return (
-        // <List className={classes.chatList}>
-        //     {
-        //         chatListRed[chatId].map((item, index) => <ListItem className={classes.chatListItem} key={index}>{item.author}: {item.text}</ListItem>)
-        //     }
-        // </List>
         <ChatListUI classes={classes} chatListRedForProps={chatListRedForProps}></ChatListUI>
     )
 };

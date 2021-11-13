@@ -17,11 +17,6 @@ export const ChatsList = (props) => {
     return (
         <Box>
             <ChangeChatsList></ChangeChatsList>
-            {/* <List component="nav">
-                {
-                    chatsListRed.map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}</ListItem>)
-                }
-            </List> */}
             <ChatsListUI newChatsListRed={newChatsListRed}></ChatsListUI>
         </Box>
     )

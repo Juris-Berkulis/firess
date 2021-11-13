@@ -19,10 +19,6 @@ export const Chat = () => {
     };
 
     return (
-        // <Box className={classes.chat}>
-        //     <ChatList messageList={props.messageList}></ChatList>
-        //     <ChartForm sendMessage={props.sendMessage} nextKey={props.nextKey} messageList={props.messageList}></ChartForm>
-        // </Box>
         <ChatUI classes={classes}></ChatUI>
     )
 };

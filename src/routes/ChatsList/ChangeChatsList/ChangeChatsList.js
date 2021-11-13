@@ -72,20 +72,7 @@ export const ChangeChatsList = (props) => {
     }
   };
 
-    return (
-        // <Box className={classes.changeContactNameForm} component='form' onSubmit={onSubmit}>
-        //     <InputBase className={classes.changeContactNameInput} placeholder="Имя" label="Имя" type="text" onChange={onSaveNameFromInput} value={valueName} />
-        //     {nameAlreadyExists ? <p className={classes.textAttention}>Имя уже существует</p> : null}
-        //     {nameNotFound ? <p className={classes.textAttention}>Имя не найдено</p> : null}
-        //     <div className={classes.changeContactNameButtons}>
-        //       <IconButton type='submit'>
-        //         <PersonAdd className={classes.changeContactNameIcon} />
-        //       </IconButton>
-        //       <IconButton onClick={deliteContact}>
-        //         <DeleteForever className={classes.changeContactNameIcon} />
-        //       </IconButton>
-        //     </div>
-        // </Box>
-      <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} nameAlreadyExistsForProps={nameAlreadyExistsForProps} nameNotFoundForProps={nameNotFoundForProps} deliteContact={deliteContact}></ChangeChatsListUI>
-    )
+  return (
+    <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} nameAlreadyExistsForProps={nameAlreadyExistsForProps} nameNotFoundForProps={nameNotFoundForProps} deliteContact={deliteContact}></ChangeChatsListUI>
+  )
 };

@@ -1,9 +1,6 @@
 import React from 'react';
-// import { useStyles } from '../../styles/Style';
 
 export const Error404 = () => {
-    // const classes = useStyles();
-
     return (
         <div>
             <h1>Ошибка 404</h1>

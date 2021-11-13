@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addMessageInChatListWithThunkAction } from '../../../store/ChatList/Action';
 import { getChatsListRootSelector } from '../../../store/ChatsList/Selectors';
 import { getChatListMessagesSelector } from '../../../store/ChatList/Selectors';
-// import { BOT_NAME } from '../../../data/consts';
 import { useStyles } from '../../../styles/Style';
 import { ChartFormUI } from '../../../ui_components/ChatFormUI.jsx';
 
@@ -30,75 +29,38 @@ export const ChartForm = (props) => {
     setValue('');
   };
 
-  // const sendMessage = (author, text, chatId) => {
-  //   const somebodyMessage = {
-  //     message: {author: author, text: text},
-  //     chatId: chatId,
-  //   };
-  //   return somebodyMessage
-  // };
-
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
     if (value !== '') {
-        // const userMessage = sendMessage(openContact.name, value, openContact.id);
-        // dispatch(addMessageInChatListAction(userMessage));
-        dispatch(addMessageInChatListWithThunkAction(openContact.name, value, openContact.id));
-        scrollDown();
-        resetValue();
+      dispatch(addMessageInChatListWithThunkAction(openContact.name, value, openContact.id));
+      scrollDown();
+      resetValue();
     }
   };
 
-const scrollDown = () => {
-  let scrollHeight = Math.max(
-    document.body.scrollHeight, document.documentElement.scrollHeight,
-    document.body.offsetHeight, document.documentElement.offsetHeight,
-    document.body.clientHeight, document.documentElement.clientHeight,
-  );
+  const scrollDown = () => {
+    const scrollHeight = Math.max(
+      document.body.scrollHeight, document.documentElement.scrollHeight,
+      document.body.offsetHeight, document.documentElement.offsetHeight,
+      document.body.clientHeight, document.documentElement.clientHeight,
+    );
 
-  window.scrollTo(0, scrollHeight);
-};
-
-// const botResponse = () => {
-//   const listLastElement = chatListRed[chatId][chatListRed[chatId].length - 1];
-//   if (listLastElement.author !== 'bot') {
-//     const botMessage = sendMessage('bot', `Ok, ${openContact.name}, принято!`, openContact.id);
-//     dispatch(addMessageInChatListAction(botMessage))
-//   };
-// };
-
-// useEffect(() => {
-//   scrollDown();
-//   if (Object.entries(chatListRed).length !== 0) {
-//     const timerId = setTimeout(() => {
-//       botResponse();
-//     }, 1500);
-
-//     return () => {clearTimeout(timerId)}
-//   };
-// }, [chatListRed]);
-
-  // const focusOnInput = () => {
-  //   if (Object.entries(chatListRed).length === 0 || chatListRed[chatId][chatListRed[chatId].length - 1].author !== BOT_NAME) {
-  //     refInput.current.focus();
-  //   }
-  // };
-
-  const focusOnInput = () => {
-      refInput.current.focus();
+    window.scrollTo(0, scrollHeight);
   };
 
-  useEffect((() => {
-    focusOnInput();
-  }),[chatListRed]); 
+  const focusOnInput = () => {
+    refInput.current.focus();
+  };
 
-    return (
-        // <Box className={classes.form} component='form' onSubmit={onSubmit}>
-        //   <InputBase className={classes.input} inputRef={refInput} placeholder="Сообщение" label="Сообщение" type="text" onChange={onSaveValueFromInput} value={value} />
-        //   <IconButton type='submit'>
-        //     <Send />
-        //   </IconButton>
-        // </Box>
-      <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={value}></ChartFormUI>
-    )
+  useEffect(() => {
+    focusOnInput();
+  }, [chatListRed]); 
+
+  useEffect(() => {
+    scrollDown();
+  }, [chatListRed]);
+
+  return (
+    <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={value}></ChartFormUI>
+  )
 };
