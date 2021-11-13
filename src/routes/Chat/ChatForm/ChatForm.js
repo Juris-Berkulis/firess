@@ -5,9 +5,8 @@ import { addMessageInChatListWithThunkAction } from '../../../store/ChatList/Act
 import { getChatsListRootSelector } from '../../../store/ChatsList/Selectors';
 import { getChatListMessagesSelector } from '../../../store/ChatList/Selectors';
 // import { BOT_NAME } from '../../../data/consts';
-import { Box, InputBase, IconButton } from '@material-ui/core';
-import { Send } from '@material-ui/icons';
 import { useStyles } from '../../../styles/Style';
+import { ChartFormUI } from '../../../ui_components/ChatFormUI.jsx';
 
 export const ChartForm = (props) => {
   const classes = useStyles();
@@ -94,11 +93,12 @@ const scrollDown = () => {
   }),[chatListRed]); 
 
     return (
-        <Box className={classes.form} component='form' onSubmit={onSubmit}>
-          <InputBase className={classes.input} inputRef={refInput} placeholder="Сообщение" label="Сообщение" type="text" onChange={onSaveValueFromInput} value={value} />
-          <IconButton type='submit'>
-            <Send />
-          </IconButton>
-        </Box>
+        // <Box className={classes.form} component='form' onSubmit={onSubmit}>
+        //   <InputBase className={classes.input} inputRef={refInput} placeholder="Сообщение" label="Сообщение" type="text" onChange={onSaveValueFromInput} value={value} />
+        //   <IconButton type='submit'>
+        //     <Send />
+        //   </IconButton>
+        // </Box>
+      <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={value}></ChartFormUI>
     )
 };
