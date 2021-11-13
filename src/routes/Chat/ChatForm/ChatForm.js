@@ -30,13 +30,18 @@ export const ChartForm = (props) => {
     setValue('');
   };
 
+  const sendMessage = (author, text, chatId) => {
+    const somebodyMessage = {
+      message: {author: author, text: text},
+      chatId: chatId,
+    };
+    return somebodyMessage
+  };
+
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
     if (value !== '') {
-        const userMessage = {
-          message: {author: openContact.name, text: value},
-          chatId: openContact.id,
-        };
+        const userMessage = sendMessage(openContact.name, value, openContact.id);
         dispatch(addMessageInChatListAction(userMessage));
         scrollDown();
         resetValue();
@@ -56,11 +61,7 @@ const scrollDown = () => {
 const botResponse = () => {
   const listLastElement = chatListRed[chatId][chatListRed[chatId].length - 1];
   if (listLastElement.author !== 'bot') {
-    const botMessage = {
-      message: {author: 'bot', text: `Ok, ${openContact.name}, принято!`},
-      chatId: openContact.id,
-      name: 'bot',
-    };
+    const botMessage = sendMessage('bot', `Ok, ${openContact.name}, принято!`, openContact.id);
     dispatch(addMessageInChatListAction(botMessage))
   };
 };
