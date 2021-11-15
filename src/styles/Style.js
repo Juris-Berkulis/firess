@@ -29,7 +29,7 @@ export const useStyles = makeStyles({
   changeContactNameButtons: {
     display: 'flex',
     justifyContent: 'space-around',
-    borderBottom: '1px solid #ffffff'
+    borderBottom: '1px solid #ffffff',
   },
   changeContactNameIcon: {
     color: '#eeeeee',
