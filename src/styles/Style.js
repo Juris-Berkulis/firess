@@ -29,7 +29,7 @@ export const useStyles = makeStyles({
   changeContactNameButtons: {
     display: 'flex',
     justifyContent: 'space-around',
-    borderBottom: '1px solid #ffffff'
+    borderBottom: '1px solid #ffffff',
   },
   changeContactNameIcon: {
     color: '#eeeeee',
@@ -71,5 +71,74 @@ export const useStyles = makeStyles({
     marginTop: '1vh',
     color: '#555555',
     fontSize: '24px',
+  },
+  api_users__title: {
+    color: '#eeeeee',
+    marginBottom: '5vh',
+  },
+  api_users__btn: {
+    padding: '10px',
+    borderRadius: '10px',
+    backgroundColor: '#ffff88',
+    color: '#333333',
+    marginBottom: '10vh',
+    cursor: 'pointer',
+  },
+  users_list__wrapper: {
+    backgroundColor: '#aaaaaa',
+    borderRadius: '15px',
+  },
+  users_list__items: {
+    listStyle: 'none',
+    padding: '1vw',
+  },
+  users_list__item: {
+    color: '#333333',
+    margin: '0 2vh 1vw',
+    padding: '15px',
+    backgroundColor: '#aaaaff',
+    borderRadius: '15px',
+  },
+  users_list__name: {
+    marginBottom: '1vh',
+    fontSize: '28px',
+  },
+  users_list__additionally: {
+    fontSize: '20px',
+  },
+  users_loader__field: {
+    height: '100%',
+    width: '100%',
+    paddingBottom: '10vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  users_loader__center: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  users_loader__text: {
+    marginBottom: '10vh',
+  },
+  users_loader__img: {
+    width: '250px',
+  },
+  users_error__field: {
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  users_error__wrapper_text: {
+    width: '100%',
+    padding: '20px',
+    backgroundColor: '#ffbbdd'
+  },
+  users_error__text: {
+    color: '#333333'
   },
 });
