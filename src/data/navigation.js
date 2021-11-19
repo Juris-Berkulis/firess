@@ -11,4 +11,8 @@ export const NAVIGATION = [
         name: 'Мессенджер',
         href: '/messenger',
     },
+    {
+        name: 'Юзеры по API',
+        href: '/usersapi',
+    },
 ];

@@ -8,6 +8,7 @@ import { Profile } from './routes/Profile/Profile';
 import { ChatsList } from './routes/ChatsList/ChatsList';
 import { Chat } from './routes/Chat/Chat';
 import { Error404 } from './routes/Error404/Error404';
+import { ApiUsers } from './routes/ApiUsers/ApiUsers';
 import { store, persistor } from './store/Store';
 import { Box } from '@material-ui/core';
 
@@ -35,6 +36,9 @@ export const App = () => {
               <Chat></Chat>
             </Route>
           </Box>
+        </Route>
+        <Route path='/usersapi'>
+          <ApiUsers></ApiUsers>
         </Route>
       </Box>
     </>
