@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addInChatsListAction, removeFromChatsListAction } from '../../../store/ChatsList/Action';
+import { addInChatsListAction, addInChatsListWithThunkAction, removeFromChatsListAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
 import { removeMessageInChatListAction } from '../../../store/ChatList/Action';
-import { getChatsListRootSelector } from '../../../store/ChatsList/Selectors';
+import { getChatsListChatsKindOfListSelector, getChatsListRootSelector } from '../../../store/ChatsList/Selectors';
 import { useStyles } from '../../../styles/Style';
 import { ChangeChatsListUI } from '../../../ui_components/ChangeChatsListUI.jsx';
 
@@ -16,7 +16,7 @@ export const ChangeChatsList = (props) => {
   const nameNotFoundForProps = nameNotFound ? <p className={classes.textAttention}>Имя не найдено</p> : null
 
   const dispatch = useDispatch();
-  const chatsListRed = useSelector(getChatsListRootSelector);
+  const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
 
   const onSaveNameFromInput = (event) => {
     setValueName(event.target.value);
@@ -50,7 +50,8 @@ export const ChangeChatsList = (props) => {
       if (!(chatsListRed.find((item) => item.name === valueName))) {
         setNameAlreadyExists(false);
         const newContact = addContact(valueName);
-        dispatch(addInChatsListAction(newContact));
+        // dispatch(addInChatsListAction(newContact));
+        dispatch(addInChatsListWithThunkAction(newContact));
         resetValue();
       } else {
         setNameAlreadyExists(true);
@@ -64,8 +65,10 @@ export const ChangeChatsList = (props) => {
       setNameNotFound(false);
       const newChatsListRed = chatsListRed.filter((item) => item.name !== valueName);
       const [delChatsListRed] = chatsListRed.filter((item) => item.name === valueName);
-      dispatch(removeMessageInChatListAction(delChatsListRed.id));
-      dispatch(removeFromChatsListAction(newChatsListRed));
+      // dispatch(removeMessageInChatListAction(delChatsListRed.id));
+      // dispatch(removeFromChatsListAction(newChatsListRed));
+      console.log(delChatsListRed.key)
+      dispatch(removeFromChatsListWithThunkAction(delChatsListRed.key, delChatsListRed.name));
       resetValue();
     } else {
       setNameNotFound(true);
