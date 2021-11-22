@@ -1,4 +1,4 @@
-import { chatsRef } from "../../firebase/firebase";
+import { chatsRef, deletedChatNameRef } from "../../firebase/firebase";
 import { mapChatSnapshotToChat } from "../../helper/helper";
 
 export const ADD_IN_CHATS_LIST = 'ADD_IN_CHATS_LIST';
@@ -20,6 +20,7 @@ export const addInChatsListWithThunkAction = (chat) => () => {
 };
 
 export const removeFromChatsListWithThunkAction = (chatKey, chatName) => (dispatch) => {
+    deletedChatNameRef.set(chatName);
     chatsRef.child(chatKey).remove(() => {
         dispatch(removeFromChatsListAction(chatName));
     });
@@ -37,8 +38,10 @@ export const offTrackingAddInChatsListWithThunkAction = () => {
 };
 
 export const onTrackingRemoveFromChatsListWithThunkAction = (dispatch) => {
-    chatsRef.on('child_removed', (snapshot) => {
-        dispatch(removeFromChatsListAction(snapshot.key));
+    deletedChatNameRef.on('value', (snapshot) => {
+        const deletedChatName = snapshot.val();
+        dispatch(removeFromChatsListAction(deletedChatName));
+        console.log(deletedChatName)
     });
 };
 

@@ -7,6 +7,7 @@ export const chatsListReducer = (state = initialState, action) => {
     switch(action.type) {
         case ADD_IN_CHATS_LIST: {
             return {
+                ...state,
                 chats: {
                     ...state.chats,
                     [action.payload.name]: action.payload,
@@ -19,10 +20,10 @@ export const chatsListReducer = (state = initialState, action) => {
             };
             const chats = {...state.chats};
             delete chats[action.payload];
-            // delete state[chats];
             return {
-                chats
-                // state
+                ...state,
+                chats,
+                deletedChatName: action.payload,
             }
         }
         default: {
