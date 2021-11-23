@@ -9,7 +9,10 @@ export const chatListReducer = (state = initialState, action) => {
         case ADD_MESSAGE_IN_CHAT_LIST: {
             const {message, chatId} = action.payload;
             const newMessages = {...state.messages};
-            newMessages[chatId] = [...(newMessages[chatId] || []), message,];
+            newMessages[chatId] = {
+                ...(newMessages[chatId] || {}),
+                [message.messageKey]: message,
+            };
             return {
                 messages: newMessages
             }

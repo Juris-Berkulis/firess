@@ -5,6 +5,10 @@ export const ProfileUI = (props) => {
         <div>
             <h1>{props.componentTitle}</h1>
             <input type='checkbox' checked={props.isChecked} onChange={props.toggleChecked} />
+            <p>
+                <span>Мой Email: </span>
+                {props.myEmailForProps}
+            </p>
         </div>
     )
 };
