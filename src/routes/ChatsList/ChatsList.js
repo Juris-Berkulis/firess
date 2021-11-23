@@ -15,7 +15,6 @@ export const ChatsList = (props) => {
     const dispatch = useDispatch();
 
     const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
-    console.log(chatsListRed)
 
     const newChatsListRed = chatsListRed.map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}</ListItem>);
 

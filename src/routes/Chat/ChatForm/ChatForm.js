@@ -16,9 +16,7 @@ export const ChartForm = (props) => {
 
   const { chatId } = useParams();
   const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
-  console.log(chatsListRed)
   const [openContact] = chatsListRed.filter((item) => item.id === chatId);
-  console.log(openContact)
 
   const chatListRed = useSelector(getChatListMessagesSelector);
 

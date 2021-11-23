@@ -63,7 +63,6 @@ export const ChangeChatsList = () => {
     if (chatsListRed.find((item) => item.name === valueName)) {
       setNameNotFound(false);
       const [delChatsListRed] = chatsListRed.filter((item) => item.name === valueName);
-      console.log(delChatsListRed.key)
       dispatch(removeFromChatsListWithThunkAction(delChatsListRed.key, delChatsListRed.name));
       dispatch(removeMessageInChatListWithThunkAction(delChatsListRed.key));
       resetValue();

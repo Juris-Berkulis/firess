@@ -17,7 +17,6 @@ export const ChatList = () => {
     const [openContact] = chatsListRed.filter((item) => item.id === chatId);
 
     const chatListRed = useSelector(getChatListChatKindOfListById(openContact.key));
-    console.log(chatListRed)
 
     if (chatListRed.length === 0) {
         return null

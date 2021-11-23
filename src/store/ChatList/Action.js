@@ -40,7 +40,6 @@ export const removeMessageInChatListWithThunkAction = (chatId) => (dispatch) => 
 
 export const onTrackingAddMessageInChatListWithThunkAction = (contactKey) => (dispatch) => {
     messagesRef.child(contactKey).on('child_added', (snapshot) => {
-        console.log('ffffffffff')
         dispatch(addMessageInChatListAction(mapMessageSnapshotToMessage(snapshot), contactKey));
     });
 };
@@ -53,7 +52,6 @@ export const onTrackingRemoveMessageInChatListWithThunkAction = () => (dispatch)
     deletedChatKeyRef.on('value', (snapshot) => {
         const deletedChatKey = snapshot.val();
         dispatch(removeMessageInChatListAction(deletedChatKey));
-        console.log(deletedChatKey)
     });
 };
 

@@ -11,7 +11,6 @@ export const Chat = () => {
     const { chatId } = useParams();
 
     const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
-    console.log(chatsListRed)
 
     if (!(chatsListRed.find((item) => String(item.id) === chatId))) {
         return (

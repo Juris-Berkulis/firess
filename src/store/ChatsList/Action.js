@@ -30,7 +30,6 @@ export const removeFromChatsListWithThunkAction = (chatKey, chatName) => (dispat
 export const onTrackingAddInChatsListWithThunkAction = (dispatch) => {
     chatsRef.on('child_added', (snapshot) => {
         dispatch(addInChatsListAction(mapChatSnapshotToChat(snapshot)));
-        console.log(snapshot)
     });
 };
 
@@ -42,7 +41,6 @@ export const onTrackingRemoveFromChatsListWithThunkAction = (dispatch) => {
     deletedChatNameRef.on('value', (snapshot) => {
         const deletedChatName = snapshot.val();
         dispatch(removeFromChatsListAction(deletedChatName));
-        console.log(deletedChatName)
     });
 };
 
