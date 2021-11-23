@@ -1,4 +1,4 @@
-import { chatsRef, deletedChatNameRef } from "../../firebase/firebase";
+import { chatsRef, deletedChatKeyRef, deletedChatNameRef } from "../../firebase/firebase";
 import { mapChatSnapshotToChat } from "../../helper/helper";
 
 export const ADD_IN_CHATS_LIST = 'ADD_IN_CHATS_LIST';
@@ -21,6 +21,7 @@ export const addInChatsListWithThunkAction = (chat) => () => {
 
 export const removeFromChatsListWithThunkAction = (chatKey, chatName) => (dispatch) => {
     deletedChatNameRef.set(chatName);
+    deletedChatKeyRef.set(chatKey);
     chatsRef.child(chatKey).remove(() => {
         dispatch(removeFromChatsListAction(chatName));
     });

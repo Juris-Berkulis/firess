@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { removeMessageInChatListWithThunkAction } from '../../../store/ChatList/Action';
 import { addInChatsListWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
 import { getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
 import { useStyles } from '../../../styles/Style';
@@ -61,10 +62,10 @@ export const ChangeChatsList = () => {
     setNameAlreadyExists(false);
     if (chatsListRed.find((item) => item.name === valueName)) {
       setNameNotFound(false);
-      // const newChatsListRed = chatsListRed.filter((item) => item.name !== valueName);
       const [delChatsListRed] = chatsListRed.filter((item) => item.name === valueName);
       console.log(delChatsListRed.key)
       dispatch(removeFromChatsListWithThunkAction(delChatsListRed.key, delChatsListRed.name));
+      dispatch(removeMessageInChatListWithThunkAction(delChatsListRed.key));
       resetValue();
     } else {
       setNameNotFound(true);

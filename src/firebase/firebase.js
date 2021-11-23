@@ -21,3 +21,4 @@ export const profileRef = db.ref('profile');
 export const chatsRef = db.ref('chats');
 export const messagesRef = db.ref('messages');
 export const deletedChatNameRef = db.ref('deletedChatName');
+export const deletedChatKeyRef = db.ref('deletedChatKey');

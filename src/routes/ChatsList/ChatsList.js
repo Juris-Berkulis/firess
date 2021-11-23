@@ -7,6 +7,7 @@ import { Box, ListItem } from '@material-ui/core';
 import { useStyles } from '../../styles/Style';
 import { ChatsListUI } from '../../ui_components/ChatsListUI.jsx';
 import { offTrackingAddInChatsListWithThunkAction, offTrackingRemoveFromChatsListWithThunkAction, onTrackingAddInChatsListWithThunkAction, onTrackingRemoveFromChatsListWithThunkAction } from '../../store/ChatsList/Action';
+import { offTrackingRemoveMessageInChatListWithThunkAction, onTrackingRemoveMessageInChatListWithThunkAction } from '../../store/ChatList/Action';
 
 export const ChatsList = (props) => {
     const classes = useStyles();
@@ -21,10 +22,12 @@ export const ChatsList = (props) => {
     useEffect(() => {
         dispatch(onTrackingAddInChatsListWithThunkAction);
         dispatch(onTrackingRemoveFromChatsListWithThunkAction);
+        dispatch(onTrackingRemoveMessageInChatListWithThunkAction);
 
         return () => {
             dispatch(offTrackingAddInChatsListWithThunkAction);
             dispatch(offTrackingRemoveFromChatsListWithThunkAction);
+            dispatch(offTrackingRemoveMessageInChatListWithThunkAction);
         }
     }, []);
 
