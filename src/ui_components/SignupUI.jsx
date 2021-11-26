@@ -13,6 +13,7 @@ export const SignupUI = (props) => {
             type="email"
             onChange={props.handleEmailChange}
             value={props.email}
+            data-testid="idEmail"
             />
         </div>
         <div>
@@ -22,11 +23,12 @@ export const SignupUI = (props) => {
             type="password"
             onChange={props.handlePassChange}
             value={props.password}
+            data-testid="idPassword"
             />
         </div>
         <div>
-            {props.error && <p>{props.error}</p>}
-            <button type="submit">Зарегистрироваться</button>
+            {props.error && <p data-testid="idError">{props.error}</p>}
+            <button type="submit" data-testid="idBtnSubmit">Зарегистрироваться</button>
         </div>
         <hr />
         <p>

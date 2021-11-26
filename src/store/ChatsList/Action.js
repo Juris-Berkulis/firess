@@ -45,5 +45,5 @@ export const onTrackingRemoveFromChatsListWithThunkAction = (dispatch) => {
 };
 
 export const offTrackingRemoveFromChatsListWithThunkAction = () => {
-    chatsRef.off('child_removed');
+    chatsRef.off('value');
 };
