@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { auth } from '../../firebase/firebase';
+import { functionsForMocks } from '../../helper/forMocks/functions';
 import { SignupUI } from '../../ui_components/SignupUI';
 
 export const Signup = () => {
@@ -23,7 +23,7 @@ export const Signup = () => {
     setError("");
 
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
+      await functionsForMocks.registration(email, password);
       push('/profile');
     } catch (error) {
       setError(error.message);
