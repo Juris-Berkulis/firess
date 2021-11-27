@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
+import { useMakePageTitle } from '../../hooks/hooks';
 import { LoginUI } from '../../ui_components/LoginUI';
 
 export const Login = () => {
+  useMakePageTitle(`Fireact Messenger. Вход`);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");

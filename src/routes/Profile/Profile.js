@@ -1,11 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { auth } from '../../firebase/firebase';
+import { useMakePageTitle } from '../../hooks/hooks';
 import { toggleCheckedProfile } from '../../store/Profile/Action';
 import { getProfileCheckedSelector } from '../../store/Profile/Selectors';
 import { ProfileUI } from '../../ui_components/ProfileUI.jsx';
 
 export const Profile = () => {
+    useMakePageTitle('Fireact Messenger. Профиль');
+
     const componentTitle = 'Профиль';
     const dispatch = useDispatch();
     const isChecked = useSelector(getProfileCheckedSelector);

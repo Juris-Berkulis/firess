@@ -4,11 +4,14 @@ import { useSelector } from 'react-redux';
 import { getChatsListChatsKindOfListSelector } from '../../store/ChatsList/Selectors';
 import { useStyles } from '../../styles/Style';
 import { ChatUI } from '../../ui_components/ChatUI.jsx';
+import { useMakePageTitle } from '../../hooks/hooks';
 
 export const Chat = () => {
     const classes = useStyles();
 
     const { chatId } = useParams();
+
+    useMakePageTitle(`Fireact Messenger. Чат: ${chatId}`);
 
     const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
 

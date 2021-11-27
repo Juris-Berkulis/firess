@@ -1,6 +1,9 @@
 import React from 'react';
+import { useMakePageTitle } from '../../hooks/hooks';
 
 export const Error404 = () => {
+    useMakePageTitle('Fireact Messenger. 404: Страница не найдена');
+
     return (
         <div>
             <h1>Ошибка 404</h1>
