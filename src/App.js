@@ -16,6 +16,7 @@ import { auth } from './firebase/firebase';
 import { PrivateRoute } from './hocs/PrivateRoute';
 import { PublicRoute } from './hocs/PublicRoute';
 import { Box } from '@material-ui/core';
+import { Preloader } from './components/Preloader';
 
 export const App = () => {
   const [authed, setAuthed] = useState(false);
@@ -32,7 +33,7 @@ export const App = () => {
 
   return (
     <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate loading={<Preloader />} persistor={persistor}>
     <Switch>
     <>
       <Header></Header>

@@ -1,6 +1,33 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles({
+  preloader__field: {
+    height: '90vh',
+    width: '100vw',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: '999',
+  },
+  preloader__center: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  preloader__title: {
+    marginBottom: '0.1vh',
+    fontSize: '36px',
+    color: '#eeeeee'
+  },
+  preloader__description: {
+    marginBottom: '5vh',
+    fontSize: '24px',
+    color: '#eeeeee'
+  },
+  preloader__img: {
+    width: '250px',
+  },
   headerNav: {
     backgroundColor: '#000099',
     marginBottom: '10vh'
