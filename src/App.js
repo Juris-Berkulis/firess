@@ -38,9 +38,9 @@ export const App = () => {
     <>
       <Header></Header>
       <Box mx='10vw' p={1}>
-        <PublicRoute exact path='/' authenticated={authed}>
+        <Route exact path='/' authenticated={authed}>
           <Home></Home>
-        </PublicRoute>
+        </Route>
         <PrivateRoute path='/profile' authenticated={authed}>
           <Profile></Profile>
         </PrivateRoute>
@@ -55,9 +55,9 @@ export const App = () => {
             </Route>
           </Box>
         </PrivateRoute>
-        <PublicRoute authenticated={authed} path='/usersapi'>
+        <Route authenticated={authed} path='/usersapi'>
           <ApiUsers></ApiUsers>
-        </PublicRoute>
+        </Route>
         <PublicRoute path='/signup' authenticated={authed}>
           <Signup></Signup>
         </PublicRoute>

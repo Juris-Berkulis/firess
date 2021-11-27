@@ -8,8 +8,7 @@ export const PublicRoute = ({ authenticated, ...rest }) => {
         ) ? (
             <Route {...rest} />
         ) : (
-            <Route {...rest} />
-            // <Redirect to="/messenger" />
+            <Redirect to="/messenger" />
         )
     )
 };
