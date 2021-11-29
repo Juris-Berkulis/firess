@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { allAppComponentsWithPageTitle } from '../../data/consts';
 import { auth } from '../../firebase/firebase';
-import { useMakePageTitle } from '../../hooks/hooks';
 import { LoginUI } from '../../ui_components/LoginUI';
 
 export const Login = () => {
-  useMakePageTitle(`Fireact Messenger. Вход`);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -27,13 +25,13 @@ export const Login = () => {
 
     try {
       await auth.signInWithEmailAndPassword(email, password);
-      push('/profile');
+      push(allAppComponentsWithPageTitle.profile.path);
     } catch (error) {
       setError(error.message);
     }
   };
 
   return (
-    <LoginUI handleSubmit={handleSubmit} handleEmailChange={handleEmailChange} handlePassChange={handlePassChange} error={error} email={email} password={password}></LoginUI>
+    <LoginUI handleSubmit={handleSubmit} handleEmailChange={handleEmailChange} handlePassChange={handlePassChange} error={error} email={email} password={password} allAppComponentsWithPageTitle={allAppComponentsWithPageTitle}></LoginUI>
   )
 };

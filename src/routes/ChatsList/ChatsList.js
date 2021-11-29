@@ -8,11 +8,9 @@ import { useStyles } from '../../styles/Style';
 import { ChatsListUI } from '../../ui_components/ChatsListUI.jsx';
 import { offTrackingAddInChatsListWithThunkAction, offTrackingRemoveFromChatsListWithThunkAction, onTrackingAddInChatsListWithThunkAction, onTrackingRemoveFromChatsListWithThunkAction } from '../../store/ChatsList/Action';
 import { offTrackingRemoveMessageInChatListWithThunkAction, onTrackingRemoveMessageInChatListWithThunkAction } from '../../store/ChatList/Action';
-import { useMakePageTitle } from '../../hooks/hooks';
 
-export const ChatsList = (props) => {
+export const ChatsList = () => {
     const classes = useStyles();
-    useMakePageTitle('Fireact Messenger. Мессенджер');
 
     const dispatch = useDispatch();
 

@@ -31,7 +31,7 @@ export const LoginUI = (props) => {
         <hr />
         <p>
             <span>Нет аккаунта? </span>
-            <Link to="/signup">Регистрация</Link>
+            <Link to={props.allAppComponentsWithPageTitle.signup.path}>Регистрация</Link>
         </p>
         </form>
     </div>

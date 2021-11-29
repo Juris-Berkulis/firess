@@ -6,11 +6,9 @@ import { ApiUsersUI } from '../../ui_components/ApiUsersUI.jsx';
 import { UsersLoader } from './UsersLoader/UsersLoader';
 import { UsersError } from './UsersError/UsersError';
 import { UsersList } from './UsersList/UsersList';
-import { useMakePageTitle } from '../../hooks/hooks';
 
 export const ApiUsers = () => {
     const classes = useStyles();
-    useMakePageTitle(`Fireact Messenger. Юзеры по API`);
 
     const isError = useSelector(newUsers.selectors.getError);
     const isLoading = useSelector(newUsers.selectors.getLoading);
