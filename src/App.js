@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router";
 import { Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -16,9 +17,18 @@ import { auth } from './firebase/firebase';
 import { PrivateRoute } from './hocs/PrivateRoute';
 import { PublicRoute } from './hocs/PublicRoute';
 import { Box } from '@material-ui/core';
+import { Preloader } from './components/Preloader';
+import { allAppComponentsWithPageTitle } from './data/consts';
+import { getPageTitle, giveTitleForPage, makeFullPageTitle } from './helper/helper';
 
 export const App = () => {
   const [authed, setAuthed] = useState(false);
+
+  const location = useLocation();
+
+  const pageTitle = getPageTitle(location);
+  const fullPageTitle = makeFullPageTitle(pageTitle);
+  giveTitleForPage(fullPageTitle);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -32,35 +42,35 @@ export const App = () => {
 
   return (
     <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate loading={<Preloader />} persistor={persistor}>
     <Switch>
     <>
       <Header></Header>
       <Box mx='10vw' p={1}>
-        <PublicRoute exact path='/' authenticated={authed}>
+        <Route exact path={allAppComponentsWithPageTitle.home.path}>
           <Home></Home>
-        </PublicRoute>
-        <PrivateRoute path='/profile' authenticated={authed}>
+        </Route>
+        <PrivateRoute path={allAppComponentsWithPageTitle.profile.path} authenticated={authed}>
           <Profile></Profile>
         </PrivateRoute>
-        <PrivateRoute path='/messenger' authenticated={authed}>
+        <PrivateRoute path={allAppComponentsWithPageTitle.messenger.path} authenticated={authed}>
           <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white">
             <ChatsList></ChatsList>
-            <Route path='/messenger/error404'>
+            <Route path={allAppComponentsWithPageTitle.error404.path}>
               <Error404></Error404>
             </Route>
-            <Route path='/messenger/:chatId'>
+            <Route path={allAppComponentsWithPageTitle.openChat.path}>
               <Chat></Chat>
             </Route>
           </Box>
         </PrivateRoute>
-        <PublicRoute authenticated={authed} path='/usersapi'>
+        <Route path={allAppComponentsWithPageTitle.usersApi.path}>
           <ApiUsers></ApiUsers>
-        </PublicRoute>
-        <PublicRoute path='/signup' authenticated={authed}>
+        </Route>
+        <PublicRoute path={allAppComponentsWithPageTitle.signup.path} authenticated={authed}>
           <Signup></Signup>
         </PublicRoute>
-        <PublicRoute path='/login' authenticated={authed}>
+        <PublicRoute path={allAppComponentsWithPageTitle.login.path} authenticated={authed}>
           <Login></Login>
         </PublicRoute>
       </Box>

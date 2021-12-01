@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { allAppComponentsWithPageTitle } from '../../data/consts';
 import { functionsForMocks } from '../../helper/forMocks/functions';
 import { SignupUI } from '../../ui_components/SignupUI';
 
@@ -24,13 +25,13 @@ export const Signup = () => {
 
     try {
       await functionsForMocks.registration(email, password);
-      push('/profile');
+      push(allAppComponentsWithPageTitle.profile.path);
     } catch (error) {
       setError(error.message);
     }
   };
 
   return (
-    <SignupUI handleSubmit={handleSubmit} handleEmailChange={handleEmailChange} handlePassChange={handlePassChange} error={error} email={email} password={password}></SignupUI>
+    <SignupUI handleSubmit={handleSubmit} handleEmailChange={handleEmailChange} handlePassChange={handlePassChange} error={error} email={email} password={password} allAppComponentsWithPageTitleLoginPath={allAppComponentsWithPageTitle.login.path}></SignupUI>
   )
 };

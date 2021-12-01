@@ -9,7 +9,7 @@ import { ChatsListUI } from '../../ui_components/ChatsListUI.jsx';
 import { offTrackingAddInChatsListWithThunkAction, offTrackingRemoveFromChatsListWithThunkAction, onTrackingAddInChatsListWithThunkAction, onTrackingRemoveFromChatsListWithThunkAction } from '../../store/ChatsList/Action';
 import { offTrackingRemoveMessageInChatListWithThunkAction, onTrackingRemoveMessageInChatListWithThunkAction } from '../../store/ChatList/Action';
 
-export const ChatsList = (props) => {
+export const ChatsList = () => {
     const classes = useStyles();
 
     const dispatch = useDispatch();

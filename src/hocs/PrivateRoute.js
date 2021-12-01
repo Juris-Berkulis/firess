@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import { allAppComponentsWithPageTitle } from "../data/consts";
 
 export const PrivateRoute = ({ authenticated, ...rest }) => {
     return (
@@ -8,8 +9,7 @@ export const PrivateRoute = ({ authenticated, ...rest }) => {
         ) ? (
             <Route {...rest} />
         ) : (
-            // <Redirect to={{ pathname: "/login" }} />
-            <Redirect to='/login' />
+            <Redirect to={allAppComponentsWithPageTitle.login.path} />
         )
     )
 };

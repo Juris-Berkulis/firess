@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { getChatsListChatsKindOfListSelector } from '../../store/ChatsList/Selectors';
 import { useStyles } from '../../styles/Style';
 import { ChatUI } from '../../ui_components/ChatUI.jsx';
+import { allAppComponentsWithPageTitle } from '../../data/consts';
 
 export const Chat = () => {
     const classes = useStyles();
@@ -14,7 +15,7 @@ export const Chat = () => {
 
     if (!(chatsListRed.find((item) => String(item.id) === chatId))) {
         return (
-            <Redirect to='/messenger/error404'></Redirect>
+            <Redirect to={allAppComponentsWithPageTitle.error404.path}></Redirect>
         )
     };
 

@@ -1,18 +1,20 @@
+import { allAppComponentsWithPageTitle } from "./consts";
+
 export const NAVIGATION = [
     {
-        name: 'Дом',
-        href: '/',
+        name: allAppComponentsWithPageTitle.home.displayTitle,
+        href: allAppComponentsWithPageTitle.home.path,
     },
     {
-        name: 'Профиль',
-        href: '/profile',
+        name: allAppComponentsWithPageTitle.profile.displayTitle,
+        href: allAppComponentsWithPageTitle.profile.path,
     },
     {
-        name: 'Мессенджер',
-        href: '/messenger',
+        name: allAppComponentsWithPageTitle.messenger.displayTitle,
+        href: allAppComponentsWithPageTitle.messenger.path,
     },
     {
-        name: 'Юзеры по API',
-        href: '/usersapi',
+        name: allAppComponentsWithPageTitle.usersApi.displayTitle,
+        href: allAppComponentsWithPageTitle.usersApi.path,
     },
 ];

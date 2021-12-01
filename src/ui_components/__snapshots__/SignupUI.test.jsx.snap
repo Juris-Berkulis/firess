@@ -43,7 +43,7 @@ Object {
               Уже есть аккаунт? 
             </span>
             <a
-              href="/login"
+              href=""
             >
               Войти
             </a>
@@ -91,7 +91,7 @@ Object {
             Уже есть аккаунт? 
           </span>
           <a
-            href="/login"
+            href=""
           >
             Войти
           </a>

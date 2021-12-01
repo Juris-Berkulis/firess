@@ -5,6 +5,7 @@ import { Button } from '@material-ui/core';
 import { useStyles } from '../../styles/Style';
 import { HeaderUI } from '../../ui_components/HeaderUI.jsx';
 import { auth } from '../../firebase/firebase';
+import { allAppComponentsWithPageTitle } from '../../data/consts';
 
 export const Header = () => {
     const classes = useStyles();
@@ -20,11 +21,11 @@ export const Header = () => {
     const showLogOutBtnForProps = (
         authed 
         ? 
-        <Button className={classes.headerNavItem} onClick={logoutUser}>Выход</Button> 
+        <Button className={classes.headerNavItem} onClick={logoutUser}>{allAppComponentsWithPageTitle.logout.displayTitle}</Button> 
         : 
         <>
-            <Button className={classes.headerNavItem} to='/login' component={Link}>Вход</Button>
-            <Button className={classes.headerNavItem} to='/signup' component={Link}>Регистрация</Button>
+            <Button className={classes.headerNavItem} to={allAppComponentsWithPageTitle.login.path} component={Link}>{allAppComponentsWithPageTitle.login.displayTitle}</Button>
+            <Button className={classes.headerNavItem} to={allAppComponentsWithPageTitle.signup.path} component={Link}>{allAppComponentsWithPageTitle.signup.displayTitle}</Button>
         </>
     );
 
