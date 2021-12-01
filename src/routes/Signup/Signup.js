@@ -32,6 +32,6 @@ export const Signup = () => {
   };
 
   return (
-    <SignupUI handleSubmit={handleSubmit} handleEmailChange={handleEmailChange} handlePassChange={handlePassChange} error={error} email={email} password={password} allAppComponentsWithPageTitle={allAppComponentsWithPageTitle}></SignupUI>
+    <SignupUI handleSubmit={handleSubmit} handleEmailChange={handleEmailChange} handlePassChange={handlePassChange} error={error} email={email} password={password} allAppComponentsWithPageTitleLoginPath={allAppComponentsWithPageTitle.login.path}></SignupUI>
   )
 };

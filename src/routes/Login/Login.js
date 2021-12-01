@@ -32,6 +32,6 @@ export const Login = () => {
   };
 
   return (
-    <LoginUI handleSubmit={handleSubmit} handleEmailChange={handleEmailChange} handlePassChange={handlePassChange} error={error} email={email} password={password} allAppComponentsWithPageTitle={allAppComponentsWithPageTitle}></LoginUI>
+    <LoginUI handleSubmit={handleSubmit} handleEmailChange={handleEmailChange} handlePassChange={handlePassChange} error={error} email={email} password={password} allAppComponentsWithPageTitleSignupPath={allAppComponentsWithPageTitle.signup.path}></LoginUI>
   )
 };

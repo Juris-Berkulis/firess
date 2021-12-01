@@ -33,7 +33,7 @@ export const SignupUI = (props) => {
         <hr />
         <p>
             <span>Уже есть аккаунт? </span>
-            <Link to={props.allAppComponentsWithPageTitle.login.path}>Войти</Link>
+            <Link to={props.allAppComponentsWithPageTitleLoginPath}>Войти</Link>
         </p>
         </form>
     </div>
