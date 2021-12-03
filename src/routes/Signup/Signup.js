@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { allAppComponentsWithPageTitle } from '../../data/consts';
 import { functionsForMocks } from '../../helper/forMocks/functions';
+import { useStyles } from '../../styles/Style';
 import { SignupUI } from '../../ui_components/SignupUI';
 
 export const Signup = () => {
+  const classes = useStyles();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -32,6 +35,6 @@ export const Signup = () => {
   };
 
   return (
-    <SignupUI handleSubmit={handleSubmit} handleEmailChange={handleEmailChange} handlePassChange={handlePassChange} error={error} email={email} password={password} allAppComponentsWithPageTitleLoginPath={allAppComponentsWithPageTitle.login.path}></SignupUI>
+    <SignupUI classes={classes} handleSubmit={handleSubmit} handleEmailChange={handleEmailChange} handlePassChange={handlePassChange} error={error} email={email} password={password} allAppComponentsWithPageTitleLoginPath={allAppComponentsWithPageTitle.login.path}></SignupUI>
   )
 };

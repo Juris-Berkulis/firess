@@ -16,6 +16,7 @@ describe('SignUpUI component', () => {
             error='' 
             email='example@example.com' 
             password='12345678'
+            classes={jest.fn()}
         /></BrowserRouter>);
 
         component.debug();
@@ -30,6 +31,7 @@ describe('SignUpUI component', () => {
             error='' 
             email='example@example.com' 
             password='12345678'
+            classes={jest.fn()}
         /></BrowserRouter>);
 
         expect(component.getByText(/зарегистрироваться/i)).toBeInTheDocument();
@@ -44,6 +46,7 @@ describe('SignUpUI component', () => {
             error='' 
             email='example@example.com' 
             password='12345678'
+            classes={jest.fn()}
         /></BrowserRouter>);
 
         const submitBtn = component.queryByTestId('idBtnSubmit');
@@ -63,6 +66,7 @@ describe('SignUpUI component', () => {
             error='' 
             email='example@example.com' 
             password='12345678'
+            classes={jest.fn()}
         /></BrowserRouter>);
 
         const fieldEmail = component.queryByTestId('idEmail');
@@ -82,6 +86,7 @@ describe('SignUpUI component', () => {
             error={error} 
             email='example@example.com' 
             password='12345678'
+            classes={jest.fn()}
         /></BrowserRouter>);
 
         expect(component.getByText(error)).toBeInTheDocument();
@@ -97,6 +102,7 @@ describe('SignUpUI component', () => {
             error=''
             email='example@example.com' 
             password='12345678'
+            classes={jest.fn()}
         /></BrowserRouter>);
 
         const errorItem = component.queryByTestId('idError');
@@ -111,6 +117,7 @@ describe('SignUpUI component', () => {
             error='' 
             email='' 
             password=''
+            classes={jest.fn()}
         /></BrowserRouter>);
 
         const fieldEmail = component.queryByTestId('idEmail');

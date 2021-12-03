@@ -28,6 +28,72 @@ export const useStyles = makeStyles({
   preloader__img: {
     width: '250px',
   },
+  SigLogField: {
+    height: '60vh',
+    width: '100%',
+    backgroundColor: '#000099',
+    border: '3px solid #cccccc',
+    borderRadius: '20px',
+    padding: '5vh 5vw',
+    color: '#eeeeee',
+    fontSize: '16px',
+  },
+  SigLogForm: {
+    margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  SigLogDescription: {
+    fontSize: '1em',
+    marginBottom: '3vh',
+    textAlign: 'center',
+  },
+  SigLogArea: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  SigLogInput: {
+    width: '40%',
+    marginBottom: '3vh',
+    border: '1px solid #cccccc',
+    borderRadius: '0.8em',
+    padding: '0.3em 0.6em',
+    fontSize: '1em',
+  },
+  SigLogEmailInput: {
+    marginBottom: '1.5vh',
+  },
+  SigLogActionErrorArea: {
+    width: '80%',
+    backgroundColor: '#ffcccc',
+    padding: '1em',
+    marginBottom: '3vh',
+    borderRadius: '1.5em',
+  },
+  SigLogActionErrorText: {
+    textAlign: 'center',
+    color: '#ff0000',
+    fontSize: '1em',
+  },
+  SigLogActionBtn: {
+    fontSize: '1em',
+    marginBottom: '3vh',
+    padding: '0.3em 0.6em',
+    borderRadius: '0.8em',
+    border: 'none',
+    backgroundColor: '#008000',
+    color: '#eeeeee',
+    cursor: 'pointer',
+  },
+  SigLogInfoDescription: {
+    fontSize: '0.9em',
+  },
+  SigLogInfoLink: {
+    color: '#88ff88',
+  },
   headerNav: {
     backgroundColor: '#000099',
     marginBottom: '10vh'

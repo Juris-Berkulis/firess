@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { allAppComponentsWithPageTitle } from '../../data/consts';
 import { auth } from '../../firebase/firebase';
+import { useStyles } from '../../styles/Style';
 import { LoginUI } from '../../ui_components/LoginUI';
 
 export const Login = () => {
+  const classes = useStyles();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -32,6 +35,6 @@ export const Login = () => {
   };
 
   return (
-    <LoginUI handleSubmit={handleSubmit} handleEmailChange={handleEmailChange} handlePassChange={handlePassChange} error={error} email={email} password={password} allAppComponentsWithPageTitleSignupPath={allAppComponentsWithPageTitle.signup.path}></LoginUI>
+    <LoginUI classes={classes} handleSubmit={handleSubmit} handleEmailChange={handleEmailChange} handlePassChange={handlePassChange} error={error} email={email} password={password} allAppComponentsWithPageTitleSignupPath={allAppComponentsWithPageTitle.signup.path}></LoginUI>
   )
 };
