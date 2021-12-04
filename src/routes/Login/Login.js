@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { allAppComponentsWithPageTitle } from '../../data/consts';
-import { auth } from '../../firebase/firebase';
+import { functionsForMocks } from '../../helper/forMocks/functions';
 import { useStyles } from '../../styles/Style';
 import { LoginUI } from '../../ui_components/LoginUI';
 
@@ -27,7 +27,7 @@ export const Login = () => {
     setError("");
 
     try {
-      await auth.signInWithEmailAndPassword(email, password);
+      await functionsForMocks.login(email, password);
       push(allAppComponentsWithPageTitle.profile.path);
     } catch (error) {
       setError(error.message);

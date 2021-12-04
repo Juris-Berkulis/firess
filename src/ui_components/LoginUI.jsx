@@ -14,6 +14,7 @@ export const LoginUI = (props) => {
             type="email"
             onChange={props.handleEmailChange}
             value={props.email}
+            data-testid="idEmailLogin"
             />
         </div>
         <div className={`${props.classes.SigLogPasswordArea} ${props.classes.SigLogArea}`}>
@@ -24,6 +25,7 @@ export const LoginUI = (props) => {
             type="password"
             onChange={props.handlePassChange}
             value={props.password}
+            data-testid="idPasswordLogin"
             />
         </div>
         <div className={`${props.classes.SigLogActionArea} ${props.classes.SigLogArea}`}>
@@ -31,10 +33,10 @@ export const LoginUI = (props) => {
                 props.error 
                 && 
                 <div className={props.classes.SigLogActionErrorArea}>
-                    <p className={props.classes.SigLogActionErrorText}>{props.error}</p>
+                    <p className={props.classes.SigLogActionErrorText} data-testid="idErrorLogin">{props.error}</p>
                 </div>
             }
-            <button className={props.classes.SigLogActionBtn} type="submit">Войти</button>
+            <button className={props.classes.SigLogActionBtn} type="submit" data-testid="idBtnSubmitLogin">Войти</button>
         </div>
         <p className={props.classes.SigLogInfoDescription}>
             <span className={props.classes.SigLogInfoText}>Нет аккаунта? </span>

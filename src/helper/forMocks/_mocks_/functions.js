@@ -1,3 +1,4 @@
 export const functionsForMocks = {
-    registration: jest.fn()
+    registration: jest.fn(),
+    login: jest.fn(),
 };
