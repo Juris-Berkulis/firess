@@ -1,6 +1,6 @@
 import { mapMessageSnapshotToMessage } from '../../helper/helper';
 // import { BOT_NAME } from '../../data/consts';
-import { deletedChatKeyRef, messagesRef } from '../../firebase/firebase';
+import { deletedChatRef, messagesRef } from '../../firebase/firebase';
 
 export const ADD_MESSAGE_IN_CHAT_LIST = 'ADD_MESSAGE_IN_CHAT_LIST';
 
@@ -49,8 +49,8 @@ export const offTrackingAddMessageInChatListWithThunkAction = (chatId) => () => 
 };
 
 export const onTrackingRemoveMessageInChatListWithThunkAction = () => (dispatch) => {
-    deletedChatKeyRef.on('value', (snapshot) => {
-        const deletedChatKey = snapshot.val();
+    deletedChatRef.on('value', (snapshot) => {
+        const deletedChatKey = snapshot.val().ChatKey;
         dispatch(removeMessageInChatListAction(deletedChatKey));
     });
 };
