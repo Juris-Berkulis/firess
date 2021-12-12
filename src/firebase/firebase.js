@@ -1,4 +1,7 @@
-import firebase from "firebase";
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+//* - You can simply use 'import firebase from "firebase";' instead of the lines written above, and the application behavior will not change from this, but then a help message will appear in the browser with a recommendation to change the import.
 
 //* Your web app's Firebase configuration:
 const firebaseConfig = {

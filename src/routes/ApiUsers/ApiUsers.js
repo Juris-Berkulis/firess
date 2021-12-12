@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useStyles } from '../../styles/Style';
 import { newUsers } from '../../store/ApiUsers/NewUsersApi';
@@ -19,13 +19,13 @@ export const ApiUsers = () => {
     const isErrorForProps = isError ? <UsersError /> : null;
     const dataForProps = (!isLoading && data.length > 0) ? <UsersList /> : null;
 
-    const getData = () => {
+    const getData = useCallback(() => {
         dispatch(newUsers.actions.getDataWithThunk);
-    }
+    }, [dispatch]);
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [getData]);
 
     return (
         <ApiUsersUI classes={classes} getData={getData} dataForProps={dataForProps} isLoadingForProps={isLoadingForProps} isErrorForProps={isErrorForProps}></ApiUsersUI>

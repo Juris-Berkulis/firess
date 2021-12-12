@@ -69,7 +69,7 @@ export const ChartForm = (props) => {
     return () => {
       dispatch(offTrackingAddMessageInChatListWithThunkAction(openContact.key));
     }
-  }, [chatId]);
+  }, [openContact.key, dispatch]);
 
   return (
     <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={value}></ChartFormUI>
