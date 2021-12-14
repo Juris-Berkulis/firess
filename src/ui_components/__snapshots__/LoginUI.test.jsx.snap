@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SignUpUI component SignUpUI snapshot 1`] = `
+exports[`LoginUI component LoginUI snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -8,14 +8,14 @@ Object {
       <div>
         <form>
           <p>
-            Заполните форму ниже, чтобы зарегистрировать новую учетную запись.
+            Заполните форму ниже, чтобы войти в свою учетную запись.
           </p>
           <div
             class="undefined undefined"
           >
             <input
               class="undefined undefined"
-              data-testid="idEmail"
+              data-testid="idEmailLogin"
               name="email"
               placeholder="Email"
               type="email"
@@ -27,7 +27,7 @@ Object {
           >
             <input
               class="undefined undefined"
-              data-testid="idPassword"
+              data-testid="idPasswordLogin"
               name="password"
               placeholder="Password"
               type="password"
@@ -39,20 +39,20 @@ Object {
           >
             
             <button
-              data-testid="idBtnSubmit"
+              data-testid="idBtnSubmitLogin"
               type="submit"
             >
-              Зарегистрироваться
+              Войти
             </button>
           </div>
           <p>
             <span>
-              Уже есть аккаунт? 
+              Нет аккаунта? 
             </span>
             <a
               href=""
             >
-              Войти
+              Регистрация
             </a>
           </p>
         </form>
@@ -63,14 +63,14 @@ Object {
     <div>
       <form>
         <p>
-          Заполните форму ниже, чтобы зарегистрировать новую учетную запись.
+          Заполните форму ниже, чтобы войти в свою учетную запись.
         </p>
         <div
           class="undefined undefined"
         >
           <input
             class="undefined undefined"
-            data-testid="idEmail"
+            data-testid="idEmailLogin"
             name="email"
             placeholder="Email"
             type="email"
@@ -82,7 +82,7 @@ Object {
         >
           <input
             class="undefined undefined"
-            data-testid="idPassword"
+            data-testid="idPasswordLogin"
             name="password"
             placeholder="Password"
             type="password"
@@ -94,20 +94,20 @@ Object {
         >
           
           <button
-            data-testid="idBtnSubmit"
+            data-testid="idBtnSubmitLogin"
             type="submit"
           >
-            Зарегистрироваться
+            Войти
           </button>
         </div>
         <p>
           <span>
-            Уже есть аккаунт? 
+            Нет аккаунта? 
           </span>
           <a
             href=""
           >
-            Войти
+            Регистрация
           </a>
         </p>
       </form>

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, act } from "@testing-library/react"
-import { SignupUI } from "./SignupUI.jsx";
+import { LoginUI } from "./LoginUI.jsx";
 import '@testing-library/jest-dom';
 import { BrowserRouter } from "react-router-dom";
 
@@ -7,9 +7,9 @@ const handleSubmit = jest.fn();
 const handleEmailChange = jest.fn();
 const handlePassChange = jest.fn();
 
-describe('SignUpUI component', () => {
-    it('SignUpUI snapshot', () => {
-        const component = render(<BrowserRouter><SignupUI 
+describe('LoginUI component', () => {
+    it('LoginUI snapshot', () => {
+        const component = render(<BrowserRouter><LoginUI 
             handleSubmit={handleSubmit} 
             handleEmailChange={handleEmailChange} 
             handlePassChange={handlePassChange}
@@ -23,8 +23,8 @@ describe('SignUpUI component', () => {
         expect(component).toMatchSnapshot();
     });
 
-    it('SignUpUI renders with a <button> and a "зарегистрироваться" text', () => {
-        const component = render(<BrowserRouter><SignupUI 
+    it('LoginUI renders with a <button> and a "войти" text', () => {
+        const component = render(<BrowserRouter><LoginUI 
             handleSubmit={handleSubmit} 
             handleEmailChange={handleEmailChange} 
             handlePassChange={handlePassChange}
@@ -34,12 +34,12 @@ describe('SignUpUI component', () => {
             classes={jest.fn()}
         /></BrowserRouter>);
 
-        expect(component.getByText(/зарегистрироваться/i)).toBeInTheDocument();
+        expect(component.getByText('Войти')).toBeInTheDocument();
         expect(component.getByRole('button')).toBeInTheDocument();
     });
 
     it('Was the function called?', () => {
-        const component = render(<BrowserRouter><SignupUI 
+        const component = render(<BrowserRouter><LoginUI 
             handleSubmit={handleSubmit} 
             handleEmailChange={handleEmailChange} 
             handlePassChange={handlePassChange}
@@ -49,7 +49,7 @@ describe('SignUpUI component', () => {
             classes={jest.fn()}
         /></BrowserRouter>);
 
-        const submitBtn = component.queryByTestId('idBtnSubmit');
+        const submitBtn = component.queryByTestId('idBtnSubmitLogin');
 
         act(() => {
             fireEvent.click(submitBtn);
@@ -59,7 +59,7 @@ describe('SignUpUI component', () => {
     });
 
     it('Text input fields have the text', () => {
-        const component = render(<BrowserRouter><SignupUI 
+        const component = render(<BrowserRouter><LoginUI 
             handleSubmit={handleSubmit} 
             handleEmailChange={handleEmailChange} 
             handlePassChange={handlePassChange}
@@ -69,17 +69,17 @@ describe('SignUpUI component', () => {
             classes={jest.fn()}
         /></BrowserRouter>);
 
-        const fieldEmail = component.queryByTestId('idEmail');
-        const fieldPassword = component.queryByTestId('idPassword');
+        const fieldEmail = component.queryByTestId('idEmailLogin');
+        const fieldPassword = component.queryByTestId('idPasswordLogin');
 
         expect(screen.queryByDisplayValue('example@example.com')).toBe(fieldEmail);
         expect(screen.queryByDisplayValue('12345678')).toBe(fieldPassword);
     });
 
     it('Error renders if it is', () => {
-        const error = 'The email address is already in use by another account.';
+        const error = 'The password is invalid or the user does not have a password.';
 
-        const component = render(<BrowserRouter><SignupUI 
+        const component = render(<BrowserRouter><LoginUI 
             handleSubmit={handleSubmit} 
             handleEmailChange={handleEmailChange} 
             handlePassChange={handlePassChange}
@@ -91,11 +91,11 @@ describe('SignUpUI component', () => {
 
         expect(component.getByText(error)).toBeInTheDocument();
 
-        expect(component.getByTestId('idError'));
+        expect(component.getByTestId('idErrorLogin'));
     });
 
     it("Error don't renders if it isn't", () => {
-        const component = render(<BrowserRouter><SignupUI 
+        const component = render(<BrowserRouter><LoginUI 
             handleSubmit={handleSubmit} 
             handleEmailChange={handleEmailChange} 
             handlePassChange={handlePassChange}
@@ -105,12 +105,12 @@ describe('SignUpUI component', () => {
             classes={jest.fn()}
         /></BrowserRouter>);
 
-        const errorItem = component.queryByTestId('idError');
+        const errorItem = component.queryByTestId('idErrorLogin');
         expect(errorItem).toBeNull();
     });
 
     it('functions call if user is writing in text input fields', () => {
-        const component = render(<BrowserRouter><SignupUI 
+        const component = render(<BrowserRouter><LoginUI 
             handleSubmit={handleSubmit} 
             handleEmailChange={handleEmailChange} 
             handlePassChange={handlePassChange}
@@ -120,8 +120,8 @@ describe('SignUpUI component', () => {
             classes={jest.fn()}
         /></BrowserRouter>);
 
-        const fieldEmail = component.queryByTestId('idEmail');
-        const fieldPassword = component.queryByTestId('idPassword');
+        const fieldEmail = component.queryByTestId('idEmailLogin');
+        const fieldPassword = component.queryByTestId('idPasswordLogin');
 
         act(() => {
             fireEvent.change(fieldEmail, {

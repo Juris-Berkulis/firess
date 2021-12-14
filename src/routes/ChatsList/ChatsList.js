@@ -28,7 +28,7 @@ export const ChatsList = () => {
             dispatch(offTrackingRemoveFromChatsListWithThunkAction);
             dispatch(offTrackingRemoveMessageInChatListWithThunkAction);
         }
-    }, []);
+    }, [dispatch]);
 
     return (
         <Box>
