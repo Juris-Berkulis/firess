@@ -130,7 +130,7 @@ export const useStyles = makeStyles({
   allChatsListItem: {
     marginBottom: '0.1vh',
     color: '#dddddd',
-    fontSize: '36px',
+    fontSize: '20px',
   },
   chat: {
     width: '60vw',
@@ -157,21 +157,33 @@ export const useStyles = makeStyles({
     borderRight: 'none',
     outline: 'none',
   },
+  chatsList: {
+    height: '55vh',
+    overflow: 'auto',
+  },
   chatList: {
     width: '100%',
     overflow: 'auto',
   },
   chatListItem: {
-    marginTop: '1vh',
     color: '#555555',
     fontSize: '24px',
     display: 'block',
+    width: 'calc(100% - 40px - 15px)',
+    borderRadius: '15px',
   },
   chatListItemMe: {
     textAlign: 'right',
+    margin: '0 15px 1vh 40px',
+    backgroundColor: '#99ff9999',
   },
   chatListItemSomebody: {
     textAlign: 'left',
+    margin: '0 40px 1vh 15px',
+    backgroundColor: '#ff999999',
+  },
+  chatListItemMessageAuthor: {
+    fontSize: '16px',
   },
   api_users__title: {
     color: '#eeeeee',

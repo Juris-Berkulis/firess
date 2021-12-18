@@ -31,9 +31,9 @@ export const ChatsList = () => {
     }, [dispatch]);
 
     return (
-        <Box>
+        <Box height='100%'>
             <ChangeChatsList></ChangeChatsList>
-            <ChatsListUI newChatsListRed={newChatsListRed}></ChatsListUI>
+            <ChatsListUI classes={classes} newChatsListRed={newChatsListRed}></ChatsListUI>
         </Box>
     )
 };

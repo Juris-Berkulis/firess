@@ -3,6 +3,6 @@ import { List } from '@material-ui/core';
 
 export const ChatsListUI = (props) => {
     return (
-        <List component="nav">{props.newChatsListRed}</List>
+        <List className={props.classes.chatsList} component="nav">{props.newChatsListRed}</List>
     )
 };

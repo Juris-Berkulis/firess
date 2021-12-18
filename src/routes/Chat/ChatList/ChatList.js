@@ -43,8 +43,8 @@ export const ChatList = () => {
     
     const chatListRedForProps = chatListRed.map((item, index) => (
         <ListItem className={`${classes.chatListItem} ${item.author === myEmail ? classes.chatListItemMe : classes.chatListItemSomebody}`} key={index}>
-            <p>[{item.author}]:</p>
-            <p>{item.text}</p>
+            <p className={classes.chatListItemMessageAuthor}>[{item.author}]:</p>
+            <p className={classes.chatListItemMessageText}>{item.text}</p>
         </ListItem>
     ));
 
