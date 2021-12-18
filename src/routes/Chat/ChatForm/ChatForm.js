@@ -36,19 +36,8 @@ export const ChartForm = (props) => {
     event.preventDefault(); //* Cancel page reload.
     if (value !== '') {
       dispatch(addMessageInChatListWithThunkAction(openContact.key, openContact.name, openContact.id, value, author));
-      scrollDown();
       resetValue();
     }
-  };
-
-  const scrollDown = () => {
-    const scrollHeight = Math.max(
-      document.body.scrollHeight, document.documentElement.scrollHeight,
-      document.body.offsetHeight, document.documentElement.offsetHeight,
-      document.body.clientHeight, document.documentElement.clientHeight,
-    );
-
-    window.scrollTo(0, scrollHeight);
   };
 
   const focusOnInput = () => {
@@ -58,10 +47,6 @@ export const ChartForm = (props) => {
   useEffect(() => {
     focusOnInput();
   }, [chatListRed]); 
-
-  useEffect(() => {
-    scrollDown();
-  }, [chatListRed]);
 
   useEffect(() => {
     dispatch(onTrackingAddMessageInChatListWithThunkAction(openContact.key));

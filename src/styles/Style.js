@@ -95,8 +95,8 @@ export const useStyles = makeStyles({
     color: '#88ff88',
   },
   headerNav: {
+    height: '10vh',
     backgroundColor: '#000099',
-    marginBottom: '10vh'
   },
   headerNavItem: {
     color: '#cccccc'
@@ -134,7 +134,7 @@ export const useStyles = makeStyles({
   },
   chat: {
     width: '60vw',
-    minHeight: '77vh',
+    height: '100%',
     margin: '0',
     backgroundColor: '#88bbdd',
     display: 'flex',
@@ -159,11 +159,19 @@ export const useStyles = makeStyles({
   },
   chatList: {
     width: '100%',
+    overflow: 'auto',
   },
   chatListItem: {
     marginTop: '1vh',
     color: '#555555',
     fontSize: '24px',
+    display: 'block',
+  },
+  chatListItemMe: {
+    textAlign: 'right',
+  },
+  chatListItemSomebody: {
+    textAlign: 'left',
   },
   api_users__title: {
     color: '#eeeeee',

@@ -46,7 +46,7 @@ export const App = () => {
     <Switch>
     <>
       <Header></Header>
-      <Box mx='10vw' p={1}>
+      <Box mx='10vw' p={1} height='80vh' mt='5vh' mb='5vh'>
         <Route exact path={allAppComponentsWithPageTitle.home.path}>
           <Home></Home>
         </Route>
@@ -54,7 +54,7 @@ export const App = () => {
           <Profile></Profile>
         </PrivateRoute>
         <PrivateRoute path={allAppComponentsWithPageTitle.messenger.path} authenticated={authed}>
-          <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white">
+          <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white" height='100%'>
             <ChatsList></ChatsList>
             <Route path={allAppComponentsWithPageTitle.error404.path}>
               <Error404></Error404>
