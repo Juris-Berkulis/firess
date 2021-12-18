@@ -5,6 +5,58 @@
           box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #cdcdf5;
+  -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2) inset;
+          box-shadow: 0 0 2px rgba(0, 0, 0, 0.2) inset;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7e7ee4;
+  border-radius: 8px;
+  border: 3px solid #cdcdf5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1414b9;
+}
+
+::-webkit-scrollbar-button {
+  background-color: #cdcdf5;
+}
+
+::-webkit-scrollbar-button:hover {
+  background-color: #aaaadd;
+}
+
+::-webkit-scrollbar-button:single-button {
+  border-style: solid;
+  height: 10px;
+  width: 10px;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+  border-width: 0 5px 10px 5px;
+  border-color: transparent transparent #7e7ee4 transparent;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+  border-color: transparent transparent #1414b9 transparent;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:increment {
+  border-width: 10px 5px 0 5px;
+  border-color: #7e7ee4 transparent transparent transparent;
+}
+
+::-webkit-scrollbar-button:vertical:single-button:increment:hover {
+  border-color: #1414b9 transparent transparent transparent;
+}
+
 .center {
   padding: 0 calc((100% - 90vw) / 2);
 }

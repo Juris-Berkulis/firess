@@ -32,7 +32,9 @@ export const ChatList = () => {
     };
 
     useEffect(() => {
-        scrollDown();
+        if (!chatListRed.length === 0) {
+            scrollDown();
+        }
     }, [chatListRed]);
 
     if (chatListRed.length === 0) {

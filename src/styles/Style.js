@@ -149,7 +149,8 @@ export const useStyles = makeStyles({
     width: '100%',
     minHeight: '25px',
     display: 'flex',
-    borderBottom: '1px solid #333333'
+    borderBottom: '1px solid #333333',
+    marginTop: '1vh',
   },
   input: {
     width: '20px',

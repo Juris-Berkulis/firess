@@ -5,7 +5,7 @@ import { PersonAdd, DeleteForever } from '@material-ui/icons';
 export const ChangeChatsListUI = (props) => {
     return (
         <Box className={props.classes.changeContactNameForm} component='form' onSubmit={props.onSubmit}>
-            <InputBase className={props.classes.changeContactNameInput} placeholder="Имя" label="Имя" type="text" onChange={props.onSaveNameFromInput} value={props.valueName} />
+            <InputBase className={props.classes.changeContactNameInput} placeholder="Название чата" label="Название чата" type="text" onChange={props.onSaveNameFromInput} value={props.valueName} />
             {props.nameAlreadyExistsForProps}
             {props.nameNotFoundForProps}
             <div className={props.classes.changeContactNameButtons}>
