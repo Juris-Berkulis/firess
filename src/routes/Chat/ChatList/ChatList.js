@@ -22,19 +22,19 @@ export const ChatList = () => {
     const chatListRed = useSelector(getChatListChatKindOfListById(openContact.key));
 
     const scrollDown = () => {
-        const scrollHeight = Math.max(
-            refOpenChat.current.scrollHeight,
-            refOpenChat.current.offsetHeight,
-            refOpenChat.current.clientHeight,
-        );
-    
-        refOpenChat.current.scrollTo(0, scrollHeight);
+        if (refOpenChat.current) {
+            const scrollHeight = Math.max(
+                refOpenChat.current.scrollHeight,
+                refOpenChat.current.offsetHeight,
+                refOpenChat.current.clientHeight,
+            );
+        
+            refOpenChat.current.scrollTo(0, scrollHeight);
+        }
     };
 
     useEffect(() => {
-        if (!chatListRed.length === 0) {
-            scrollDown();
-        }
+        scrollDown();
     }, [chatListRed]);
 
     if (chatListRed.length === 0) {
