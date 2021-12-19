@@ -169,8 +169,8 @@ export const useStyles = makeStyles({
   chatListItem: {
     color: '#555555',
     fontSize: '24px',
-    display: 'block',
-    width: 'calc(100% - 40px - 15px)',
+    display: 'block !important',
+    width: 'calc(100% - 40px - 15px) !important',
     borderRadius: '15px',
   },
   chatListItemMe: {
