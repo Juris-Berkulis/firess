@@ -195,7 +195,7 @@ export const useStyles = makeStyles({
     borderRadius: '10px',
     backgroundColor: '#ffff88',
     color: '#333333',
-    marginBottom: '10vh',
+    marginBottom: '5vh',
     cursor: 'pointer',
   },
   users_list__wrapper: {
@@ -205,6 +205,8 @@ export const useStyles = makeStyles({
   users_list__items: {
     listStyle: 'none',
     padding: '1vw',
+    overflow: 'auto',
+    height: '55vh',
   },
   users_list__item: {
     color: '#333333',
