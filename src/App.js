@@ -49,7 +49,7 @@ export const App = () => {
     <Switch>
     <>
       <Header></Header>
-      <Box height='80vh' px='10vw' py='5vh'>
+      <Box height='90vh' px='10vw' py='5vh'>
         <Route exact path={allAppComponentsWithPageTitle.home.path}>
           <Home></Home>
         </Route>

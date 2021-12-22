@@ -29,7 +29,8 @@ export const useStyles = makeStyles({
     width: '250px',
   },
   SigLogField: {
-    height: '60vh',
+    minHeight: '80%',
+    maxHeight: '100%',
     width: '100%',
     backgroundColor: '#000099',
     border: '3px solid #cccccc',
@@ -95,7 +96,8 @@ export const useStyles = makeStyles({
     color: '#88ff88',
   },
   headerNav: {
-    height: '10vh',
+    height: '10vh !important',
+    minHeight : '10vh !important',
     backgroundColor: '#000099',
   },
   headerNavMobileOpen: {
@@ -103,11 +105,13 @@ export const useStyles = makeStyles({
     top: '0',
     left: '0',
     width: '100vw',
-    height: '100vh',
+    height: '100vh !important',
+    minHeight : '100vh !important',
     display: 'flex !important',
     flexDirection: 'column',
-    paddingTop: '20vh !important',
+    paddingTop: '10vh !important',
     zIndex: '9',
+    overflow: 'auto',
   },
   headerNavItem: {
     color: '#cccccc'
