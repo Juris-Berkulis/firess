@@ -1,4 +1,4 @@
-import { allAppComponentsWithPageTitle, appTitle } from "../data/consts";
+import { allAppComponentsWithPageTitle, appTitle, mobileScreenWidth } from "../data/consts";
 
 export const sendMessage = (author, text, chatId) => {
     const somebodyMessage = {
@@ -38,4 +38,19 @@ export const makeFullPageTitle = (pageTitle) => {
 
 export const giveTitleForPage = (title) => {
     return title ? (document.title = title) : (document.title = appTitle.name);
+};
+
+export const getWindowDimensions = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+
+    const screenDimensions = {width: width, height: height};
+    return screenDimensions
+};
+
+export const isMobileDevice = () => {
+    if (getWindowDimensions().width < mobileScreenWidth) {
+        return true
+    } else {
+        return false
+    };
 };

@@ -3,6 +3,8 @@ export const appTitle = {
     delimiter: '. ',
 }
 
+export const mobileScreenWidth = 1000;
+
 export const allAppComponentsWithPageTitle = {
     home: {
         pageTitle: 'Домашняя страница',

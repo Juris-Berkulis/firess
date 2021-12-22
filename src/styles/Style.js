@@ -98,8 +98,22 @@ export const useStyles = makeStyles({
     height: '10vh',
     backgroundColor: '#000099',
   },
+  headerNavMobileOpen: {
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    width: '100vw',
+    height: '100vh',
+    display: 'flex !important',
+    flexDirection: 'column',
+    paddingTop: '20vh !important',
+    zIndex: '9',
+  },
   headerNavItem: {
     color: '#cccccc'
+  },
+  headerNavItemMobile: {
+    display: 'none',
   },
   textAttention: {
     color: '#ff0000',

@@ -20,8 +20,11 @@ import { Box } from '@material-ui/core';
 import { Preloader } from './components/Preloader';
 import { allAppComponentsWithPageTitle } from './data/consts';
 import { getPageTitle, giveTitleForPage, makeFullPageTitle } from './helper/helper';
+import { useWindowDimensions } from './hooks/hooks';
 
 export const App = () => {
+  useWindowDimensions();
+
   const [authed, setAuthed] = useState(false);
 
   const location = useLocation();
@@ -46,7 +49,7 @@ export const App = () => {
     <Switch>
     <>
       <Header></Header>
-      <Box mx='10vw' p={1} height='80vh' mt='5vh' mb='5vh'>
+      <Box height='80vh' px='10vw' py='5vh'>
         <Route exact path={allAppComponentsWithPageTitle.home.path}>
           <Home></Home>
         </Route>
