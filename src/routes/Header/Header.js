@@ -8,6 +8,9 @@ import { auth } from '../../firebase/firebase';
 import { allAppComponentsWithPageTitle } from '../../data/consts';
 import { isMobileDevice } from '../../helper/helper';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMobileMenuIsOpenSelector } from '../../store/MobileMenuStatus/Selectors';
+import { closeMobileMenuStatus, toggleMobileMenuStatus } from '../../store/MobileMenuStatus/Action';
 
 export const Header = () => {
     const classes = useStyles();
@@ -17,7 +20,9 @@ export const Header = () => {
     const isMobileDeviceProps = isMobileDevice();
 
     const [authed, setAuthed] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    const dispatch = useDispatch();
+    const mobileMenuOpen = useSelector(getMobileMenuIsOpenSelector);
     
     const navigationForProps = navigation.map((item) => <Button className={`${classes.headerNavItem} ${isMobileDeviceProps && !mobileMenuOpen ? classes.headerNavItemMobile : null}`} to={item.href} component={Link} key={item.name}>{item.name}</Button>);
 
@@ -26,7 +31,9 @@ export const Header = () => {
     };
 
     const showMobileMenu = () => {
-        setMobileMenuOpen(!mobileMenuOpen);
+        dispatch({
+            type: toggleMobileMenuStatus.type,
+        })
     };
 
     const showBurgerMenuProps = (
@@ -65,8 +72,10 @@ export const Header = () => {
     }, []);
 
     useEffect(() => {
-        setMobileMenuOpen(false);
-    }, [location]);
+        dispatch({
+            type: closeMobileMenuStatus.type,
+        })
+    }, [location, dispatch]);
 
     return (
         <HeaderUI classes={classes} navigationForProps={navigationForProps} showLogOutBtnForProps={showLogOutBtnForProps} showBurgerMenuProps={showBurgerMenuProps} mobileMenuOpen={mobileMenuOpen}></HeaderUI>

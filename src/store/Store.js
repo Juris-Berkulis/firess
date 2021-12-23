@@ -6,6 +6,7 @@ import { profileReducer } from './Profile/Reducer';
 import { chatListReducer } from './ChatList/Reducer';
 import { chatsListReducer } from './ChatsList/Reducer';
 import { newUsers } from './ApiUsers/NewUsersApi';
+import { mobileMenuReducer } from './MobileMenuStatus/Reducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     chatListReducer: chatListReducer,
     chatsListReducer: chatsListReducer,
     USERS: newUsers.reducer,
+    mobileMenu: mobileMenuReducer,
 });
 
 const persistConfig = {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from "react-router";
 import { Switch, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Header } from './routes/Header/Header';
 import { Home } from './routes/Home/Home';
@@ -12,7 +12,7 @@ import { Error404 } from './routes/Error404/Error404';
 import { ApiUsers } from './routes/ApiUsers/ApiUsers';
 import { Signup } from './routes/Signup/Signup';
 import { Login } from './routes/Login/Login';
-import { store, persistor } from './store/Store';
+import { persistor } from './store/Store';
 import { auth } from './firebase/firebase';
 import { PrivateRoute } from './hocs/PrivateRoute';
 import { PublicRoute } from './hocs/PublicRoute';
@@ -21,6 +21,7 @@ import { Preloader } from './components/Preloader';
 import { allAppComponentsWithPageTitle } from './data/consts';
 import { getPageTitle, giveTitleForPage, makeFullPageTitle } from './helper/helper';
 import { useWindowDimensions } from './hooks/hooks';
+import { getMobileMenuIsOpenSelector } from './store/MobileMenuStatus/Selectors';
 
 export const App = () => {
   useWindowDimensions();
@@ -33,6 +34,8 @@ export const App = () => {
   const fullPageTitle = makeFullPageTitle(pageTitle);
   giveTitleForPage(fullPageTitle);
 
+  const mobileMenuOpen = useSelector(getMobileMenuIsOpenSelector);
+
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -44,12 +47,11 @@ export const App = () => {
   }, []);
 
   return (
-    <Provider store={store}>
     <PersistGate loading={<Preloader />} persistor={persistor}>
     <Switch>
     <>
       <Header></Header>
-      <Box height='90vh' px='10vw' py='5vh'>
+      <Box height='90vh' px='10vw' py='5vh' display={mobileMenuOpen ? 'none' : null}>
         <Route exact path={allAppComponentsWithPageTitle.home.path}>
           <Home></Home>
         </Route>
@@ -80,6 +82,5 @@ export const App = () => {
     </>
     </Switch>
     </PersistGate>
-    </Provider>
   );
 };
