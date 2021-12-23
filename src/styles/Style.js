@@ -226,6 +226,9 @@ export const useStyles = makeStyles({
     overflow: 'auto',
     height: '55vh',
   },
+  users_list__items__screen_height_less_than_450: {
+    height: '45vh',
+  },
   users_list__item: {
     color: '#333333',
     margin: '0 2vh 1vw',
@@ -237,8 +240,14 @@ export const useStyles = makeStyles({
     marginBottom: '1vh',
     fontSize: '28px',
   },
+  users_list__name__mobile_device: {
+    fontSize: '16px',
+  },
   users_list__additionally: {
     fontSize: '20px',
+  },
+  users_list__additionally__mobile_device: {
+    fontSize: '12px',
   },
   users_loader__field: {
     height: '100%',
@@ -259,6 +268,10 @@ export const useStyles = makeStyles({
   },
   users_loader__img: {
     width: '250px',
+  },
+  users_loader__img__mobile_device: {
+    height: '20vh',
+    width: 'auto',
   },
   users_error__field: {
     height: '100%',

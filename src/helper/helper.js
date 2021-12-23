@@ -54,3 +54,11 @@ export const isMobileDevice = () => {
         return false
     };
 };
+
+export const screenHeightLessThan = (screenHeight) => {
+    if (getWindowDimensions().height < screenHeight) {
+        return true
+    } else {
+        return false
+    };
+};
