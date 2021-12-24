@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from "react-router";
 import { Switch, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Header } from './routes/Header/Header';
 import { Home } from './routes/Home/Home';
@@ -22,9 +22,12 @@ import { allAppComponentsWithPageTitle } from './data/consts';
 import { getPageTitle, giveTitleForPage, makeFullPageTitle } from './helper/helper';
 import { useWindowDimensions } from './hooks/hooks';
 import { getMobileMenuIsOpenSelector } from './store/MobileMenuStatus/Selectors';
+import { bigChatClose } from './store/BigChatStatus/Action';
 
 export const App = () => {
   useWindowDimensions();
+
+  const dispatch = useDispatch();
 
   const [authed, setAuthed] = useState(false);
 
@@ -45,6 +48,17 @@ export const App = () => {
       }
     })
   }, []);
+
+  useEffect(() => {
+    dispatch({
+        type: bigChatClose.type,
+    });
+    return () => {
+        dispatch({
+            type: bigChatClose.type,
+        });
+    };
+}, [dispatch]);
 
   return (
     <PersistGate loading={<Preloader />} persistor={persistor}>

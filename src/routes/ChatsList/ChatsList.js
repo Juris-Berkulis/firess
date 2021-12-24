@@ -23,8 +23,6 @@ export const ChatsList = () => {
 
     const newChatsListRed = chatsListRed.map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}</ListItem>);
 
-    const isBigChatOpen = useSelector(getBigChatIsOpenSelector);
-
     useEffect(() => {
         dispatch(onTrackingAddInChatsListWithThunkAction);
         dispatch(onTrackingRemoveFromChatsListWithThunkAction);
@@ -47,6 +45,8 @@ export const ChatsList = () => {
             });
         };
     }, [dispatch]);
+
+    const isBigChatOpen = useSelector(getBigChatIsOpenSelector);
 
     return (
         <Box height='100%' width={isMobileDeviceBoolean ? '100%' : null} display={isBigChatOpen && isMobileDeviceBoolean ? 'none' : null}>
