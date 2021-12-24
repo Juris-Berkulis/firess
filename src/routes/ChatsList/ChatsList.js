@@ -10,6 +10,7 @@ import { offTrackingAddInChatsListWithThunkAction, offTrackingRemoveFromChatsLis
 import { offTrackingRemoveMessageInChatListWithThunkAction, onTrackingRemoveMessageInChatListWithThunkAction } from '../../store/ChatList/Action';
 import { getBigChatIsOpenSelector } from '../../store/BigChatStatus/Selectors';
 import { isMobileDevice } from '../../helper/helper';
+import { bigChatClose } from '../../store/BigChatStatus/Action';
 
 export const ChatsList = () => {
     const classes = useStyles();
@@ -34,6 +35,17 @@ export const ChatsList = () => {
             dispatch(offTrackingRemoveFromChatsListWithThunkAction);
             dispatch(offTrackingRemoveMessageInChatListWithThunkAction);
         }
+    }, [dispatch]);
+
+    useEffect(() => {
+        dispatch({
+            type: bigChatClose.type,
+        });
+        return () => {
+            dispatch({
+                type: bigChatClose.type,
+            });
+        };
     }, [dispatch]);
 
     return (
