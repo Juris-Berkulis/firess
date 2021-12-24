@@ -5,7 +5,7 @@ import { Box } from '@material-ui/core';
 
 export const ChatUI = (props) => {
     return (
-        <Box className={props.classes.chat}>
+        <Box className={`${props.classes.chat} ${props.isMobileDeviceBoolean ? props.classes.chatMobileDevice : null}`}>
             <ChatList></ChatList>
             <ChartForm></ChartForm>
         </Box>

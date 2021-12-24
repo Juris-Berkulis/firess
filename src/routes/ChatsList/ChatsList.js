@@ -8,15 +8,21 @@ import { useStyles } from '../../styles/Style';
 import { ChatsListUI } from '../../ui_components/ChatsListUI.jsx';
 import { offTrackingAddInChatsListWithThunkAction, offTrackingRemoveFromChatsListWithThunkAction, onTrackingAddInChatsListWithThunkAction, onTrackingRemoveFromChatsListWithThunkAction } from '../../store/ChatsList/Action';
 import { offTrackingRemoveMessageInChatListWithThunkAction, onTrackingRemoveMessageInChatListWithThunkAction } from '../../store/ChatList/Action';
+import { getBigChatIsOpenSelector } from '../../store/BigChatStatus/Selectors';
+import { isMobileDevice } from '../../helper/helper';
 
 export const ChatsList = () => {
     const classes = useStyles();
+
+    const isMobileDeviceBoolean = isMobileDevice();
 
     const dispatch = useDispatch();
 
     const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
 
     const newChatsListRed = chatsListRed.map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}</ListItem>);
+
+    const isBigChatOpen = useSelector(getBigChatIsOpenSelector);
 
     useEffect(() => {
         dispatch(onTrackingAddInChatsListWithThunkAction);
@@ -31,7 +37,7 @@ export const ChatsList = () => {
     }, [dispatch]);
 
     return (
-        <Box height='100%'>
+        <Box height='100%' width={isMobileDeviceBoolean ? '100%' : null} display={isBigChatOpen && isMobileDeviceBoolean ? 'none' : null}>
             <ChangeChatsList></ChangeChatsList>
             <ChatsListUI classes={classes} newChatsListRed={newChatsListRed}></ChatsListUI>
         </Box>

@@ -162,6 +162,9 @@ export const useStyles = makeStyles({
     padding: '5vh 5vw',
     borderRadius: '5vw',
   },
+  chatMobileDevice: {
+    width: '100%',
+  },
   form: {
     height: '5vh',
     width: '100%',
@@ -191,6 +194,9 @@ export const useStyles = makeStyles({
     width: 'calc(100% - 40px - 15px) !important',
     borderRadius: '15px',
   },
+  chatListItemMobileDevice: {
+    fontSize: '12px',
+  },
   chatListItemMe: {
     textAlign: 'right',
     margin: '0 15px 1vh 40px',
@@ -202,7 +208,11 @@ export const useStyles = makeStyles({
     backgroundColor: '#ff999999',
   },
   chatListItemMessageAuthor: {
+    color: '#777777',
     fontSize: '16px',
+  },
+  chatListItemMessageAuthorMobileDevice: {
+    fontSize: '10px',
   },
   api_users__title: {
     color: '#eeeeee',
