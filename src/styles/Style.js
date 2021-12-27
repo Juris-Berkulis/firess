@@ -188,24 +188,33 @@ export const useStyles = makeStyles({
     overflow: 'auto',
   },
   chatListItem: {
-    color: '#555555',
-    fontSize: '24px',
-    display: 'block !important',
-    width: 'calc(100% - 40px - 15px) !important',
-    borderRadius: '15px',
-    wordBreak: 'break-word',
-  },
-  chatListItemMobileDevice: {
-    fontSize: '12px',
+    width: '100% !important',
+    padding: '0 !important',
+    display: 'flex !important',
   },
   chatListItemMe: {
-    textAlign: 'right !important',
-    margin: '0 15px 1vh 40px',
-    backgroundColor: '#99ff9999',
+    justifyContent: 'flex-end',
   },
   chatListItemSomebody: {
-    textAlign: 'left',
-    margin: '0 40px 1vh 15px',
+    justifyContent: 'flex-start',
+  },
+  chatListItemMessage: {
+    color: '#555555',
+    display: 'inline-block',
+    borderRadius: '15px',
+    wordBreak: 'break-word',
+    minWidth: '50%',
+    maxWidth: '85%',
+    padding: '8px 16px',
+  },
+  chatListItemMessageMe: {
+    textAlign: 'left !important',
+    margin: '0 2% 1vh 0',
+    backgroundColor: '#99ff9999',
+  },
+  chatListItemMessageSomebody: {
+    textAlign: 'left !important',
+    margin: '0 0 1vh 2%',
     backgroundColor: '#ff999999',
   },
   chatListItemMessageAuthor: {
@@ -218,9 +227,11 @@ export const useStyles = makeStyles({
   },
   chatListItemMessageText: {
     marginBottom: '5px',
+    fontSize: '20px',
   },
   chatListItemMessageTextMobileDevice: {
     marginBottom: '2px',
+    fontSize: '12px',
   },
   chatListItemMessageDateAndTime: {
     color: '#777777',
