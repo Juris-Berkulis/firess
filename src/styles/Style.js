@@ -193,12 +193,13 @@ export const useStyles = makeStyles({
     display: 'block !important',
     width: 'calc(100% - 40px - 15px) !important',
     borderRadius: '15px',
+    wordBreak: 'break-word',
   },
   chatListItemMobileDevice: {
     fontSize: '12px',
   },
   chatListItemMe: {
-    textAlign: 'right',
+    textAlign: 'right !important',
     margin: '0 15px 1vh 40px',
     backgroundColor: '#99ff9999',
   },
@@ -210,9 +211,23 @@ export const useStyles = makeStyles({
   chatListItemMessageAuthor: {
     color: '#777777',
     fontSize: '16px',
+    marginBottom: '2px',
   },
   chatListItemMessageAuthorMobileDevice: {
     fontSize: '10px',
+  },
+  chatListItemMessageText: {
+    marginBottom: '5px',
+  },
+  chatListItemMessageTextMobileDevice: {
+    marginBottom: '2px',
+  },
+  chatListItemMessageDateAndTime: {
+    color: '#777777',
+    fontSize: '14px',
+  },
+  chatListItemMessageDateAndTimeMobileDevice: {
+    fontSize: '8px',
   },
   api_users__title: {
     color: '#eeeeee',

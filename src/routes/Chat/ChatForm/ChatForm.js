@@ -35,7 +35,9 @@ export const ChartForm = (props) => {
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
     if (value !== '') {
-      dispatch(addMessageInChatListWithThunkAction(openContact.key, openContact.name, openContact.id, value, author));
+      const now = new Date();
+      const messageUTCDateAndTime = now.toUTCString();
+      dispatch(addMessageInChatListWithThunkAction(openContact.key, openContact.name, openContact.id, value, author, messageUTCDateAndTime));
       resetValue();
     }
   };

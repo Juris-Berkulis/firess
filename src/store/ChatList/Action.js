@@ -28,8 +28,8 @@ export const removeMessageInChatListAction = (chatId) => ({
 //     }
 // };
 
-export const addMessageInChatListWithThunkAction = (contactKey, contactName, contactId, text, author) => () => {
-    messagesRef.child(contactKey).push({contactKey, contactName, contactId, text, author});
+export const addMessageInChatListWithThunkAction = (contactKey, contactName, contactId, text, author, messageUTCDateAndTime) => () => {
+    messagesRef.child(contactKey).push({contactKey, contactName, contactId, text, author, messageUTCDateAndTime});
 };
 
 export const removeMessageInChatListWithThunkAction = (chatId) => (dispatch) => {
