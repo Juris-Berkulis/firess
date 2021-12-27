@@ -19,7 +19,20 @@ export const ChatsList = () => {
 
     const dispatch = useDispatch();
 
-    const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
+    const rulesForSortingTheChatsList = (a, b) => {
+        const chatNameA = (+a.name ? +a.name : a.name.toLowerCase());
+        const chatNameB = (+b.name ? +b.name : b.name.toLowerCase());
+
+        if (chatNameA < chatNameB) {
+            return -1
+        } else if (chatNameA > chatNameB) {
+            return 1
+        } else {
+            return 0
+        };
+    };
+
+    const chatsListRed = useSelector(getChatsListChatsKindOfListSelector).sort(rulesForSortingTheChatsList);
 
     const newChatsListRed = chatsListRed.map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}</ListItem>);
 
