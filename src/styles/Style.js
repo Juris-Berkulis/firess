@@ -193,10 +193,10 @@ export const useStyles = makeStyles({
     display: 'flex !important',
   },
   chatListItemMe: {
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end !important',
   },
   chatListItemSomebody: {
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-start !important',
   },
   chatListItemMessage: {
     color: '#555555',
