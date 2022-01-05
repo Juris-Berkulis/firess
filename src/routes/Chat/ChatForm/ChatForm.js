@@ -20,7 +20,7 @@ export const ChartForm = (props) => {
 
   const chatListRed = useSelector(getChatListMessagesSelector);
 
-  const author = auth.currentUser.email;
+  const author = (auth.currentUser !== null ? auth.currentUser.email : null);
 
   const dispatch = useDispatch();
 

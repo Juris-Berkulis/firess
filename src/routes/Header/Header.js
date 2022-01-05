@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { NAVIGATION as navigation } from '../../data/navigation';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
@@ -11,6 +11,7 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMobileMenuIsOpenSelector } from '../../store/MobileMenuStatus/Selectors';
 import { closeMobileMenuStatus, toggleMobileMenuStatus } from '../../store/MobileMenuStatus/Action';
+import { useChangeEmailVerificationStatus } from '../../hooks/hooks';
 
 export const Header = () => {
     const classes = useStyles();
@@ -19,12 +20,12 @@ export const Header = () => {
 
     const isMobileDeviceProps = isMobileDevice();
 
-    const [authed, setAuthed] = useState(false);
-
     const dispatch = useDispatch();
     const mobileMenuOpen = useSelector(getMobileMenuIsOpenSelector);
     
     const navigationForProps = navigation.map((item) => <Button className={`${classes.headerNavItem} ${isMobileDeviceProps && !mobileMenuOpen ? classes.headerNavItemMobile : null}`} to={item.href} component={Link} key={item.name}>{item.name}</Button>);
+
+    const getEmailVerificationStatus = useChangeEmailVerificationStatus(location);
 
     const logoutUser = () => {
         auth.signOut();
@@ -51,7 +52,7 @@ export const Header = () => {
     );
 
     const showLogOutBtnForProps = (
-        authed 
+        getEmailVerificationStatus 
         ? 
         <Button className={classes.headerNavItem} onClick={logoutUser}>{allAppComponentsWithPageTitle.logout.displayTitle}</Button> 
         : 
@@ -60,16 +61,6 @@ export const Header = () => {
             <Button className={classes.headerNavItem} to={allAppComponentsWithPageTitle.signup.path} component={Link}>{allAppComponentsWithPageTitle.signup.displayTitle}</Button>
         </>
     );
-
-    useEffect(() => {
-        auth.onAuthStateChanged((user) => {
-        if (user) {
-            setAuthed(true);
-        } else {
-            setAuthed(false);
-        }
-        })
-    }, []);
 
     useEffect(() => {
         dispatch({

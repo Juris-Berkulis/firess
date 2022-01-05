@@ -89,6 +89,20 @@ export const useStyles = makeStyles({
     color: '#eeeeee',
     cursor: 'pointer',
   },
+  SigLogActionWaiting: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  SigLogActionWaitingText: {
+    fontSize: '1em',
+    marginBottom: '3vh',
+    textAlign: 'center',
+  },
+  SigLogActionPreloader: {
+    width: '25vw',
+    marginBottom: '3vh',
+  },
   SigLogInfoDescription: {
     fontSize: '0.9em',
   },

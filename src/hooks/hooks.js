@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { auth } from "../firebase/firebase";
 import { getWindowDimensions } from "../helper/helper";
 
 export const useWindowDimensions = () => {
@@ -20,4 +21,20 @@ export const useWindowDimensions = () => {
     }, []);
 
     return windowDimensions;
+};
+
+export const useChangeEmailVerificationStatus = (location) => {
+    const [verified, setVerified] = useState(false);
+
+    useEffect(() => {
+        auth.onIdTokenChanged((user) => {
+            if (user && user.emailVerified) {
+            setVerified(true); //? - On verification after registration, it always redirects to the address specified in "Redirect" in "PublicRouter".
+            } else {
+            setVerified(false);
+            }
+        });
+    }, [location]);
+
+    return verified
 };

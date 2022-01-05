@@ -44,7 +44,7 @@ export const ChatList = () => {
         return null
     }
 
-    const myEmail = auth.currentUser.email;
+    const myEmail = (auth.currentUser !== null ? auth.currentUser.email : null);
 
     const localTimezone = new Date().getTimezoneOffset() / -60;
 
