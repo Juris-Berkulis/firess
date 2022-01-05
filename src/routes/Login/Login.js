@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { allAppComponentsWithPageTitle } from '../../data/consts';
 import { functionsForMocks } from '../../helper/forMocks/functions';
@@ -7,6 +7,8 @@ import { LoginUI } from '../../ui_components/LoginUI';
 import preloader from '../../img/preloader.gif';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
+import { userVerificationWaiting } from '../../helper/helper';
+import { useUserVerificationWaiting } from '../../hooks/hooks';
 
 export const Login = () => {
   const classes = useStyles();
@@ -36,38 +38,19 @@ export const Login = () => {
       await functionsForMocks.login(email, password);
       setLoad(true);
 
-      const timerId = setInterval(async () => {
-        if (auth.currentUser) {
-          await functionsForMocks.userReload();
-          console.log('Ожидание')
-          if (auth.currentUser && auth.currentUser.emailVerified) {
-            push(allAppComponentsWithPageTitle.profile.path);
-            setLoad(false);
-            console.log('Email подтверждён')
-            return clearInterval(timerId)
-          }
-        } else {
-          setLoad(false);
-          return clearInterval(timerId)
-        }
-      }, 5000);
+      userVerificationWaiting(setLoad, push);
     } catch (error) {
       setError(error.message);
     }
   };
 
-  const logoutUser = () => {
+  const logoutUser = async () => {
     auth.signOut();
+    await functionsForMocks.userReload();
     setLoad(false);
   };
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user && !user.emailVerified) {
-        setLoad(true)
-      }
-    });
-  }, []);
+  useUserVerificationWaiting(setLoad, push);
 
   const iAmGoingToSignup = (
     load && !error 

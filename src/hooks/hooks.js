@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
-import { getWindowDimensions } from "../helper/helper";
+import { getWindowDimensions, userVerificationWaiting } from "../helper/helper";
 
 export const useWindowDimensions = () => {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
@@ -37,4 +37,16 @@ export const useChangeEmailVerificationStatus = (location) => {
     }, [location]);
 
     return verified
+};
+
+export const useUserVerificationWaiting = (setLoad, push) => {
+    useEffect(() => {
+        auth.onAuthStateChanged((user) => {
+            if (user && !user.emailVerified) {
+            setLoad(true)
+    
+            userVerificationWaiting(setLoad, push);
+            }
+        });
+    }, [setLoad, push]);
 };

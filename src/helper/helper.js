@@ -1,4 +1,6 @@
 import { allAppComponentsWithPageTitle, appTitle, mobileScreenWidth } from "../data/consts";
+import { auth } from "../firebase/firebase";
+import { functionsForMocks } from "./forMocks/functions";
 
 export const sendMessage = (author, text, chatId) => {
     const somebodyMessage = {
@@ -61,4 +63,23 @@ export const screenHeightLessThan = (screenHeight) => {
     } else {
         return false
     };
+};
+
+export const userVerificationWaiting = (setLoad, push) => {
+    const timerId = setInterval(async () => {
+        if (auth.currentUser) {
+            await functionsForMocks.userReload();
+            console.log('Ожидание')
+            if (auth.currentUser && auth.currentUser.emailVerified) {
+                push(allAppComponentsWithPageTitle.profile.path);
+                setLoad(false);
+                console.log('Email подтверждён')
+                return clearInterval(timerId)
+            }
+        } else {
+            setLoad(false);
+            console.log('не авторизован')
+            return clearInterval(timerId)
+        }
+    }, 5000);
 };

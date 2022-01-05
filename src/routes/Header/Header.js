@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMobileMenuIsOpenSelector } from '../../store/MobileMenuStatus/Selectors';
 import { closeMobileMenuStatus, toggleMobileMenuStatus } from '../../store/MobileMenuStatus/Action';
 import { useChangeEmailVerificationStatus } from '../../hooks/hooks';
+import { functionsForMocks } from '../../helper/forMocks/functions';
 
 export const Header = () => {
     const classes = useStyles();
@@ -27,8 +28,9 @@ export const Header = () => {
 
     const emailVerificationStatus = useChangeEmailVerificationStatus(location);
 
-    const logoutUser = () => {
+    const logoutUser = async () => {
         auth.signOut();
+        await functionsForMocks.userReload();
     };
 
     const showMobileMenu = () => {

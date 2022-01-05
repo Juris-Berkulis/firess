@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { allAppComponentsWithPageTitle } from '../../data/consts';
 import { auth } from '../../firebase/firebase';
@@ -7,6 +7,8 @@ import { useStyles } from '../../styles/Style';
 import { SignupUI } from '../../ui_components/SignupUI';
 import preloader from '../../img/preloader.gif';
 import { Link } from 'react-router-dom';
+import { userVerificationWaiting } from '../../helper/helper';
+import { useUserVerificationWaiting } from '../../hooks/hooks';
 
 export const Signup = () => {
   const classes = useStyles();
@@ -48,36 +50,19 @@ export const Signup = () => {
       auth.languageCode = userLanguage;
       await functionsForMocks.checkEmail(); //? FIXME: - Оптимизировать согласно статье "https://habr.com/ru/company/ruvds/blog/414373/".
       
-      const timerId = setInterval(async () => {
-        if (auth.currentUser) {
-          await functionsForMocks.userReload();
-          console.log('Ожидание')
-          if (auth.currentUser && auth.currentUser.emailVerified) {
-            push(allAppComponentsWithPageTitle.profile.path);
-            setLoad(false);
-            console.log('Email подтверждён')
-            return clearInterval(timerId)
-          }
-        } else {
-          setLoad(false);
-          return clearInterval(timerId)
-        }
-      }, 5000);
+      userVerificationWaiting(setLoad, push);
     } catch (error) {
       setError(error.message);
     }
   };
 
-  const logoutUser = () => {
+  const logoutUser = async () => {
     auth.signOut();
+    await functionsForMocks.userReload();
     setLoad(false);
   };
 
-  useEffect(() => {
-    if (auth.currentUser && !auth.currentUser.emailVerified) {
-      setLoad(true)
-    }
-  }, []);
+  useUserVerificationWaiting(setLoad, push);
 
   const iAmGoingToSignup = (
     load && !error 
