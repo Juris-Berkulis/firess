@@ -36,7 +36,7 @@ export const App = () => {
 
   const mobileMenuOpen = useSelector(getMobileMenuIsOpenSelector);
 
-  const getEmailVerificationStatus = useChangeEmailVerificationStatus(location);
+  const emailVerificationStatus = useChangeEmailVerificationStatus(location);
 
   useEffect(() => {
     dispatch({
@@ -58,10 +58,10 @@ export const App = () => {
         <Route exact path={allAppComponentsWithPageTitle.home.path}>
           <Home></Home>
         </Route>
-        <PrivateRoute path={allAppComponentsWithPageTitle.profile.path} authenticated={getEmailVerificationStatus}>
+        <PrivateRoute path={allAppComponentsWithPageTitle.profile.path} authenticated={emailVerificationStatus}>
           <Profile></Profile>
         </PrivateRoute>
-        <PrivateRoute path={allAppComponentsWithPageTitle.messenger.path} authenticated={getEmailVerificationStatus}>
+        <PrivateRoute path={allAppComponentsWithPageTitle.messenger.path} authenticated={emailVerificationStatus}>
           <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white" height='100%'>
             <ChatsList></ChatsList>
             <Route path={allAppComponentsWithPageTitle.error404.path}>
@@ -75,10 +75,10 @@ export const App = () => {
         <Route path={allAppComponentsWithPageTitle.usersApi.path}>
           <ApiUsers></ApiUsers>
         </Route>
-        <PublicRoute path={allAppComponentsWithPageTitle.signup.path} authenticated={getEmailVerificationStatus}>
+        <PublicRoute path={allAppComponentsWithPageTitle.signup.path} authenticated={emailVerificationStatus}>
           <Signup></Signup>
         </PublicRoute>
-        <PublicRoute path={allAppComponentsWithPageTitle.login.path} authenticated={getEmailVerificationStatus}>
+        <PublicRoute path={allAppComponentsWithPageTitle.login.path} authenticated={emailVerificationStatus}>
           <Login></Login>
         </PublicRoute>
       </Box>

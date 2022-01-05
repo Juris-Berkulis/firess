@@ -25,7 +25,7 @@ export const Header = () => {
     
     const navigationForProps = navigation.map((item) => <Button className={`${classes.headerNavItem} ${isMobileDeviceProps && !mobileMenuOpen ? classes.headerNavItemMobile : null}`} to={item.href} component={Link} key={item.name}>{item.name}</Button>);
 
-    const getEmailVerificationStatus = useChangeEmailVerificationStatus(location);
+    const emailVerificationStatus = useChangeEmailVerificationStatus(location);
 
     const logoutUser = () => {
         auth.signOut();
@@ -52,7 +52,7 @@ export const Header = () => {
     );
 
     const showLogOutBtnForProps = (
-        getEmailVerificationStatus 
+        emailVerificationStatus 
         ? 
         <Button className={classes.headerNavItem} onClick={logoutUser}>{allAppComponentsWithPageTitle.logout.displayTitle}</Button> 
         : 

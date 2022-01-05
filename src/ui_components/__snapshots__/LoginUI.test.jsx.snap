@@ -5,113 +5,11 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <div>
-        <form>
-          <p>
-            Заполните форму ниже, чтобы войти в свою учетную запись.
-          </p>
-          <div
-            class="undefined undefined"
-          >
-            <input
-              class="undefined undefined"
-              data-testid="idEmailLogin"
-              name="email"
-              placeholder="Email"
-              type="email"
-              value="example@example.com"
-            />
-          </div>
-          <div
-            class="undefined undefined"
-          >
-            <input
-              class="undefined undefined"
-              data-testid="idPasswordLogin"
-              name="password"
-              placeholder="Password"
-              type="password"
-              value="12345678"
-            />
-          </div>
-          <div
-            class="undefined undefined"
-          >
-            
-            <button
-              data-testid="idBtnSubmitLogin"
-              type="submit"
-            >
-              Войти
-            </button>
-          </div>
-          <p>
-            <span>
-              Нет аккаунта? 
-            </span>
-            <a
-              href=""
-            >
-              Регистрация
-            </a>
-          </p>
-        </form>
-      </div>
+      <div />
     </div>
   </body>,
   "container": <div>
-    <div>
-      <form>
-        <p>
-          Заполните форму ниже, чтобы войти в свою учетную запись.
-        </p>
-        <div
-          class="undefined undefined"
-        >
-          <input
-            class="undefined undefined"
-            data-testid="idEmailLogin"
-            name="email"
-            placeholder="Email"
-            type="email"
-            value="example@example.com"
-          />
-        </div>
-        <div
-          class="undefined undefined"
-        >
-          <input
-            class="undefined undefined"
-            data-testid="idPasswordLogin"
-            name="password"
-            placeholder="Password"
-            type="password"
-            value="12345678"
-          />
-        </div>
-        <div
-          class="undefined undefined"
-        >
-          
-          <button
-            data-testid="idBtnSubmitLogin"
-            type="submit"
-          >
-            Войти
-          </button>
-        </div>
-        <p>
-          <span>
-            Нет аккаунта? 
-          </span>
-          <a
-            href=""
-          >
-            Регистрация
-          </a>
-        </p>
-      </form>
-    </div>
+    <div />
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

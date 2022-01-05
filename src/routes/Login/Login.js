@@ -35,7 +35,6 @@ export const Login = () => {
     try {
       await functionsForMocks.login(email, password);
       setLoad(true);
-      // push(allAppComponentsWithPageTitle.profile.path);
 
       const timerId = setInterval(async () => {
         if (auth.currentUser) {
