@@ -29,15 +29,9 @@ export const useChangeEmailVerificationStatus = (location) => {
     useEffect(() => {
         const unsubscribe = auth.onIdTokenChanged((user) => {
             if (user && user.emailVerified) {
-                console.log('вошёл')
                 setVerified(true); //? - On verification after registration, it always redirects to the address specified in "Redirect" in "PublicRouter".
-            // } else if (!user) {
-            //     unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
-            //     console.log('точно вышел')
-            //     setVerified(false);
             } else {
                 unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
-                console.log('вышел')
                 setVerified(false);
             }
         });
@@ -49,21 +43,15 @@ export const useChangeEmailVerificationStatus = (location) => {
 export const useUserVerificationWaiting = (setLoad, push) => {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
-            console.log(user)
-            
             if (auth.currentUser) {
-                console.log('релоад')
                 auth.currentUser.reload();
             }
 
             if (user && !user.emailVerified) {
                 setLoad(true)
-                // unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
         
                 userVerificationWaiting(setLoad, push);
             } else {
-                console.log('верифицирован')
-                console.log(user)
                 unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
             }
         });

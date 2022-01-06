@@ -69,18 +69,13 @@ export const userVerificationWaiting = (setLoad, push) => {
     const timerId = setInterval(async () => {
         if (auth.currentUser) {
             await functionsForMocks.userReload();
-            console.log('Ожидание')
             if (auth.currentUser && auth.currentUser.emailVerified) {
-                console.log('111')
                 push(allAppComponentsWithPageTitle.profile.path);
-                console.log('222')
                 setLoad(false);
-                console.log('Email подтверждён')
                 return clearInterval(timerId)
             }
         } else {
             setLoad(false);
-            console.log('не авторизован')
             return clearInterval(timerId)
         }
     }, 5000);
