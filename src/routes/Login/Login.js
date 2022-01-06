@@ -7,7 +7,7 @@ import { LoginUI } from '../../ui_components/LoginUI';
 import preloader from '../../img/preloader.gif';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
-import { userVerificationWaiting } from '../../helper/helper';
+import { instantUserVerificationChecking } from '../../helper/helper';
 import { useUserVerificationWaiting } from '../../hooks/hooks';
 
 export const Login = () => {
@@ -38,7 +38,7 @@ export const Login = () => {
       await functionsForMocks.login(email, password);
       setLoad(true);
 
-      userVerificationWaiting(setLoad, push);
+      instantUserVerificationChecking(setLoad, push);
     } catch (error) {
       setError(error.message);
     }

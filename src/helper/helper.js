@@ -80,3 +80,16 @@ export const userVerificationWaiting = (setLoad, push) => {
         }
     }, 5000);
 };
+
+export const instantUserVerificationChecking = async (setLoad, push) => {
+    if (auth.currentUser) {
+        setLoad(false);
+        await functionsForMocks.userReload();
+        if (auth.currentUser && auth.currentUser.emailVerified) {
+            push(allAppComponentsWithPageTitle.profile.path);
+        } else if (auth.currentUser && !auth.currentUser.emailVerified) {
+            setLoad(true);
+            userVerificationWaiting(setLoad, push);
+        }
+    }
+};
