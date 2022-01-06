@@ -27,11 +27,17 @@ export const useChangeEmailVerificationStatus = (location) => {
     const [verified, setVerified] = useState(false);
 
     useEffect(() => {
-        auth.onIdTokenChanged((user) => {
+        const unsubscribe = auth.onIdTokenChanged((user) => {
             if (user && user.emailVerified) {
-            setVerified(true); //? - On verification after registration, it always redirects to the address specified in "Redirect" in "PublicRouter".
+                console.log('вошёл')
+                setVerified(true); //? - On verification after registration, it always redirects to the address specified in "Redirect" in "PublicRouter".
+            } else if (!user) {
+                unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
+                console.log('точно вышел')
+                setVerified(false);
             } else {
-            setVerified(false);
+                console.log('вышел')
+                setVerified(false);
             }
         });
     }, [location]);
@@ -41,11 +47,25 @@ export const useChangeEmailVerificationStatus = (location) => {
 
 export const useUserVerificationWaiting = (setLoad, push) => {
     useEffect(() => {
-        auth.onAuthStateChanged((user) => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            console.log(user)
+            
+            if (auth.currentUser) {
+                console.log('релоад')
+                auth.currentUser.reload();
+            }
+
             if (user && !user.emailVerified) {
-            setLoad(true)
-    
-            userVerificationWaiting(setLoad, push);
+                setLoad(true)
+        
+                userVerificationWaiting(setLoad, push);
+            } else if (user && user.emailVerified) {
+                console.log('верифицирован 1')
+                unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
+            } else {
+                console.log('верифицирован 2')
+                console.log(user)
+                unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
             }
         });
     }, [setLoad, push]);
