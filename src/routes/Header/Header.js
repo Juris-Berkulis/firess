@@ -30,7 +30,9 @@ export const Header = () => {
 
     const logoutUser = async () => {
         auth.signOut();
-        await functionsForMocks.userReload();
+        if (auth.currentUser) {
+            await functionsForMocks.userReload();
+        }
     };
 
     const showMobileMenu = () => {

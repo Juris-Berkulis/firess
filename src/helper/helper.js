@@ -71,7 +71,9 @@ export const userVerificationWaiting = (setLoad, push) => {
             await functionsForMocks.userReload();
             console.log('Ожидание')
             if (auth.currentUser && auth.currentUser.emailVerified) {
+                console.log('111')
                 push(allAppComponentsWithPageTitle.profile.path);
+                console.log('222')
                 setLoad(false);
                 console.log('Email подтверждён')
                 return clearInterval(timerId)

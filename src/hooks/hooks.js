@@ -31,11 +31,12 @@ export const useChangeEmailVerificationStatus = (location) => {
             if (user && user.emailVerified) {
                 console.log('вошёл')
                 setVerified(true); //? - On verification after registration, it always redirects to the address specified in "Redirect" in "PublicRouter".
-            } else if (!user) {
-                unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
-                console.log('точно вышел')
-                setVerified(false);
+            // } else if (!user) {
+            //     unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
+            //     console.log('точно вышел')
+            //     setVerified(false);
             } else {
+                unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
                 console.log('вышел')
                 setVerified(false);
             }
@@ -57,16 +58,16 @@ export const useUserVerificationWaiting = (setLoad, push) => {
 
             if (user && !user.emailVerified) {
                 setLoad(true)
+                // unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
         
                 userVerificationWaiting(setLoad, push);
-            } else if (user && user.emailVerified) {
-                console.log('верифицирован 1')
-                unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
             } else {
-                console.log('верифицирован 2')
+                console.log('верифицирован')
                 console.log(user)
                 unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
             }
         });
+
+        return () => setLoad(false);
     }, [setLoad, push]);
 };
