@@ -7,7 +7,7 @@ import { useStyles } from '../../styles/Style';
 import { SignupUI } from '../../ui_components/SignupUI';
 import preloader from '../../img/preloader.gif';
 import { Link } from 'react-router-dom';
-import { userVerificationWaiting } from '../../helper/helper';
+import { isMobileDevice, userVerificationWaiting } from '../../helper/helper';
 import { useUserVerificationWaiting } from '../../hooks/hooks';
 
 export const Signup = () => {
@@ -17,6 +17,8 @@ export const Signup = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [load, setLoad] = useState(false);
+
+  const isMobileDeviceBoolean = isMobileDevice();
 
   const userLanguage = (
     window.navigator ? (
@@ -78,7 +80,7 @@ export const Signup = () => {
       <p className={classes.SigLogDescription}>Заполните форму для регистрации. На указанный адрес будет отправлено письмо для подтверждения почты!</p>
       <div className={`${classes.SigLogEmailArea} ${classes.SigLogArea}`}>
           <input
-          className={`${classes.SigLogEmailInput} ${classes.SigLogInput}`}
+          className={`${classes.SigLogEmailInput} ${classes.SigLogInput} ${isMobileDeviceBoolean ? classes.SigLogInputMobileDevice : null}`}
           placeholder="Email"
           name="email"
           type="email"
@@ -89,7 +91,7 @@ export const Signup = () => {
       </div>
       <div className={`${classes.SigLogPasswordArea} ${classes.SigLogArea}`}>
           <input
-          className={`${classes.SigLogPasswordInput} ${classes.SigLogInput}`}
+          className={`${classes.SigLogPasswordInput} ${classes.SigLogInput} ${isMobileDeviceBoolean ? classes.SigLogInputMobileDevice : null}`}
           placeholder="Password"
           name="password"
           type="password"

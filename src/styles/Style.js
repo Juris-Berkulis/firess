@@ -38,6 +38,7 @@ export const useStyles = makeStyles({
     padding: '5vh 5vw',
     color: '#eeeeee',
     fontSize: '16px',
+    overflow: 'auto',
   },
   SigLogForm: {
     margin: '0 auto',
@@ -63,6 +64,9 @@ export const useStyles = makeStyles({
     borderRadius: '0.8em',
     padding: '0.3em 0.6em',
     fontSize: '1em',
+  },
+  SigLogInputMobileDevice: {
+    width: '100%',
   },
   SigLogEmailInput: {
     marginBottom: '1.5vh',

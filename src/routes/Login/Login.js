@@ -7,7 +7,7 @@ import { LoginUI } from '../../ui_components/LoginUI';
 import preloader from '../../img/preloader.gif';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
-import { instantUserVerificationChecking } from '../../helper/helper';
+import { instantUserVerificationChecking, isMobileDevice } from '../../helper/helper';
 import { useUserVerificationWaiting } from '../../hooks/hooks';
 
 export const Login = () => {
@@ -17,6 +17,8 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [load, setLoad] = useState(false);
+
+  const isMobileDeviceBoolean = isMobileDevice();
 
   const myEmail = (email ? email : (auth.currentUser !== null ? auth.currentUser.email : null));
 
@@ -66,7 +68,7 @@ export const Login = () => {
       <p className={classes.SigLogDescription}>Заполните форму для входа в свою учетную запись.</p>
       <div className={`${classes.SigLogEmailArea} ${classes.SigLogArea}`}>
           <input
-          className={`${classes.SigLogEmailInput} ${classes.SigLogInput}`}
+          className={`${classes.SigLogEmailInput} ${classes.SigLogInput} ${isMobileDeviceBoolean ? classes.SigLogInputMobileDevice : null}`}
           placeholder="Email"
           name="email"
           type="email"
@@ -77,7 +79,7 @@ export const Login = () => {
       </div>
       <div className={`${classes.SigLogPasswordArea} ${classes.SigLogArea}`}>
           <input
-          className={`${classes.SigLogPasswordInput} ${classes.SigLogInput}`}
+          className={`${classes.SigLogPasswordInput} ${classes.SigLogInput} ${isMobileDeviceBoolean ? classes.SigLogInputMobileDevice : null}`}
           placeholder="Password"
           name="password"
           type="password"
