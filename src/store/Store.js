@@ -8,6 +8,7 @@ import { chatsListReducer } from './ChatsList/Reducer';
 import { newUsers } from './ApiUsers/NewUsersApi';
 import { mobileMenuReducer } from './MobileMenuStatus/Reducer';
 import { bigChatReducer } from './BigChatStatus/Reducer';
+import { statusesInTheAppReducer } from './VerificationStatus/Reducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     USERS: newUsers.reducer,
     mobileMenu: mobileMenuReducer,
     bigChat: bigChatReducer,
+    statusesInTheApp: statusesInTheAppReducer,
 });
 
 const persistConfig = {

@@ -65,31 +65,83 @@ export const screenHeightLessThan = (screenHeight) => {
     };
 };
 
-export const userVerificationWaiting = (setLoad, push) => {
+// export const userVerificationWaiting = (setLoad, push) => {
+//     const timerId = setInterval(async () => {
+//         if (auth.currentUser) {
+//             await functionsForMocks.userReload();
+//             if (auth.currentUser && auth.currentUser.emailVerified) {
+//                 push(allAppComponentsWithPageTitle.profile.path);
+//                 setLoad(false);
+//                 return clearInterval(timerId)
+//             }
+//         } else {
+//             setLoad(false);
+//             return clearInterval(timerId)
+//         }
+//     }, 5000);
+// };
+
+// export const instantUserVerificationChecking = async (setLoad, push) => {
+//     if (auth.currentUser) {
+//         setLoad(false);
+//         await functionsForMocks.userReload();
+//         if (auth.currentUser && auth.currentUser.emailVerified) {
+//             push(allAppComponentsWithPageTitle.profile.path);
+//         } else if (auth.currentUser && !auth.currentUser.emailVerified) {
+//             setLoad(true);
+//             userVerificationWaiting(setLoad, push);
+//         }
+//     }
+// };
+
+// export const confirmSendingOfTheVerificationLetter = (myEmail) => {
+//     return `Письмо отправлено на "${myEmail}"!`
+// };
+
+export const userVerificationWaiting = (verificationWaitingBoolean, push) => {
     const timerId = setInterval(async () => {
         if (auth.currentUser) {
             await functionsForMocks.userReload();
+
             if (auth.currentUser && auth.currentUser.emailVerified) {
                 push(allAppComponentsWithPageTitle.profile.path);
-                setLoad(false);
-                return clearInterval(timerId)
+                // setLoad(false);
+                verificationWaitingBoolean = false;
+
+                return {waiting: verificationWaitingBoolean, clear: clearInterval(timerId)}
             }
         } else {
-            setLoad(false);
-            return clearInterval(timerId)
+            // setLoad(false);
+            verificationWaitingBoolean = false;
+
+            return {waiting: verificationWaitingBoolean, clear: clearInterval(timerId)}
         }
     }, 5000);
 };
 
-export const instantUserVerificationChecking = async (setLoad, push) => {
+export const instantUserVerificationChecking = async (verificationWaitingBoolean, push) => {
     if (auth.currentUser) {
-        setLoad(false);
+        // setLoad(false);
+        verificationWaitingBoolean = false;
         await functionsForMocks.userReload();
         if (auth.currentUser && auth.currentUser.emailVerified) {
             push(allAppComponentsWithPageTitle.profile.path);
+
+            return verificationWaitingBoolean
         } else if (auth.currentUser && !auth.currentUser.emailVerified) {
-            setLoad(true);
-            userVerificationWaiting(setLoad, push);
+            // setLoad(true);
+            verificationWaitingBoolean = true;
+            const isLoading = userVerificationWaiting(verificationWaitingBoolean, push);
+            const waiting = (isLoading && isLoading.waiting ? isLoading.waiting : null);
+            if (isLoading && isLoading.clear) {
+                isLoading.clear();
+            }
+
+            if (waiting === false) {
+                verificationWaitingBoolean = false;
+            }
+
+            return verificationWaitingBoolean
         }
     }
 };

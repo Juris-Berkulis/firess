@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { auth } from "../firebase/firebase";
 import { getWindowDimensions, userVerificationWaiting } from "../helper/helper";
+import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from "../store/VerificationStatus/Action";
 
 export const useWindowDimensions = () => {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
@@ -40,22 +42,63 @@ export const useChangeEmailVerificationStatus = (location) => {
     return verified
 };
 
-export const useUserVerificationWaiting = (setLoad, push) => {
-    useEffect(() => {
+// export const useUserVerificationWaiting = (setLoad, push) => {
+//     useEffect(() => {
+//         const unsubscribe = auth.onAuthStateChanged((user) => {
+//             if (auth.currentUser) {
+//                 auth.currentUser.reload();
+//             }
+
+//             if (user && !user.emailVerified) {
+//                 setLoad(true)
+        
+//                 userVerificationWaiting(setLoad, push);
+//             } else {
+//                 unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
+//             }
+//         });
+
+//         return () => setLoad(false);
+//     }, [setLoad, push]);
+// };
+
+export const useUserVerificationWaiting = (verificationWaitingBoolean, push) => { //* - The "useUserVerificationWaiting ()" function requires the "verificationWaitingBoolean" argument (although it is highlighted as unused), otherwise "useEffect" is looped. The useEffect also requires a verificationWaitingBoolean argument.
+    const dispatch = useDispatch();
+    // const verificationWaitingBoolean = useSelector(getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector);
+
+    useEffect((verificationWaitingBoolean) => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
+            dispatch({
+                type: emailVerificationConfirmationWaitingIsFalse.type,
+            });
+
             if (auth.currentUser) {
                 auth.currentUser.reload();
             }
 
             if (user && !user.emailVerified) {
-                setLoad(true)
+                // setLoad(true)
+                dispatch({
+                    type: emailVerificationConfirmationWaitingIsTrue.type,
+                });
         
-                userVerificationWaiting(setLoad, push);
+                // userVerificationWaiting(setLoad, push);
+                const isLoading = userVerificationWaiting(verificationWaitingBoolean, push);
+                const waiting = (isLoading && isLoading.waiting ? isLoading.waiting : null);
+                if (isLoading && isLoading.clear) {
+                    isLoading.clear();
+                }
+
+                if (waiting === false) {
+                    dispatch({
+                        type: emailVerificationConfirmationWaitingIsFalse.type,
+                    });
+                }
             } else {
                 unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
             }
         });
 
-        return () => setLoad(false);
-    }, [setLoad, push]);
+        // return () => setLoad(false);
+    }, [push, dispatch]);
 };

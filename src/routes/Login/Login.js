@@ -9,6 +9,9 @@ import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
 import { instantUserVerificationChecking, isMobileDevice } from '../../helper/helper';
 import { useUserVerificationWaiting } from '../../hooks/hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from '../../store/VerificationStatus/Action';
+import { getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector } from '../../store/VerificationStatus/Selectors';
 
 export const Login = () => {
   const classes = useStyles();
@@ -16,9 +19,12 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [load, setLoad] = useState(false);
+  // const [load, setLoad] = useState(false);
 
   const isMobileDeviceBoolean = isMobileDevice();
+
+  const dispatch = useDispatch();
+  const verificationWaitingBoolean = useSelector(getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector);
 
   const myEmail = (email ? email : (auth.currentUser !== null ? auth.currentUser.email : null));
 
@@ -35,12 +41,27 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    // dispatch({
+    //   type: emailVerificationConfirmationWaitingIsTrue.type,
+    // });
 
     try {
       await functionsForMocks.login(email, password);
-      setLoad(true);
+      // setLoad(true);
+      dispatch({
+        type: emailVerificationConfirmationWaitingIsTrue.type,
+      });
 
-      instantUserVerificationChecking(setLoad, push);
+      const isLoading = instantUserVerificationChecking(verificationWaitingBoolean, push);
+      if (isLoading === true) {
+        dispatch({
+          type: emailVerificationConfirmationWaitingIsTrue.type,
+        });
+      } else if (isLoading === false) {
+        dispatch({
+          type: emailVerificationConfirmationWaitingIsFalse.type,
+        });
+      }
     } catch (error) {
       setError(error.message);
     }
@@ -48,14 +69,19 @@ export const Login = () => {
 
   const logoutUser = async () => {
     auth.signOut();
-    await functionsForMocks.userReload();
-    setLoad(false);
+    // if (auth.currentUser) {
+    //   await functionsForMocks.userReload();
+    // }
+    // setLoad(false);
+    dispatch({
+      type: emailVerificationConfirmationWaitingIsFalse.type,
+    });
   };
 
-  useUserVerificationWaiting(setLoad, push);
+  useUserVerificationWaiting(verificationWaitingBoolean, push);
 
   const iAmGoingToSignup = (
-    load && !error 
+    verificationWaitingBoolean && !error 
     ? 
     <div className={classes.SigLogActionWaiting}>
       <p className={classes.SigLogActionWaitingText}>По указанному адресу ({myEmail}) было отправлено письмо со ссылкой для подтверждения электронной почты. Перейдите по ссылке в письме, чтобы завершить процесс регистрации.</p>

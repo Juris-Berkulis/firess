@@ -9,6 +9,9 @@ import preloader from '../../img/preloader.gif';
 import { Link } from 'react-router-dom';
 import { isMobileDevice, userVerificationWaiting } from '../../helper/helper';
 import { useUserVerificationWaiting } from '../../hooks/hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector } from '../../store/VerificationStatus/Selectors';
+import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from '../../store/VerificationStatus/Action';
 
 export const Signup = () => {
   const classes = useStyles();
@@ -16,9 +19,12 @@ export const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [load, setLoad] = useState(false);
+  // const [load, setLoad] = useState(false);
 
   const isMobileDeviceBoolean = isMobileDevice();
+
+  const dispatch = useDispatch();
+  const verificationWaitingBoolean = useSelector(getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector);
 
   const userLanguage = (
     window.navigator ? (
@@ -48,11 +54,25 @@ export const Signup = () => {
 
     try {
       await functionsForMocks.registration(email, password); //? FIXME: - Оптимизировать согласно статье "https://habr.com/ru/company/ruvds/blog/414373/".
-      setLoad(true);
+      // setLoad(true);
+      dispatch({
+        type: emailVerificationConfirmationWaitingIsTrue.type,
+      });
       auth.languageCode = userLanguage;
       await functionsForMocks.checkEmail(); //? FIXME: - Оптимизировать согласно статье "https://habr.com/ru/company/ruvds/blog/414373/".
       
-      userVerificationWaiting(setLoad, push);
+      // userVerificationWaiting(setLoad, push);
+      const isLoading = userVerificationWaiting(verificationWaitingBoolean, push);
+      const waiting = (isLoading && isLoading.waiting ? isLoading.waiting : null);
+      if (isLoading && isLoading.clear) {
+        isLoading.clear();
+      }
+      
+      if (waiting === false) {
+        dispatch({
+          type: emailVerificationConfirmationWaitingIsFalse.type,
+        });
+      }
     } catch (error) {
       setError(error.message);
     }
@@ -60,14 +80,19 @@ export const Signup = () => {
 
   const logoutUser = async () => {
     auth.signOut();
-    await functionsForMocks.userReload();
-    setLoad(false);
+    // if (auth.currentUser) {
+    //   await functionsForMocks.userReload();
+    // }
+    // setLoad(false);
+    dispatch({
+      type: emailVerificationConfirmationWaitingIsFalse.type,
+    });
   };
 
-  useUserVerificationWaiting(setLoad, push);
+  useUserVerificationWaiting(verificationWaitingBoolean, push);
 
   const iAmGoingToSignup = (
-    load && !error 
+    verificationWaitingBoolean && !error 
     ? 
     <div className={classes.SigLogActionWaiting}>
       <p className={classes.SigLogActionWaitingText}>По указанному адресу ({myEmail}) было отправлено письмо со ссылкой для подтверждения электронной почты. Перейдите по ссылке в письме, чтобы завершить процесс регистрации.</p>
