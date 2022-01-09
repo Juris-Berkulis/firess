@@ -42,29 +42,8 @@ export const useChangeEmailVerificationStatus = (location) => {
     return verified
 };
 
-// export const useUserVerificationWaiting = (setLoad, push) => {
-//     useEffect(() => {
-//         const unsubscribe = auth.onAuthStateChanged((user) => {
-//             if (auth.currentUser) {
-//                 auth.currentUser.reload();
-//             }
-
-//             if (user && !user.emailVerified) {
-//                 setLoad(true)
-        
-//                 userVerificationWaiting(setLoad, push);
-//             } else {
-//                 unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
-//             }
-//         });
-
-//         return () => setLoad(false);
-//     }, [setLoad, push]);
-// };
-
 export const useUserVerificationWaiting = (verificationWaitingBoolean, push) => { //* - The "useUserVerificationWaiting ()" function requires the "verificationWaitingBoolean" argument (although it is highlighted as unused), otherwise "useEffect" is looped. The useEffect also requires a verificationWaitingBoolean argument.
     const dispatch = useDispatch();
-    // const verificationWaitingBoolean = useSelector(getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector);
 
     useEffect((verificationWaitingBoolean) => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -77,12 +56,10 @@ export const useUserVerificationWaiting = (verificationWaitingBoolean, push) => 
             }
 
             if (user && !user.emailVerified) {
-                // setLoad(true)
                 dispatch({
                     type: emailVerificationConfirmationWaitingIsTrue.type,
                 });
         
-                // userVerificationWaiting(setLoad, push);
                 const isLoading = userVerificationWaiting(verificationWaitingBoolean, push);
                 const waiting = (isLoading && isLoading.waiting ? isLoading.waiting : null);
                 if (isLoading && isLoading.clear) {
@@ -98,7 +75,5 @@ export const useUserVerificationWaiting = (verificationWaitingBoolean, push) => 
                 unsubscribe(); //* - The "unsubscribe()" function unsubscribes the "auth.onIdTokenChanged()" function.
             }
         });
-
-        // return () => setLoad(false);
     }, [push, dispatch]);
 };

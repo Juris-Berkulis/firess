@@ -65,39 +65,6 @@ export const screenHeightLessThan = (screenHeight) => {
     };
 };
 
-// export const userVerificationWaiting = (setLoad, push) => {
-//     const timerId = setInterval(async () => {
-//         if (auth.currentUser) {
-//             await functionsForMocks.userReload();
-//             if (auth.currentUser && auth.currentUser.emailVerified) {
-//                 push(allAppComponentsWithPageTitle.profile.path);
-//                 setLoad(false);
-//                 return clearInterval(timerId)
-//             }
-//         } else {
-//             setLoad(false);
-//             return clearInterval(timerId)
-//         }
-//     }, 5000);
-// };
-
-// export const instantUserVerificationChecking = async (setLoad, push) => {
-//     if (auth.currentUser) {
-//         setLoad(false);
-//         await functionsForMocks.userReload();
-//         if (auth.currentUser && auth.currentUser.emailVerified) {
-//             push(allAppComponentsWithPageTitle.profile.path);
-//         } else if (auth.currentUser && !auth.currentUser.emailVerified) {
-//             setLoad(true);
-//             userVerificationWaiting(setLoad, push);
-//         }
-//     }
-// };
-
-// export const confirmSendingOfTheVerificationLetter = (myEmail) => {
-//     return `Письмо отправлено на "${myEmail}"!`
-// };
-
 export const userVerificationWaiting = (verificationWaitingBoolean, push) => {
     const timerId = setInterval(async () => {
         if (auth.currentUser) {
@@ -105,13 +72,11 @@ export const userVerificationWaiting = (verificationWaitingBoolean, push) => {
 
             if (auth.currentUser && auth.currentUser.emailVerified) {
                 push(allAppComponentsWithPageTitle.profile.path);
-                // setLoad(false);
                 verificationWaitingBoolean = false;
 
                 return {waiting: verificationWaitingBoolean, clear: clearInterval(timerId)}
             }
         } else {
-            // setLoad(false);
             verificationWaitingBoolean = false;
 
             return {waiting: verificationWaitingBoolean, clear: clearInterval(timerId)}
@@ -121,7 +86,6 @@ export const userVerificationWaiting = (verificationWaitingBoolean, push) => {
 
 export const instantUserVerificationChecking = async (verificationWaitingBoolean, push) => {
     if (auth.currentUser) {
-        // setLoad(false);
         verificationWaitingBoolean = false;
         await functionsForMocks.userReload();
         if (auth.currentUser && auth.currentUser.emailVerified) {
@@ -129,7 +93,6 @@ export const instantUserVerificationChecking = async (verificationWaitingBoolean
 
             return verificationWaitingBoolean
         } else if (auth.currentUser && !auth.currentUser.emailVerified) {
-            // setLoad(true);
             verificationWaitingBoolean = true;
             const isLoading = userVerificationWaiting(verificationWaitingBoolean, push);
             const waiting = (isLoading && isLoading.waiting ? isLoading.waiting : null);

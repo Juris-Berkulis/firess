@@ -19,7 +19,6 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  // const [load, setLoad] = useState(false);
 
   const isMobileDeviceBoolean = isMobileDevice();
 
@@ -41,13 +40,9 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    // dispatch({
-    //   type: emailVerificationConfirmationWaitingIsTrue.type,
-    // });
 
     try {
       await functionsForMocks.login(email, password);
-      // setLoad(true);
       dispatch({
         type: emailVerificationConfirmationWaitingIsTrue.type,
       });
@@ -69,10 +64,6 @@ export const Login = () => {
 
   const logoutUser = async () => {
     auth.signOut();
-    // if (auth.currentUser) {
-    //   await functionsForMocks.userReload();
-    // }
-    // setLoad(false);
     dispatch({
       type: emailVerificationConfirmationWaitingIsFalse.type,
     });

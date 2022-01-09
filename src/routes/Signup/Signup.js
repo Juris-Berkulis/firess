@@ -19,7 +19,6 @@ export const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  // const [load, setLoad] = useState(false);
 
   const isMobileDeviceBoolean = isMobileDevice();
 
@@ -54,14 +53,12 @@ export const Signup = () => {
 
     try {
       await functionsForMocks.registration(email, password); //? FIXME: - Оптимизировать согласно статье "https://habr.com/ru/company/ruvds/blog/414373/".
-      // setLoad(true);
       dispatch({
         type: emailVerificationConfirmationWaitingIsTrue.type,
       });
       auth.languageCode = userLanguage;
       await functionsForMocks.checkEmail(); //? FIXME: - Оптимизировать согласно статье "https://habr.com/ru/company/ruvds/blog/414373/".
       
-      // userVerificationWaiting(setLoad, push);
       const isLoading = userVerificationWaiting(verificationWaitingBoolean, push);
       const waiting = (isLoading && isLoading.waiting ? isLoading.waiting : null);
       if (isLoading && isLoading.clear) {
@@ -80,10 +77,6 @@ export const Signup = () => {
 
   const logoutUser = async () => {
     auth.signOut();
-    // if (auth.currentUser) {
-    //   await functionsForMocks.userReload();
-    // }
-    // setLoad(false);
     dispatch({
       type: emailVerificationConfirmationWaitingIsFalse.type,
     });
