@@ -87,6 +87,7 @@ export const useStyles = makeStyles({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
+    alignItems: 'center',
   },
   SigLogActionBtn: {
     fontSize: '1em',
@@ -107,6 +108,9 @@ export const useStyles = makeStyles({
     fontSize: '1em',
     marginBottom: '3vh',
     textAlign: 'center',
+  },
+  SigLogActionWaitingText_countdown: {
+    marginBottom: '1vh',
   },
   SigLogActionPreloader: {
     width: '25vw',

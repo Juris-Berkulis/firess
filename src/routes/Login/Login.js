@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { allAppComponentsWithPageTitle } from '../../data/consts';
+import { allAppComponentsWithPageTitle, startValueForTimer } from '../../data/consts';
 import { functionsForMocks } from '../../helper/forMocks/functions';
 import { useStyles } from '../../styles/Style';
 import { LoginUI } from '../../ui_components/LoginUI';
 import preloader from '../../img/preloader.gif';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
-import { instantUserVerificationChecking, isMobileDevice, requestTheLetter } from '../../helper/helper';
-import { useUserVerificationWaiting } from '../../hooks/hooks';
+import { countdownForLetterRequestWithLink, instantUserVerificationChecking, isMobileDevice, requestTheLetter } from '../../helper/helper';
+import { useAutomaticStartOfTheCountdownTimer, useUserVerificationWaiting } from '../../hooks/hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from '../../store/AppSwitches/Action';
-import { getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector } from '../../store/AppSwitches/Selectors';
+import { getStatusesInTheAppCountdownForLetterRequestIsNumberSelector, getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector } from '../../store/AppSwitches/Selectors';
 
 export const Login = () => {
   const classes = useStyles();
@@ -25,6 +25,7 @@ export const Login = () => {
 
   const dispatch = useDispatch();
   const verificationWaitingBoolean = useSelector(getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector);
+  const timeLeftBeforeRequesting = useSelector(getStatusesInTheAppCountdownForLetterRequestIsNumberSelector);
 
   const myEmail = (email ? email : (auth.currentUser !== null ? auth.currentUser.email : null));
 
@@ -72,22 +73,18 @@ export const Login = () => {
   };
 
   const changeInfoMessage = () => {
-    console.log('запрос')
-
     setError('');
     setInfoMessage('');
+
+    countdownForLetterRequestWithLink(dispatch, startValueForTimer);
 
     const intervalId = setInterval(async () => {
       try {
         const text = await requestTheLetter(myEmail);
         if (text) {
           setInfoMessage(text);
-          console.log(text)
-        } else {
-          console.log(text)
         }
       } catch (error) {
-        console.log(error.message)
         setError(error.message);
       }
 
@@ -96,6 +93,7 @@ export const Login = () => {
   };
 
   useUserVerificationWaiting(verificationWaitingBoolean, push);
+  useAutomaticStartOfTheCountdownTimer();
 
   const iAmGoingToSignup = (
     verificationWaitingBoolean 
@@ -116,7 +114,13 @@ export const Login = () => {
         </div>
       }
       <div className={classes.SigLogActionButtons}>
-        <button className={classes.SigLogActionBtn} type="submit" onClick={changeInfoMessage}>Запросить письмо</button>
+        {
+          timeLeftBeforeRequesting === 0 || timeLeftBeforeRequesting === null || timeLeftBeforeRequesting === startValueForTimer
+          ? 
+          <button className={classes.SigLogActionBtn} type="submit" onClick={changeInfoMessage}>Запросить письмо</button>
+          : 
+          <p className={`${classes.SigLogActionWaitingText} ${classes.SigLogActionWaitingText_countdown}`}>Запросить письмо: {timeLeftBeforeRequesting}с</p>
+        }
         <button className={classes.SigLogActionBtn} type="submit" onClick={logoutUser}>Выход</button>
       </div>
     </div>

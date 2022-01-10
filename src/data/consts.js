@@ -69,3 +69,5 @@ export const allAppComponentsWithPageTitle = {
         pathCheck: /^\/messenger\/\d{13}$/,
     },
 };
+
+export const startValueForTimer = 91;

@@ -1,5 +1,6 @@
 const EMAIL_VERIFICATION_CONFIRMATION_WAITING_IS_TRUE = 'EMAIL_VERIFICATION_CONFIRMATION_WAITING_IS_TRUE';
 const EMAIL_VERIFICATION_CONFIRMATION_WAITING_IS_FALSE = 'EMAIL_VERIFICATION_CONFIRMATION_WAITING_IS_FALSE';
+const COUNTDOWN_FOR_LETTER_REQUEST = 'COUNTDOWN_FOR_LETTER_REQUEST';
 
 export const emailVerificationConfirmationWaitingIsTrue = {
     type: EMAIL_VERIFICATION_CONFIRMATION_WAITING_IS_TRUE,
@@ -7,4 +8,8 @@ export const emailVerificationConfirmationWaitingIsTrue = {
 
 export const emailVerificationConfirmationWaitingIsFalse = {
     type: EMAIL_VERIFICATION_CONFIRMATION_WAITING_IS_FALSE,
+};
+
+export const countdownForLetterRequest = {
+    type: COUNTDOWN_FOR_LETTER_REQUEST,
 };

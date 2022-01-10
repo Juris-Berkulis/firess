@@ -1,4 +1,8 @@
-import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from './Action';
+import { 
+    countdownForLetterRequest, 
+    emailVerificationConfirmationWaitingIsFalse, 
+    emailVerificationConfirmationWaitingIsTrue 
+} from './Action';
 
 const initialState = {};
 
@@ -14,6 +18,12 @@ export const statusesInTheAppReducer = (state = initialState, action) => {
             return {
                 ...state, 
                 isEmailVerificationConfirmationWaiting: false,
+            }
+        }
+        case countdownForLetterRequest.type: {
+            return {
+                ...state, 
+                countdownForLetterRequestIsNumber: action.payload,
             }
         }
         default: {

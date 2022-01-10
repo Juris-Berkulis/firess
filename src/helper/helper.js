@@ -1,5 +1,6 @@
 import { allAppComponentsWithPageTitle, appTitle, mobileScreenWidth } from "../data/consts";
 import { auth } from "../firebase/firebase";
+import { countdownForLetterRequest } from "../store/AppSwitches/Action";
 import { functionsForMocks } from "./forMocks/functions";
 
 export const sendMessage = (author, text, chatId) => {
@@ -120,8 +121,6 @@ export const requestTheLetter = async (myEmail) => {
     if (auth.currentUser) {
         await functionsForMocks.checkEmail();
         const infoMessage = confirmSendingOfTheVerificationLetter(myEmail).success;
-        console.log('удачно')
-        console.log(infoMessage)
 
         return infoMessage
     } else if (!auth.currentUser) {
@@ -129,4 +128,24 @@ export const requestTheLetter = async (myEmail) => {
 
         return error
     }
+};
+
+export const countdownForLetterRequestWithLink = (dispatch, startValueForTimer) => {
+    let counter = startValueForTimer;
+
+    const intervalId = setInterval(() => {
+        dispatch({
+            type: countdownForLetterRequest.type,
+            payload: counter,
+        });
+        if (counter <= 0) {
+            dispatch({
+                type: countdownForLetterRequest.type,
+                payload: 0,
+            });
+
+            return clearTimeout(intervalId)
+        }
+        counter--;
+    }, 1000);
 };

@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { auth } from "../firebase/firebase";
 import { getWindowDimensions, userVerificationWaiting } from "../helper/helper";
-import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from "../store/AppSwitches/Action";
+import { 
+    countdownForLetterRequest, 
+    emailVerificationConfirmationWaitingIsFalse, 
+    emailVerificationConfirmationWaitingIsTrue 
+} from "../store/AppSwitches/Action";
 
 export const useWindowDimensions = () => {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
@@ -76,4 +80,14 @@ export const useUserVerificationWaiting = (verificationWaitingBoolean, push) => 
             }
         });
     }, [push, dispatch]);
+};
+
+export const useAutomaticStartOfTheCountdownTimer = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch({
+            type: countdownForLetterRequest.type,
+            payload: 0,
+        });
+    }, [dispatch])
 };
