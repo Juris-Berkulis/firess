@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom';
 import { isMobileDevice, requestTheLetter, userVerificationWaiting } from '../../helper/helper';
 import { useUserVerificationWaiting } from '../../hooks/hooks';
 import { useDispatch, useSelector } from 'react-redux';
-import { getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector } from '../../store/VerificationStatus/Selectors';
-import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from '../../store/VerificationStatus/Action';
+import { getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector } from '../../store/AppSwitches/Selectors';
+import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from '../../store/AppSwitches/Action';
 
 export const Signup = () => {
   const classes = useStyles();

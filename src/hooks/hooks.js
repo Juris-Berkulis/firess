@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { auth } from "../firebase/firebase";
 import { getWindowDimensions, userVerificationWaiting } from "../helper/helper";
-import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from "../store/VerificationStatus/Action";
+import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from "../store/AppSwitches/Action";
 
 export const useWindowDimensions = () => {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());

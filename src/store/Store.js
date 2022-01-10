@@ -8,7 +8,7 @@ import { chatsListReducer } from './ChatsList/Reducer';
 import { newUsers } from './ApiUsers/NewUsersApi';
 import { mobileMenuReducer } from './MobileMenuStatus/Reducer';
 import { bigChatReducer } from './BigChatStatus/Reducer';
-import { statusesInTheAppReducer } from './VerificationStatus/Reducer';
+import { statusesInTheAppReducer } from './AppSwitches/Reducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

@@ -10,8 +10,8 @@ import { auth } from '../../firebase/firebase';
 import { instantUserVerificationChecking, isMobileDevice, requestTheLetter } from '../../helper/helper';
 import { useUserVerificationWaiting } from '../../hooks/hooks';
 import { useDispatch, useSelector } from 'react-redux';
-import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from '../../store/VerificationStatus/Action';
-import { getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector } from '../../store/VerificationStatus/Selectors';
+import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from '../../store/AppSwitches/Action';
+import { getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector } from '../../store/AppSwitches/Selectors';
 
 export const Login = () => {
   const classes = useStyles();
