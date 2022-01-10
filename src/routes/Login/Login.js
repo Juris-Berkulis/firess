@@ -7,7 +7,7 @@ import { LoginUI } from '../../ui_components/LoginUI';
 import preloader from '../../img/preloader.gif';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase';
-import { instantUserVerificationChecking, isMobileDevice } from '../../helper/helper';
+import { instantUserVerificationChecking, isMobileDevice, requestTheLetter } from '../../helper/helper';
 import { useUserVerificationWaiting } from '../../hooks/hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from '../../store/VerificationStatus/Action';
@@ -19,6 +19,7 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [infoMessage, setInfoMessage] = useState("");
 
   const isMobileDeviceBoolean = isMobileDevice();
 
@@ -40,6 +41,7 @@ export const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setInfoMessage('');
 
     try {
       await functionsForMocks.login(email, password);
@@ -69,16 +71,54 @@ export const Login = () => {
     });
   };
 
+  const changeInfoMessage = () => {
+    console.log('запрос')
+
+    setError('');
+    setInfoMessage('');
+
+    const intervalId = setInterval(async () => {
+      try {
+        const text = await requestTheLetter(myEmail);
+        if (text) {
+          setInfoMessage(text);
+          console.log(text)
+        } else {
+          console.log(text)
+        }
+      } catch (error) {
+        console.log(error.message)
+        setError(error.message);
+      }
+
+      return clearInterval(intervalId)
+    }, 1000)
+  };
+
   useUserVerificationWaiting(verificationWaitingBoolean, push);
 
   const iAmGoingToSignup = (
-    verificationWaitingBoolean && !error 
+    verificationWaitingBoolean 
     ? 
     <div className={classes.SigLogActionWaiting}>
-      <p className={classes.SigLogActionWaitingText}>По указанному адресу ({myEmail}) было отправлено письмо со ссылкой для подтверждения электронной почты. Перейдите по ссылке в письме, чтобы завершить процесс регистрации.</p>
-      <p className={classes.SigLogActionWaitingText}>Ожидание подтверждения электронной почты:</p>
+      <p className={classes.SigLogActionWaitingText}>Ожидание подтверждения электронной почты{infoMessage ? null : `${myEmail ? ` ${myEmail}.` : null}`}</p>
       <img className={classes.SigLogActionPreloader} src={preloader} alt='preloader' width='5vw' />
-      <button className={classes.SigLogActionBtn} type="submit" onClick={logoutUser}>Отмена</button>
+      {
+        infoMessage 
+        && 
+        <p className={classes.SigLogActionWaitingText}>{infoMessage}</p>
+      }
+      {
+        error 
+        && 
+        <div className={classes.SigLogActionErrorArea}>
+            <p className={classes.SigLogActionErrorText}>{error}</p>
+        </div>
+      }
+      <div className={classes.SigLogActionButtons}>
+        <button className={classes.SigLogActionBtn} type="submit" onClick={changeInfoMessage}>Запросить письмо</button>
+        <button className={classes.SigLogActionBtn} type="submit" onClick={logoutUser}>Выход</button>
+      </div>
     </div>
     : 
     <form className={classes.SigLogForm} onSubmit={handleSubmit}>
@@ -107,11 +147,11 @@ export const Login = () => {
       </div>
       <div className={`${classes.SigLogActionArea} ${classes.SigLogArea}`}>
           {
-              error 
-              && 
-              <div className={classes.SigLogActionErrorArea}>
-                  <p className={classes.SigLogActionErrorText} data-testid="idErrorLogin">{error}</p>
-              </div>
+            error && !verificationWaitingBoolean
+            && 
+            <div className={classes.SigLogActionErrorArea}>
+              <p className={classes.SigLogActionErrorText} data-testid="idErrorLogin">{error}</p>
+            </div>
           }
           <button className={classes.SigLogActionBtn} type="submit" data-testid="idBtnSubmitLogin">Войти</button>
       </div>

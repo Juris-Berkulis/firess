@@ -108,3 +108,25 @@ export const instantUserVerificationChecking = async (verificationWaitingBoolean
         }
     }
 };
+
+export const confirmSendingOfTheVerificationLetter = (myEmail) => {
+    return {
+        success: `Письмо отправлено${myEmail ? ` на ${myEmail}` : null}. Перейдите по ссылке в письме, чтобы завершить процесс регистрации.`, 
+        error: `Выполните вход!`,
+    }
+};
+
+export const requestTheLetter = async (myEmail) => {
+    if (auth.currentUser) {
+        await functionsForMocks.checkEmail();
+        const infoMessage = confirmSendingOfTheVerificationLetter(myEmail).success;
+        console.log('удачно')
+        console.log(infoMessage)
+
+        return infoMessage
+    } else if (!auth.currentUser) {
+        const error = confirmSendingOfTheVerificationLetter(myEmail).error;
+
+        return error
+    }
+};

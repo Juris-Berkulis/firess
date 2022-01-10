@@ -83,9 +83,14 @@ export const useStyles = makeStyles({
     color: '#ff0000',
     fontSize: '1em',
   },
+  SigLogActionButtons: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
   SigLogActionBtn: {
     fontSize: '1em',
-    marginBottom: '3vh',
+    margin: '0 10px 1vh',
     padding: '0.3em 0.6em',
     borderRadius: '0.8em',
     border: 'none',
