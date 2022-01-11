@@ -28,6 +28,16 @@ export const useStyles = makeStyles({
   preloader__img: {
     width: '250px',
   },
+  field: {
+    height: '90vh !important',
+    padding: '5vh 10vw !important',
+  },
+  field_mobileMenuOpen: {
+    display: 'none !important',
+  },
+  field_mobileDevice: {
+    padding: '2vh 2vw 5vh !important',
+  },
   SigLogField: {
     minHeight: '80%',
     maxHeight: '100%',
@@ -176,6 +186,8 @@ export const useStyles = makeStyles({
     marginBottom: '0.1vh',
     color: '#dddddd',
     fontSize: '20px',
+    overflow: 'auto',
+    whiteSpace: 'pre', //* - It is preferable to use "nowrap" instead of "pre", but in this case it will be difficult to delete the chat from the database.
   },
   chat: {
     width: '60vw',
@@ -265,7 +277,7 @@ export const useStyles = makeStyles({
     fontSize: '14px',
   },
   chatListItemMessageDateAndTimeMobileDevice: {
-    fontSize: '8px',
+    fontSize: '10px',
   },
   api_users__title: {
     color: '#eeeeee',

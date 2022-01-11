@@ -7,6 +7,7 @@
 
 ::-webkit-scrollbar {
   width: 10px;
+  height: 0;
 }
 
 ::-webkit-scrollbar-track {
@@ -55,6 +56,24 @@
 
 ::-webkit-scrollbar-button:vertical:single-button:increment:hover {
   border-color: #1414b9 transparent transparent transparent;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  border-width: 5px 10px 5px 0;
+  border-color: transparent #7e7ee4 transparent transparent;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:decrement:hover {
+  border-color: transparent #1414b9 transparent transparent;
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+  border-width: 5px 0 5px 10px;
+  border-color: transparent transparent transparent #7e7ee4;
+}
+
+::-webkit-scrollbar-button:horizontal:single-button:increment:hover {
+  border-color: transparent transparent transparent #1414b9;
 }
 
 .center {

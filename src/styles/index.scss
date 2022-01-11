@@ -7,6 +7,7 @@
 //* Контейнер полосы прокрутки:
 ::-webkit-scrollbar {
   width: 10px; //* - ширина полосы прокрутки.
+  height: 0; //* - высота полосы прокрутки.
 }
 
 //* Стилизация дорожки под ползунком:
@@ -64,6 +65,28 @@
 //* Стилизация нижней навигационной кнопки при наведении:
 ::-webkit-scrollbar-button:vertical:single-button:increment:hover {
   border-color: #1414b9 transparent transparent transparent;
+}
+
+//* Стилизация левой навигационной кнопки:
+::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  border-width: 5px 10px 5px 0;
+  border-color: transparent #7e7ee4 transparent transparent;
+}
+
+//* Стилизация левой навигационной кнопки при наведении:
+::-webkit-scrollbar-button:single-button:horizontal:decrement:hover {
+  border-color: transparent #1414b9 transparent transparent;
+}
+
+//* Стилизация правой навигационной кнопки:
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+  border-width: 5px 0 5px 10px;
+  border-color: transparent transparent transparent #7e7ee4;
+}
+
+//* Стилизация правой навигационной кнопки при наведении:
+::-webkit-scrollbar-button:horizontal:single-button:increment:hover {
+  border-color: transparent transparent transparent #1414b9;
 }
 
 .center {

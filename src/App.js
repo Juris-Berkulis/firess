@@ -18,12 +18,15 @@ import { PublicRoute } from './hocs/PublicRoute';
 import { Box } from '@material-ui/core';
 import { Preloader } from './components/Preloader';
 import { allAppComponentsWithPageTitle } from './data/consts';
-import { getPageTitle, giveTitleForPage, makeFullPageTitle } from './helper/helper';
+import { getPageTitle, giveTitleForPage, isMobileDevice, makeFullPageTitle } from './helper/helper';
 import { useChangeEmailVerificationStatus, useWindowDimensions } from './hooks/hooks';
 import { getMobileMenuIsOpenSelector } from './store/MobileMenuStatus/Selectors';
 import { bigChatClose } from './store/BigChatStatus/Action';
+import { useStyles } from './styles/Style';
 
 export const App = () => {
+  const classes = useStyles();
+
   useWindowDimensions();
 
   const dispatch = useDispatch();
@@ -34,6 +37,7 @@ export const App = () => {
   const fullPageTitle = makeFullPageTitle(pageTitle);
   giveTitleForPage(fullPageTitle);
 
+  const isMobileDeviceBoolean = isMobileDevice();
   const mobileMenuOpen = useSelector(getMobileMenuIsOpenSelector);
 
   const emailVerificationStatus = useChangeEmailVerificationStatus(location);
@@ -54,7 +58,7 @@ export const App = () => {
     <Switch>
     <>
       <Header></Header>
-      <Box height='90vh' px='10vw' py='5vh' display={mobileMenuOpen ? 'none' : null}>
+      <Box className={`${classes.field} ${mobileMenuOpen ? classes.field_mobileMenuOpen : null} ${isMobileDeviceBoolean ? classes.field_mobileDevice : null}`}>
         <Route exact path={allAppComponentsWithPageTitle.home.path}>
           <Home></Home>
         </Route>
