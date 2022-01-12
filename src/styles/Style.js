@@ -47,16 +47,20 @@ export const useStyles = makeStyles({
   field_mobileDevice: {
     padding: '2vh 2vw 5vh !important',
   },
-  SigLogField: {
-    minHeight: '80%',
-    maxHeight: '100%',
+  SigLogWrapper: {
+    height: '100%',
     width: '100%',
     backgroundColor: styleConsts.backgroundColor.mainColor1,
     border: '3px solid #cccccc',
     borderRadius: '20px',
-    padding: '5vh 5vw',
+    padding: '0 20px',
     color: '#eeeeee',
     fontSize: '16px',
+  },
+  SigLogField: {
+    height: '100%',
+    width: '100%',
+    padding: '5vh 5vw',
     overflow: 'auto',
   },
   SigLogForm: {
@@ -235,6 +239,7 @@ export const useStyles = makeStyles({
   chatsList: {
     height: '55vh',
     overflow: 'auto',
+    paddingRight: '2vw',
   },
   chatList: {
     width: '100%',
