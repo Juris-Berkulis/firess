@@ -239,7 +239,7 @@ export const useStyles = makeStyles({
   chatsList: {
     height: '55vh',
     overflow: 'auto',
-    paddingRight: '2vw important',
+    paddingRight: '2vw !important',
   },
   chatList: {
     width: '100%',
