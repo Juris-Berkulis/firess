@@ -10,11 +10,9 @@ import { store } from './store/Store';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <div className='main center'>
-        <Provider store={store}>
+      <Provider store={store}>
         <App />
-        </Provider>
-      </div>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

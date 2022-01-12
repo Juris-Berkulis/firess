@@ -1,6 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { styleConsts } from './StyleConsts';
 
 export const useStyles = makeStyles({
+  center: {
+    padding: '0 calc((100% - 90vw) / 2)',
+  },
+  main: {
+    height: '100vh',
+    backgroundColor: styleConsts.backgroundColor.mailColor2,
+    padding: '0 0 10vh',
+  },
   preloader__field: {
     height: '90vh',
     width: '100vw',
@@ -42,7 +51,7 @@ export const useStyles = makeStyles({
     minHeight: '80%',
     maxHeight: '100%',
     width: '100%',
-    backgroundColor: '#000099',
+    backgroundColor: styleConsts.backgroundColor.mainColor1,
     border: '3px solid #cccccc',
     borderRadius: '20px',
     padding: '5vh 5vw',
@@ -104,8 +113,8 @@ export const useStyles = makeStyles({
     margin: '0 10px 1vh',
     padding: '0.3em 0.6em',
     borderRadius: '0.8em',
-    border: 'none',
-    backgroundColor: '#008000',
+    border: '1.5px solid #cccccc',
+    backgroundColor: styleConsts.backgroundColor.mailColor2,
     color: '#eeeeee',
     cursor: 'pointer',
   },
@@ -113,6 +122,11 @@ export const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  SigLogTitle: {
+    fontSize: '1.5em',
+    marginBottom: '1vh',
+    textAlign: 'center',
   },
   SigLogActionWaitingText: {
     fontSize: '1em',
@@ -135,7 +149,7 @@ export const useStyles = makeStyles({
   headerNav: {
     height: '10vh !important',
     minHeight : '10vh !important',
-    backgroundColor: '#000099',
+    backgroundColor: styleConsts.backgroundColor.mainColor1,
   },
   headerNavMobileOpen: {
     position: 'fixed',

@@ -56,7 +56,7 @@ export const App = () => {
   return (
     <PersistGate loading={<Preloader />} persistor={persistor}>
     <Switch>
-    <>
+    <div className={`${classes.main} ${classes.center}`}>
       <Header></Header>
       <Box className={`${classes.field} ${mobileMenuOpen ? classes.field_mobileMenuOpen : null} ${isMobileDeviceBoolean ? classes.field_mobileDevice : null}`}>
         <Route exact path={allAppComponentsWithPageTitle.home.path}>
@@ -86,7 +86,7 @@ export const App = () => {
           <Login></Login>
         </PublicRoute>
       </Box>
-    </>
+    </div>
     </Switch>
     </PersistGate>
   );

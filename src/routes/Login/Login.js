@@ -99,6 +99,7 @@ export const Login = () => {
     verificationWaitingBoolean 
     ? 
     <div className={classes.SigLogActionWaiting}>
+      <h1 className={classes.SigLogTitle}>Верификация</h1>
       <p className={classes.SigLogActionWaitingText}>Ожидание подтверждения электронной почты{infoMessage ? null : `${myEmail ? ` ${myEmail}.` : null}`}</p>
       <img className={classes.SigLogActionPreloader} src={preloader} alt='preloader' width='5vw' />
       {
@@ -126,6 +127,7 @@ export const Login = () => {
     </div>
     : 
     <form className={classes.SigLogForm} onSubmit={handleSubmit}>
+      <h1 className={classes.SigLogTitle}>Вход</h1>
       <p className={classes.SigLogDescription}>Заполните форму для входа в свою учетную запись.</p>
       <div className={`${classes.SigLogEmailArea} ${classes.SigLogArea}`}>
           <input
