@@ -10,7 +10,7 @@ import { auth } from '../../firebase/firebase';
 import { countdownForLetterRequestWithLink, instantUserVerificationChecking, isMobileDevice, requestTheLetter } from '../../helper/helper';
 import { useAutomaticStartOfTheCountdownTimer, useUserVerificationWaiting } from '../../hooks/hooks';
 import { useDispatch, useSelector } from 'react-redux';
-import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from '../../store/AppSwitches/Action';
+import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue, lastAuthorization } from '../../store/AppSwitches/Action';
 import { getStatusesInTheAppCountdownForLetterRequestIsNumberSelector, getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector } from '../../store/AppSwitches/Selectors';
 
 export const Login = () => {
@@ -43,6 +43,12 @@ export const Login = () => {
     e.preventDefault();
     setError("");
     setInfoMessage('');
+
+    const now = new Date().getTime();
+    dispatch({
+      type: lastAuthorization.type,
+      payload: now,
+    });
 
     try {
       await functionsForMocks.login(email, password);

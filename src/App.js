@@ -18,11 +18,13 @@ import { PublicRoute } from './hocs/PublicRoute';
 import { Box } from '@material-ui/core';
 import { Preloader } from './components/Preloader';
 import { allAppComponentsWithPageTitle } from './data/consts';
-import { getPageTitle, giveTitleForPage, isMobileDevice, makeFullPageTitle } from './helper/helper';
+import { allowedPeriodInsideTheApp, getPageTitle, giveTitleForPage, isMobileDevice, makeFullPageTitle } from './helper/helper';
 import { useChangeEmailVerificationStatus, useWindowDimensions } from './hooks/hooks';
 import { getMobileMenuIsOpenSelector } from './store/MobileMenuStatus/Selectors';
 import { bigChatClose } from './store/BigChatStatus/Action';
 import { useStyles } from './styles/Style';
+import { getStatusesInTheAppLastAuthorizationDateAndTimeSelector } from './store/AppSwitches/Selectors';
+import { auth } from './firebase/firebase';
 
 export const App = () => {
   const classes = useStyles();
@@ -39,6 +41,7 @@ export const App = () => {
 
   const isMobileDeviceBoolean = isMobileDevice();
   const mobileMenuOpen = useSelector(getMobileMenuIsOpenSelector);
+  const lastAuthorizationDateAndTime = useSelector(getStatusesInTheAppLastAuthorizationDateAndTimeSelector)
 
   const emailVerificationStatus = useChangeEmailVerificationStatus(location);
 
@@ -51,7 +54,21 @@ export const App = () => {
             type: bigChatClose.type,
         });
     };
-}, [dispatch]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    const unsubscribe = auth.onIdTokenChanged((user) => {
+      if (user) {
+        const now = new Date().getTime();
+        const period = allowedPeriodInsideTheApp(0, 1, 0, 0, 0, 0, 0);
+        if (lastAuthorizationDateAndTime === null || now - lastAuthorizationDateAndTime > period) {
+          auth.signOut();
+        }
+      }
+    });
+
+    return () => unsubscribe()
+  }, [lastAuthorizationDateAndTime]);
 
   return (
     <PersistGate loading={<Preloader />} persistor={persistor}>

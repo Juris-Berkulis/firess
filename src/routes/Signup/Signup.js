@@ -11,7 +11,7 @@ import { countdownForLetterRequestWithLink, isMobileDevice, requestTheLetter, us
 import { useAutomaticStartOfTheCountdownTimer, useUserVerificationWaiting } from '../../hooks/hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStatusesInTheAppCountdownForLetterRequestIsNumberSelector, getStatusesInTheAppIsEmailVerificationConfirmationWaitingSelector } from '../../store/AppSwitches/Selectors';
-import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue } from '../../store/AppSwitches/Action';
+import { emailVerificationConfirmationWaitingIsFalse, emailVerificationConfirmationWaitingIsTrue, lastAuthorization } from '../../store/AppSwitches/Action';
 
 export const Signup = () => {
   const classes = useStyles();
@@ -53,6 +53,12 @@ export const Signup = () => {
     e.preventDefault();
     setError("");
     setInfoMessage('');
+
+    const now = new Date().getTime();
+    dispatch({
+      type: lastAuthorization.type,
+      payload: now,
+    });
 
     try {
       await functionsForMocks.registration(email, password);
