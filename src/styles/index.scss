@@ -4,12 +4,87 @@
   box-sizing: border-box;
 }
 
-.center {
-  padding: 0 calc((100% - 90vw) / 2);
+//* Контейнер полосы прокрутки:
+::-webkit-scrollbar {
+  width: 10px; //* - ширина полосы прокрутки.
+  height: 0; //* - высота полосы прокрутки.
 }
 
-.main {
-  min-height: 100vh;
-  background-color: #008000;
-  padding: 0 0 10vh;
+//* Стилизация дорожки под ползунком:
+::-webkit-scrollbar-track {
+  background: #cdcdf5; //* - цвет фона у дорожки.
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2) inset; //* - тень у дорожки.
+}
+
+//* Стилизация ползунка:
+::-webkit-scrollbar-thumb {
+  background: #7e7ee4; //* - цвет фона у дорожки.
+  border-radius: 8px; //* - скругление углов.
+  border: 3px solid #cdcdf5; //* - толщина, стиль и цвет рамки.
+}
+
+//* Стилизация ползунка при наведении на него:
+::-webkit-scrollbar-thumb:hover {
+  background: #1414b9; //* - ползунок меняет цвет при наведении.
+}
+
+//* Стилизация навигационных кнопок:
+::-webkit-scrollbar-button {
+  background-color: #cdcdf5; //* - цвет навигационных кнопок.
+}
+
+//* Стилизация навигационных кнопок при наведении на них:
+::-webkit-scrollbar-button:hover {
+  background-color: #aaaadd; //* - цвет навигационных кнопок.
+}
+
+//* Дальнейшая стилизация навигационных кнопок:
+::-webkit-scrollbar-button:single-button {
+  border-style: solid;
+  height: 10px;
+  width: 10px;
+}
+
+//* Стилизация верхней навигационной кнопки:
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+  border-width: 0 5px 10px 5px;
+  border-color: transparent transparent #7e7ee4 transparent;
+}
+
+//* Стилизация верхней навигационной кнопки при наведении:
+::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+  border-color: transparent transparent #1414b9 transparent;
+}
+
+//* Стилизация нижней навигационной кнопки:
+::-webkit-scrollbar-button:single-button:vertical:increment {
+  border-width: 10px 5px 0 5px;
+  border-color: #7e7ee4 transparent transparent transparent;
+}
+
+//* Стилизация нижней навигационной кнопки при наведении:
+::-webkit-scrollbar-button:vertical:single-button:increment:hover {
+  border-color: #1414b9 transparent transparent transparent;
+}
+
+//* Стилизация левой навигационной кнопки:
+::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  border-width: 5px 10px 5px 0;
+  border-color: transparent #7e7ee4 transparent transparent;
+}
+
+//* Стилизация левой навигационной кнопки при наведении:
+::-webkit-scrollbar-button:single-button:horizontal:decrement:hover {
+  border-color: transparent #1414b9 transparent transparent;
+}
+
+//* Стилизация правой навигационной кнопки:
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+  border-width: 5px 0 5px 10px;
+  border-color: transparent transparent transparent #7e7ee4;
+}
+
+//* Стилизация правой навигационной кнопки при наведении:
+::-webkit-scrollbar-button:horizontal:single-button:increment:hover {
+  border-color: transparent transparent transparent #1414b9;
 }

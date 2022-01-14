@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { NAVIGATION as navigation } from '../../data/navigation';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
@@ -6,20 +6,57 @@ import { useStyles } from '../../styles/Style';
 import { HeaderUI } from '../../ui_components/HeaderUI.jsx';
 import { auth } from '../../firebase/firebase';
 import { allAppComponentsWithPageTitle } from '../../data/consts';
+import { isMobileDevice } from '../../helper/helper';
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMobileMenuIsOpenSelector } from '../../store/MobileMenuStatus/Selectors';
+import { closeMobileMenuStatus, toggleMobileMenuStatus } from '../../store/MobileMenuStatus/Action';
+import { useChangeEmailVerificationStatus } from '../../hooks/hooks';
+import { functionsForMocks } from '../../helper/forMocks/functions';
 
 export const Header = () => {
     const classes = useStyles();
 
-    const navigationForProps = navigation.map((item) => <Button className={classes.headerNavItem} to={item.href} component={Link} key={item.name}>{item.name}</Button>);
+    const location = useLocation();
 
-    const [authed, setAuthed] = useState(false);
+    const isMobileDeviceProps = isMobileDevice();
 
-    const logoutUser = () => {
+    const dispatch = useDispatch();
+    const mobileMenuOpen = useSelector(getMobileMenuIsOpenSelector);
+    
+    const navigationForProps = navigation.map((item) => <Button className={`${classes.headerNavItem} ${isMobileDeviceProps && !mobileMenuOpen ? classes.headerNavItemMobile : null}`} to={item.href} component={Link} key={item.name}>{item.name}</Button>);
+
+    const emailVerificationStatus = useChangeEmailVerificationStatus(location);
+
+    const logoutUser = async () => {
         auth.signOut();
+        if (auth.currentUser) {
+            await functionsForMocks.userReload();
+        }
     };
 
+    const showMobileMenu = () => {
+        dispatch({
+            type: toggleMobileMenuStatus.type,
+        })
+    };
+
+    const showBurgerMenuProps = (
+        isMobileDeviceProps
+        ?
+        (
+            !mobileMenuOpen 
+            ? 
+            <Button className={`${classes.headerNavItem}`} onClick={showMobileMenu}>Меню</Button> 
+            : 
+            <Button className={`${classes.headerNavItem}`} onClick={showMobileMenu}>Закрыть</Button>
+        )
+        :
+        null
+    );
+
     const showLogOutBtnForProps = (
-        authed 
+        emailVerificationStatus 
         ? 
         <Button className={classes.headerNavItem} onClick={logoutUser}>{allAppComponentsWithPageTitle.logout.displayTitle}</Button> 
         : 
@@ -30,16 +67,12 @@ export const Header = () => {
     );
 
     useEffect(() => {
-        auth.onAuthStateChanged((user) => {
-        if (user) {
-            setAuthed(true);
-        } else {
-            setAuthed(false);
-        }
+        dispatch({
+            type: closeMobileMenuStatus.type,
         })
-    }, []);
+    }, [location, dispatch]);
 
     return (
-        <HeaderUI classes={classes} navigationForProps={navigationForProps} showLogOutBtnForProps={showLogOutBtnForProps}></HeaderUI>
+        <HeaderUI classes={classes} navigationForProps={navigationForProps} showLogOutBtnForProps={showLogOutBtnForProps} showBurgerMenuProps={showBurgerMenuProps} mobileMenuOpen={mobileMenuOpen}></HeaderUI>
     )
 };

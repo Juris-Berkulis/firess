@@ -1,4 +1,7 @@
-import { allAppComponentsWithPageTitle, appTitle } from "../data/consts";
+import { allAppComponentsWithPageTitle, appTitle, mobileScreenWidth } from "../data/consts";
+import { auth } from "../firebase/firebase";
+import { countdownForLetterRequest } from "../store/AppSwitches/Action";
+import { functionsForMocks } from "./forMocks/functions";
 
 export const sendMessage = (author, text, chatId) => {
     const somebodyMessage = {
@@ -38,4 +41,133 @@ export const makeFullPageTitle = (pageTitle) => {
 
 export const giveTitleForPage = (title) => {
     return title ? (document.title = title) : (document.title = appTitle.name);
+};
+
+export const getWindowDimensions = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+
+    const screenDimensions = {width: width, height: height};
+    return screenDimensions
+};
+
+export const isMobileDevice = () => {
+    if (getWindowDimensions().width < mobileScreenWidth) {
+        return true
+    } else {
+        return false
+    };
+};
+
+export const screenHeightLessThan = (screenHeight) => {
+    if (getWindowDimensions().height < screenHeight) {
+        return true
+    } else {
+        return false
+    };
+};
+
+export const userVerificationWaiting = (verificationWaitingBoolean, push) => {
+    const timerId = setInterval(async () => {
+        if (auth.currentUser) {
+            await functionsForMocks.userReload();
+
+            if (auth.currentUser && auth.currentUser.emailVerified) {
+                push(allAppComponentsWithPageTitle.profile.path);
+                verificationWaitingBoolean = false;
+
+                return {waiting: verificationWaitingBoolean, clear: clearInterval(timerId)}
+            }
+        } else {
+            verificationWaitingBoolean = false;
+
+            return {waiting: verificationWaitingBoolean, clear: clearInterval(timerId)}
+        }
+    }, 5000);
+};
+
+export const instantUserVerificationChecking = async (verificationWaitingBoolean, push) => {
+    if (auth.currentUser) {
+        verificationWaitingBoolean = false;
+        await functionsForMocks.userReload();
+        if (auth.currentUser && auth.currentUser.emailVerified) {
+            push(allAppComponentsWithPageTitle.profile.path);
+
+            return verificationWaitingBoolean
+        } else if (auth.currentUser && !auth.currentUser.emailVerified) {
+            verificationWaitingBoolean = true;
+            const isLoading = userVerificationWaiting(verificationWaitingBoolean, push);
+            const waiting = (isLoading && isLoading.waiting ? isLoading.waiting : null);
+            if (isLoading && isLoading.clear) {
+                isLoading.clear();
+            }
+
+            if (waiting === false) {
+                verificationWaitingBoolean = false;
+            }
+
+            return verificationWaitingBoolean
+        }
+    }
+};
+
+export const confirmSendingOfTheVerificationLetter = (myEmail) => {
+    return {
+        success: `Письмо отправлено${myEmail ? ` на ${myEmail}` : null}. Перейдите по ссылке в письме, чтобы завершить процесс регистрации.`, 
+        error: `Выполните вход!`,
+    }
+};
+
+export const requestTheLetter = async (myEmail) => {
+    if (auth.currentUser) {
+        await functionsForMocks.checkEmail();
+        const infoMessage = confirmSendingOfTheVerificationLetter(myEmail).success;
+
+        return infoMessage
+    } else if (!auth.currentUser) {
+        const error = confirmSendingOfTheVerificationLetter(myEmail).error;
+
+        return error
+    }
+};
+
+export const countdownForLetterRequestWithLink = (dispatch, startValueForTimer) => {
+    let counter = startValueForTimer;
+
+    const intervalId = setInterval(() => {
+        dispatch({
+            type: countdownForLetterRequest.type,
+            payload: counter,
+        });
+        if (counter <= 0) {
+            dispatch({
+                type: countdownForLetterRequest.type,
+                payload: 0,
+            });
+
+            return clearTimeout(intervalId)
+        }
+        counter--;
+    }, 1000);
+};
+
+export const allowedPeriodInsideTheApp = (
+    years, 
+    weeks, 
+    days, 
+    hours, 
+    minutes, 
+    seconds, 
+    milliseconds
+) => {
+    const period = (
+        milliseconds 
+        + seconds * 1000 
+        + minutes * 60 * 1000 
+        + hours * 60 * 60 * 1000 
+        + days * 24 * 60 * 60 * 1000 
+        + weeks * 7 * 24 * 60 * 60 * 1000 
+        + years * 365 * 24 * 60 * 60 * 1000
+    );
+
+    return period
 };

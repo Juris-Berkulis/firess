@@ -3,6 +3,8 @@ export const appTitle = {
     delimiter: '. ',
 }
 
+export const mobileScreenWidth = 1000;
+
 export const allAppComponentsWithPageTitle = {
     home: {
         pageTitle: 'Домашняя страница',
@@ -67,3 +69,5 @@ export const allAppComponentsWithPageTitle = {
         pathCheck: /^\/messenger\/\d{13}$/,
     },
 };
+
+export const startValueForTimer = 91;

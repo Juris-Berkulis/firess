@@ -10,7 +10,7 @@ export const Profile = () => {
     const dispatch = useDispatch();
     const isChecked = useSelector(getProfileCheckedSelector);
 
-    const myEmail = auth.currentUser.email;
+    const myEmail = (auth.currentUser !== null ? auth.currentUser.email : null);
 
     const myEmailForProps = isChecked ? <span>{myEmail}</span> : <span>Скрыто</span>;
 

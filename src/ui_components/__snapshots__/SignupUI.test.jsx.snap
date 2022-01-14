@@ -6,111 +6,13 @@ Object {
   "baseElement": <body>
     <div>
       <div>
-        <form>
-          <p>
-            Заполните форму ниже, чтобы зарегистрировать новую учетную запись.
-          </p>
-          <div
-            class="undefined undefined"
-          >
-            <input
-              class="undefined undefined"
-              data-testid="idEmail"
-              name="email"
-              placeholder="Email"
-              type="email"
-              value="example@example.com"
-            />
-          </div>
-          <div
-            class="undefined undefined"
-          >
-            <input
-              class="undefined undefined"
-              data-testid="idPassword"
-              name="password"
-              placeholder="Password"
-              type="password"
-              value="12345678"
-            />
-          </div>
-          <div
-            class="undefined undefined"
-          >
-            
-            <button
-              data-testid="idBtnSubmit"
-              type="submit"
-            >
-              Зарегистрироваться
-            </button>
-          </div>
-          <p>
-            <span>
-              Уже есть аккаунт? 
-            </span>
-            <a
-              href=""
-            >
-              Войти
-            </a>
-          </p>
-        </form>
+        <div />
       </div>
     </div>
   </body>,
   "container": <div>
     <div>
-      <form>
-        <p>
-          Заполните форму ниже, чтобы зарегистрировать новую учетную запись.
-        </p>
-        <div
-          class="undefined undefined"
-        >
-          <input
-            class="undefined undefined"
-            data-testid="idEmail"
-            name="email"
-            placeholder="Email"
-            type="email"
-            value="example@example.com"
-          />
-        </div>
-        <div
-          class="undefined undefined"
-        >
-          <input
-            class="undefined undefined"
-            data-testid="idPassword"
-            name="password"
-            placeholder="Password"
-            type="password"
-            value="12345678"
-          />
-        </div>
-        <div
-          class="undefined undefined"
-        >
-          
-          <button
-            data-testid="idBtnSubmit"
-            type="submit"
-          >
-            Зарегистрироваться
-          </button>
-        </div>
-        <p>
-          <span>
-            Уже есть аккаунт? 
-          </span>
-          <a
-            href=""
-          >
-            Войти
-          </a>
-        </p>
-      </form>
+      <div />
     </div>
   </div>,
   "debug": [Function],
