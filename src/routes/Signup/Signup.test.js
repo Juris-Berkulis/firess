@@ -4,6 +4,8 @@ import { Signup } from "./Signup";
 import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { functionsForMocks } from '../../helper/forMocks/functions';
+import { Provider } from 'react-redux'
+import { store } from "../../store/Store";
 
 jest.mock('../../helper/forMocks/functions');
 
@@ -14,7 +16,7 @@ describe('Signup component', () => {
 
         const historyMock = { push: jest.fn(), listen: jest.fn() };
 
-        const component = render(<BrowserRouter history={historyMock}><Signup /></BrowserRouter>);
+        const component = render(<Provider store={store}><BrowserRouter history={historyMock}><Signup /></BrowserRouter></Provider>);
 
         const fieldEmail = component.queryByTestId('idEmail');
         const fieldPassword = component.queryByTestId('idPassword');
