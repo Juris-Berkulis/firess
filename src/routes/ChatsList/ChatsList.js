@@ -9,7 +9,7 @@ import { ChatsListUI } from '../../ui_components/ChatsListUI.jsx';
 import { offTrackingAddInChatsListWithThunkAction, offTrackingRemoveFromChatsListWithThunkAction, onTrackingAddInChatsListWithThunkAction, onTrackingRemoveFromChatsListWithThunkAction } from '../../store/ChatsList/Action';
 import { offTrackingRemoveMessageInChatListWithThunkAction, onTrackingRemoveMessageInChatListWithThunkAction } from '../../store/ChatList/Action';
 import { getBigChatIsOpenSelector } from '../../store/BigChatStatus/Selectors';
-import { isMobileDevice } from '../../helper/helper';
+import { isMobileDevice, isNumberOrString, sortingConditions } from '../../helper/helper';
 import { bigChatClose } from '../../store/BigChatStatus/Action';
 
 export const ChatsList = () => {
@@ -20,16 +20,10 @@ export const ChatsList = () => {
     const dispatch = useDispatch();
 
     const rulesForSortingTheChatsList = (a, b) => {
-        const chatNameA = (+a.name ? +a.name : a.name.toLowerCase());
-        const chatNameB = (+b.name ? +b.name : b.name.toLowerCase());
+        const chatNameA = isNumberOrString(a.name);
+        const chatNameB = isNumberOrString(b.name);
 
-        if (chatNameA < chatNameB) {
-            return -1
-        } else if (chatNameA > chatNameB) {
-            return 1
-        } else {
-            return 0
-        };
+        return sortingConditions(chatNameA, chatNameB)
     };
 
     const chatsListRed = useSelector(getChatsListChatsKindOfListSelector).sort(rulesForSortingTheChatsList);

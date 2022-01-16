@@ -171,3 +171,56 @@ export const allowedPeriodInsideTheApp = (
 
     return period
 };
+
+export const isValidNumber = (valueStr) => {
+    if (valueStr[0] === '+') {
+        return false
+    } else if (valueStr[0] === '0' && valueStr[1] && valueStr[1] !== '.') {
+        return false
+    } else if (valueStr[0] === '-' && valueStr[1] && valueStr[1] === '0' && (!valueStr[2] || (valueStr[2] && valueStr[2] !== '.'))) {
+        return false
+    }
+    return true
+};
+
+export const isNumberOrString = (value) => {
+    const validNumber = isValidNumber(String(value));
+
+    const item = (
+        (
+                value === '0' 
+                || 
+                value === 0 
+                || 
+                (
+                    +value 
+                    && 
+                    validNumber
+                ) 
+        ) 
+        ? 
+        +value 
+        : 
+        value.toLowerCase()
+    );
+
+    return item
+};
+
+export const sortingConditions = (num1, num2) => {
+    if (num1 === num2) {
+        return 0
+    } else if (typeof(num1) === 'number' && typeof(num2) === 'string') {
+        return -1
+    } else if (typeof(num2) === 'number' && typeof(num1) === 'string') {
+        return 1
+    } else {
+        if (num1 < num2) {
+            return -1
+        } else if (num1 > num2) {
+            return 1
+        } else {
+            return 0
+        };
+    };
+};
