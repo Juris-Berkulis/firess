@@ -11,6 +11,7 @@ import { offTrackingRemoveMessageInChatListWithThunkAction, onTrackingRemoveMess
 import { getBigChatIsOpenSelector } from '../../store/BigChatStatus/Selectors';
 import { isMobileDevice, isNumberOrString, sortingConditions } from '../../helper/helper';
 import { bigChatClose } from '../../store/BigChatStatus/Action';
+import { getStatusesInTheAppValueInChatsListInputIsSelector } from '../../store/AppSwitches/Selectors';
 
 export const ChatsList = () => {
     const classes = useStyles();
@@ -26,9 +27,10 @@ export const ChatsList = () => {
         return sortingConditions(chatNameA, chatNameB)
     };
 
+    const valueInChatsListInput = useSelector(getStatusesInTheAppValueInChatsListInputIsSelector);
     const chatsListRed = useSelector(getChatsListChatsKindOfListSelector).sort(rulesForSortingTheChatsList);
 
-    const newChatsListRed = chatsListRed.map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}</ListItem>);
+    const newChatsListRed = chatsListRed.filter(chat => chat.name.includes(valueInChatsListInput.toLowerCase())).map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}</ListItem>);
 
     useEffect(() => {
         dispatch(onTrackingAddInChatsListWithThunkAction);

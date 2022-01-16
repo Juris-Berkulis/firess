@@ -8,6 +8,7 @@ export const ChangeChatsListUI = (props) => {
             <InputBase className={props.classes.changeContactNameInput} placeholder="Название чата" label="Название чата" type="text" onChange={props.onSaveNameFromInput} value={props.valueName} />
             {props.nameAlreadyExistsForProps}
             {props.nameNotFoundForProps}
+            {props.chatsListRedNotEmptyProps}
             <div className={props.classes.changeContactNameButtons}>
                 <IconButton type='submit'>
                 <PersonAdd className={props.classes.changeContactNameIcon} />

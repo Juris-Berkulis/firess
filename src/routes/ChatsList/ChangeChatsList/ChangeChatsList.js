@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { valueInChatsListInput } from '../../../store/AppSwitches/Action';
 import { removeMessageInChatListWithThunkAction } from '../../../store/ChatList/Action';
 import { addInChatsListWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
 import { getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
@@ -11,9 +12,11 @@ export const ChangeChatsList = () => {
   const [valueName, setValueName] = useState('');
   const [nameAlreadyExists, setNameAlreadyExists] = useState(false);
   const [nameNotFound, setNameNotFound] = useState(false);
+  const [chatsListRedNotEmpty, setChatsListRedNotEmpty] = useState(true);
 
-  const nameAlreadyExistsForProps = nameAlreadyExists ? <p className={classes.textAttention}>Имя уже существует</p> : null;
-  const nameNotFoundForProps = nameNotFound ? <p className={classes.textAttention}>Имя не найдено</p> : null
+  const nameAlreadyExistsForProps = nameAlreadyExists ? <p className={classes.textAttention}>Чат уже существует</p> : null;
+  const nameNotFoundForProps = nameNotFound ? <p className={classes.textAttention}>Чат не найден</p> : null
+  const chatsListRedNotEmptyProps = !chatsListRedNotEmpty ? <p className={classes.textAttention}>Нет похожих чатов</p> : null
 
   const dispatch = useDispatch();
   const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
@@ -22,6 +25,12 @@ export const ChangeChatsList = () => {
     setValueName(event.target.value);
     setNameAlreadyExists(false);
     setNameNotFound(false);
+
+    if (chatsListRed.filter(chat => chat.name.includes(event.target.value.toLowerCase())).length) {
+      setChatsListRedNotEmpty(true)
+    } else {
+      setChatsListRedNotEmpty(false)
+    }
   };
 
   const resetValue = () => {
@@ -46,6 +55,7 @@ export const ChangeChatsList = () => {
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
     setNameNotFound(false);
+    setChatsListRedNotEmpty(true);
     if (valueName !== '') {
       if (!(chatsListRed.find((item) => item.name === valueName))) {
         setNameAlreadyExists(false);
@@ -60,6 +70,7 @@ export const ChangeChatsList = () => {
 
   const deliteContact = () => {
     setNameAlreadyExists(false);
+    setChatsListRedNotEmpty(true);
     if (chatsListRed.find((item) => item.name === valueName)) {
       setNameNotFound(false);
       const [delChatsListRed] = chatsListRed.filter((item) => item.name === valueName);
@@ -71,7 +82,14 @@ export const ChangeChatsList = () => {
     }
   };
 
+  useEffect(() => {
+    dispatch({
+      type: valueInChatsListInput.type,
+      payload: valueName,
+    });
+  }, [dispatch, valueName]);
+
   return (
-    <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} nameAlreadyExistsForProps={nameAlreadyExistsForProps} nameNotFoundForProps={nameNotFoundForProps} deliteContact={deliteContact}></ChangeChatsListUI>
+    <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} nameAlreadyExistsForProps={nameAlreadyExistsForProps} nameNotFoundForProps={nameNotFoundForProps} deliteContact={deliteContact} chatsListRedNotEmptyProps={chatsListRedNotEmptyProps}></ChangeChatsListUI>
   )
 };
