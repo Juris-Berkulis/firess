@@ -6,9 +6,8 @@ export const ChangeChatsListUI = (props) => {
     return (
         <Box className={props.classes.changeContactNameForm} component='form' onSubmit={props.onSubmit}>
             <InputBase className={props.classes.changeContactNameInput} placeholder="Название чата" label="Название чата" type="text" onChange={props.onSaveNameFromInput} value={props.valueName} />
-            {props.nameAlreadyExistsForProps}
-            {props.nameNotFoundForProps}
-            {props.chatsListRedNotEmptyProps}
+            {props.errorForProps}
+            {props.successForProps}
             <div className={props.classes.changeContactNameButtons}>
                 <IconButton type='submit'>
                 <PersonAdd className={props.classes.changeContactNameIcon} />

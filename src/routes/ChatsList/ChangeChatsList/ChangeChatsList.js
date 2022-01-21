@@ -10,26 +10,22 @@ import { ChangeChatsListUI } from '../../../ui_components/ChangeChatsListUI.jsx'
 export const ChangeChatsList = () => {
   const classes = useStyles();
   const [valueName, setValueName] = useState('');
-  const [nameAlreadyExists, setNameAlreadyExists] = useState(false);
-  const [nameNotFound, setNameNotFound] = useState(false);
-  const [chatsListRedNotEmpty, setChatsListRedNotEmpty] = useState(true);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const nameAlreadyExistsForProps = nameAlreadyExists ? <p className={classes.textAttention}>Чат уже существует</p> : null;
-  const nameNotFoundForProps = nameNotFound ? <p className={classes.textAttention}>Чат не найден</p> : null
-  const chatsListRedNotEmptyProps = !chatsListRedNotEmpty ? <p className={classes.textAttention}>Нет похожих чатов</p> : null
+  const errorForProps = error ? <p className={`${classes.chatsListActionResaltInfo} ${classes.chatsListActionResaltInfo_attention}`}>{error}</p> : null
+  const successForProps = success ? <p className={`${classes.chatsListActionResaltInfo} ${classes.chatsListActionResaltInfo_success}`}>{success}</p> : null
 
   const dispatch = useDispatch();
   const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
 
   const onSaveNameFromInput = (event) => {
     setValueName(event.target.value);
-    setNameAlreadyExists(false);
-    setNameNotFound(false);
+    setError(false);
+    setSuccess(false);
 
-    if (chatsListRed.filter(chat => chat.name.includes(event.target.value.toLowerCase())).length) {
-      setChatsListRedNotEmpty(true)
-    } else {
-      setChatsListRedNotEmpty(false)
+    if (!chatsListRed.filter(chat => chat.name.includes(event.target.value.toLowerCase())).length) {
+      setError('Нет похожих чатов');
     }
   };
 
@@ -54,31 +50,39 @@ export const ChangeChatsList = () => {
 
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
-    setNameNotFound(false);
-    setChatsListRedNotEmpty(true);
+    setError(false);
+    setSuccess(false);
     if (valueName !== '') {
       if (!(chatsListRed.find((item) => item.name === valueName))) {
-        setNameAlreadyExists(false);
         const newContact = addContact(valueName);
         dispatch(addInChatsListWithThunkAction(newContact));
+        const newChat = valueName;
+        setSuccess(`Чат "${newChat}" добавлен`);
         resetValue();
       } else {
-        setNameAlreadyExists(true);
+        setError('Чат уже существует');
       }
+    } else {
+      setError('Ведите название чата');
     }
   };
 
   const deliteContact = () => {
-    setNameAlreadyExists(false);
-    setChatsListRedNotEmpty(true);
-    if (chatsListRed.find((item) => item.name === valueName)) {
-      setNameNotFound(false);
-      const [delChatsListRed] = chatsListRed.filter((item) => item.name === valueName);
-      dispatch(removeFromChatsListWithThunkAction(delChatsListRed.key, delChatsListRed.name));
-      dispatch(removeMessageInChatListWithThunkAction(delChatsListRed.key));
-      resetValue();
+    setError(false);
+    setSuccess(false);
+    if (valueName !== '') {
+      if (chatsListRed.find((item) => item.name === valueName)) {
+        const [delChatsListRed] = chatsListRed.filter((item) => item.name === valueName);
+        dispatch(removeFromChatsListWithThunkAction(delChatsListRed.key, delChatsListRed.name));
+        dispatch(removeMessageInChatListWithThunkAction(delChatsListRed.key));
+        const deleteChat = valueName;
+        setSuccess(`Чат "${deleteChat}" удален`);
+        resetValue();
+      } else {
+        setError('Чат не найден');
+      }
     } else {
-      setNameNotFound(true);
+      setError('Ведите название чата');
     }
   };
 
@@ -90,6 +94,6 @@ export const ChangeChatsList = () => {
   }, [dispatch, valueName]);
 
   return (
-    <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} nameAlreadyExistsForProps={nameAlreadyExistsForProps} nameNotFoundForProps={nameNotFoundForProps} deliteContact={deliteContact} chatsListRedNotEmptyProps={chatsListRedNotEmptyProps}></ChangeChatsListUI>
+    <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} deliteContact={deliteContact} errorForProps={errorForProps} successForProps={successForProps}></ChangeChatsListUI>
   )
 };

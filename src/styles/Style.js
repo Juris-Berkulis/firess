@@ -174,13 +174,19 @@ export const useStyles = makeStyles({
   headerNavItemMobile: {
     display: 'none',
   },
-  textAttention: {
-    color: '#ff0000',
+  chatsListActionResaltInfo: {
     textAlign: 'center',
     backgroundColor: '#eeeeee',
-    margin: '0 1.8vw',
+    margin: '0 5vw',
+    padding: '0 2vw',
     borderBottomLeftRadius: '2.5vw',
     borderBottomRightRadius: '2.5vw',
+  },
+  chatsListActionResaltInfo_attention: {
+    color: '#ff0000',
+  },
+  chatsListActionResaltInfo_success: {
+    color: '#33aa33',
   },
   changeContactNameForm: {
     width: '100%',
