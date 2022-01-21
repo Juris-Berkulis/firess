@@ -63,7 +63,7 @@ export const ChangeChatsList = () => {
         setError('Чат уже существует');
       }
     } else {
-      setError('Ведите название чата');
+      setError('Введите название чата');
     }
   };
 
@@ -82,7 +82,7 @@ export const ChangeChatsList = () => {
         setError('Чат не найден');
       }
     } else {
-      setError('Ведите название чата');
+      setError('Введите название чата');
     }
   };
 

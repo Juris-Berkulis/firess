@@ -177,8 +177,8 @@ export const useStyles = makeStyles({
   chatsListActionResaltInfo: {
     textAlign: 'center',
     backgroundColor: '#eeeeee',
-    margin: '0 5vw',
-    padding: '0 2vw',
+    margin: '0 2.5vw',
+    padding: '0 2.5vw',
     borderBottomLeftRadius: '2.5vw',
     borderBottomRightRadius: '2.5vw',
   },
@@ -196,7 +196,7 @@ export const useStyles = makeStyles({
     width: '100%',
     backgroundColor: '#eeeeee',
     padding: '0 2.5vw',
-    borderRadius: '5vw',
+    borderRadius: '2.5vw',
   },
   changeContactNameButtons: {
     display: 'flex',
