@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { MAXIMUM_NUMBER_OF_CHARACTERS_FOR_A_CHAT_NAME } from '../../../data/consts';
 import { valueInChatsListInput } from '../../../store/AppSwitches/Action';
 import { removeMessageInChatListWithThunkAction } from '../../../store/ChatList/Action';
 import { addInChatsListWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
@@ -24,7 +25,7 @@ export const ChangeChatsList = () => {
     setError(false);
     setSuccess(false);
 
-    if (!chatsListRed.filter(chat => chat.name.includes(event.target.value.toLowerCase())).length) {
+    if (!chatsListRed.filter(chat => chat.name.toLowerCase().includes(event.target.value.toLowerCase())).length) {
       setError('Нет похожих чатов');
     }
   };
@@ -48,19 +49,79 @@ export const ChangeChatsList = () => {
     return newContact
   };
 
+  const validChatNameLength = (chatName, maxLength) => {
+    if (chatName.length <= maxLength) {
+      return true
+    }
+    
+    setError(`Максимум ${maxLength} символов`);
+    return false
+  };
+
+  const validCharactersInTheChatName = (chatName) => {
+    const regExp = /^[0-9a-zа-яё_\s(),.[\]{}\-@]+$/i;
+    if (regExp.test(chatName)) {
+      return true
+    }
+
+    setError('Только "цифры, буквы, скобки, @, пробел, _, -, . и ,"');
+    return false
+  };
+
+  const validStartOfString = (chatName) => {
+    const regExp = /^[0-9a-zа-яё\-_]/i;
+    if (regExp.test(chatName)) {
+      return true
+    }
+
+    setError('Нельзя начинать со спец. символов');
+    return false
+  };
+
+  const validEndOfString = (chatName) => {
+    const regExp = /[^,]$/i;
+    if (regExp.test(chatName)) {
+      return true
+    }
+
+    setError('Запятая в конце');
+    return false
+  };
+
+  const removeSpacesAtTheBeginningAndAtTheEndOfTheString = (chatName) => {
+    return chatName.replace(/^\s+|\s+$/g, '')
+  };
+
+  const combineSameCharacters = (chatName) => {
+    chatName = chatName.replace(/\s+/g, ' ');
+    chatName = chatName.replace(/,+/g, ',');
+    
+    return removeSpacesAtTheBeginningAndAtTheEndOfTheString(chatName)
+  };
+
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
     setError(false);
     setSuccess(false);
     if (valueName !== '') {
-      if (!(chatsListRed.find((item) => item.name === valueName))) {
-        const newContact = addContact(valueName);
-        dispatch(addInChatsListWithThunkAction(newContact));
-        const newChat = valueName;
-        setSuccess(`Чат "${newChat}" добавлен`);
-        resetValue();
-      } else {
-        setError('Чат уже существует');
+      if (
+        validChatNameLength(valueName, MAXIMUM_NUMBER_OF_CHARACTERS_FOR_A_CHAT_NAME) 
+        && 
+        validCharactersInTheChatName(valueName) 
+        && 
+        validStartOfString(valueName) 
+        && 
+        validEndOfString(valueName)
+      ) {
+        const newValueName = combineSameCharacters(valueName);
+        if (!(chatsListRed.find((item) => item.name === newValueName))) {
+          const newContact = addContact(newValueName);
+          dispatch(addInChatsListWithThunkAction(newContact));
+          setSuccess(`Чат "${newValueName}" добавлен`);
+          resetValue();
+        } else {
+          setError('Чат уже существует');
+        }
       }
     } else {
       setError('Введите название чата');
