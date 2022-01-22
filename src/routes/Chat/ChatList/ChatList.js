@@ -152,11 +152,24 @@ export const ChatList = () => {
         return `${validLocalNumber} ${validLocalMonth} ${validLocalYear} в ${validLocalHour}:${validLocalMinute}:${validLocalSecond}`
     };
     
+    const convertStringLinksToWorkingLinks = (text) => {
+        const regExp = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$])/i;
+        let newText;
+        const listWithStringLinks = text.match(regExp);
+        if (listWithStringLinks !== null) {
+            newText = text.split(' ').map((e) => (regExp.test(e) ? `<a href=${e} target="_blank">${e}</a>` : e)).join(' ')
+        } else {
+            newText = text;
+        }
+
+        return newText
+    };
+    
     const chatListRedForProps = chatListRed.map((item, index) => (
         <ListItem className={`${classes.chatListItem} ${item.author === myEmail ? classes.chatListItemMe : classes.chatListItemSomebody}`} key={index}>
             <div className={`${classes.chatListItemMessage} ${item.author === myEmail ? classes.chatListItemMessageMe : classes.chatListItemMessageSomebody}`}>
                 <p className={`${classes.chatListItemMessageAuthor} ${isMobileDeviceBoolean ? classes.chatListItemMessageAuthorMobileDevice : null}`}>[{item.author}]:</p>
-                <p className={`${classes.chatListItemMessageText} ${isMobileDeviceBoolean ? classes.chatListItemMessageTextMobileDevice : null}`}>{item.text}</p>
+                <p className={`${classes.chatListItemMessageText} ${isMobileDeviceBoolean ? classes.chatListItemMessageTextMobileDevice : null}`} dangerouslySetInnerHTML={{__html: convertStringLinksToWorkingLinks(item.text)}}></p>
                 <p className={`${classes.chatListItemMessageDateAndTime} ${isMobileDeviceBoolean ? classes.chatListItemMessageDateAndTimeMobileDevice : null}`}>{item.messageUTCDateAndTime ? getLocalDateAndTime(item.messageUTCDateAndTime) : 'Нет данных'}</p>
             </div>
         </ListItem>
