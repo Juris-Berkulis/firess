@@ -99,6 +99,15 @@ export const ChangeChatsList = () => {
     return removeSpacesAtTheBeginningAndAtTheEndOfTheString(chatName)
   };
 
+  const autoClearSuccessAndError = () => {
+    const timerId = setTimeout(() => {
+      setError(false);
+      setSuccess(false);
+      
+      return clearTimeout(timerId)
+    }, 5000);
+  }
+
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
     setError(false);
@@ -126,6 +135,8 @@ export const ChangeChatsList = () => {
     } else {
       setError('Введите название чата');
     }
+
+    autoClearSuccessAndError();
   };
 
   const deliteContact = () => {
@@ -145,6 +156,8 @@ export const ChangeChatsList = () => {
     } else {
       setError('Введите название чата');
     }
+
+    autoClearSuccessAndError();
   };
 
   useEffect(() => {
