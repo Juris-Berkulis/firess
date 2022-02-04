@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, InputBase, IconButton } from '@material-ui/core';
-import { PersonAdd, DeleteForever } from '@material-ui/icons';
+import { PersonAdd, DeleteForever, AccessTime } from '@material-ui/icons';
 
 export const ChangeChatsListUI = (props) => {
     return (
@@ -15,6 +15,15 @@ export const ChangeChatsListUI = (props) => {
                 <IconButton onClick={props.deliteContact}>
                 <DeleteForever className={props.classes.changeContactNameIcon} />
                 </IconButton>
+                {
+                    props.isMobileDeviceBoolean 
+                    ? 
+                    <IconButton onClick={props.openAquarium}>
+                    <AccessTime className={props.classes.changeContactNameIcon} />
+                    </IconButton>
+                    : 
+                    null
+                }
             </div>
         </Box>
     )

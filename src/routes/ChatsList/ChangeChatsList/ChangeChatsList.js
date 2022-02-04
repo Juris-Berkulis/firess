@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MAXIMUM_NUMBER_OF_CHARACTERS_FOR_A_CHAT_NAME } from '../../../data/consts';
-import { valueInChatsListInput } from '../../../store/AppSwitches/Action';
+import { isMobileDevice } from '../../../helper/helper';
+import { aquariumStatus, valueInChatsListInput } from '../../../store/AppSwitches/Action';
 import { removeMessageInChatListWithThunkAction } from '../../../store/ChatList/Action';
 import { addInChatsListWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
 import { getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
@@ -19,6 +20,7 @@ export const ChangeChatsList = () => {
 
   const dispatch = useDispatch();
   const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
+  const isMobileDeviceBoolean = isMobileDevice();
 
   const onSaveNameFromInput = (event) => {
     setValueName(event.target.value);
@@ -160,6 +162,13 @@ export const ChangeChatsList = () => {
     autoClearSuccessAndError();
   };
 
+  const openAquarium = () => {
+    dispatch({
+        type: aquariumStatus.type,
+        payload: true,
+    });
+};
+
   useEffect(() => {
     dispatch({
       type: valueInChatsListInput.type,
@@ -168,6 +177,6 @@ export const ChangeChatsList = () => {
   }, [dispatch, valueName]);
 
   return (
-    <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} deliteContact={deliteContact} errorForProps={errorForProps} successForProps={successForProps}></ChangeChatsListUI>
+    <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} deliteContact={deliteContact} errorForProps={errorForProps} successForProps={successForProps} openAquarium={openAquarium} isMobileDeviceBoolean={isMobileDeviceBoolean}></ChangeChatsListUI>
   )
 };

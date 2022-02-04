@@ -40,6 +40,7 @@ export const useStyles = makeStyles({
   field: {
     height: '90vh !important',
     padding: '5vh 10vw !important',
+    overflow: 'hidden !important',
   },
   field_mobileMenuOpen: {
     display: 'none !important',
@@ -437,6 +438,9 @@ export const useStyles = makeStyles({
     borderRadius: '5vw',
     cursor: 'pointer',
     userSelect: 'none',
+  },
+  aquarium_mobileDevice: {
+    width: '100vw',
   },
   aquariumIsOpen: {
     backgroundColor: '#88bbdd',

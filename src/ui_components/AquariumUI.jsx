@@ -2,7 +2,11 @@ import React from 'react';
 
 export const AquariumUI = (props) => {
     return (
-        <div className={`${props.classes.aquarium} ${props.isAquariumStatus ? props.classes.aquariumIsOpen : props.classes.aquariumIsClose}`} ref={props.refAquariumField} onClick={props.changeAquariumStatus}>
+        props.isMobileDeviceBoolean && !props.isAquariumStatus 
+        ?
+        null 
+        : 
+        <div className={`${props.classes.aquarium} ${props.isAquariumStatus ? props.classes.aquariumIsOpen : props.classes.aquariumIsClose} ${props.isMobileDeviceBoolean ? props.classes.aquarium_mobileDevice : null}`} ref={props.refAquariumField} onClick={props.changeAquariumStatus}>
             {
                 props.isAquariumStatus 
                 ? 
