@@ -224,3 +224,19 @@ export const sortingConditions = (num1, num2) => {
         };
     };
 };
+
+export const getElementWidth = (ref) => {
+    if (ref.current) {
+        const refWidth = ref.current.clientWidth;
+        return refWidth
+    }
+    return null
+};
+
+export const getElementHeight = (ref) => {
+    if (ref.current) {
+        const refHeight = ref.current.clientHeight;
+        return refHeight
+    }
+    return null
+};

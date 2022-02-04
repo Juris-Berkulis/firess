@@ -25,6 +25,7 @@ import { bigChatClose } from './store/BigChatStatus/Action';
 import { useStyles } from './styles/Style';
 import { getStatusesInTheAppLastAuthorizationDateAndTimeSelector } from './store/AppSwitches/Selectors';
 import { auth } from './firebase/firebase';
+import { Aquarium } from './routes/ChatsList/Aquarium/Aquarium';
 
 export const App = () => {
   const classes = useStyles();
@@ -86,6 +87,7 @@ export const App = () => {
         <PrivateRoute path={allAppComponentsWithPageTitle.messenger.path} authenticated={emailVerificationStatus}>
           <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white" height='100%'>
             <ChatsList></ChatsList>
+            {isMobileDeviceBoolean ? null : <Aquarium></Aquarium>}
             <Route path={allAppComponentsWithPageTitle.error404.path}>
               <Error404></Error404>
             </Route>

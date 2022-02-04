@@ -429,6 +429,24 @@ export const useStyles = makeStyles({
     fontSize: '10px',
     lineHeight: '10px',
   },
+  aquarium: {
+    width: '60vw',
+    height: '100%',
+    margin: '0',
+    backgroundColor: '#88bbdd',
+    padding: '5vh 5vw',
+    borderRadius: '5vw',
+    userSelect: 'none',
+  },
+  aquariumField: {
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+  },
+  aquariumFish: {
+    position: 'absolute',
+    pointerEvents: 'none',
+  },
   api_users__title: {
     color: '#eeeeee',
     marginBottom: '5vh',
