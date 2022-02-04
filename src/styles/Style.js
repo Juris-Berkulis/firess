@@ -433,10 +433,16 @@ export const useStyles = makeStyles({
     width: '60vw',
     height: '100%',
     margin: '0',
-    backgroundColor: '#88bbdd',
     padding: '5vh 5vw',
     borderRadius: '5vw',
+    cursor: 'pointer',
     userSelect: 'none',
+  },
+  aquariumIsOpen: {
+    backgroundColor: '#88bbdd',
+  },
+  aquariumIsClose: {
+    backgroundColor: 'transparent',
   },
   aquariumField: {
     width: '100%',

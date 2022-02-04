@@ -3,6 +3,7 @@ const EMAIL_VERIFICATION_CONFIRMATION_WAITING_IS_FALSE = 'EMAIL_VERIFICATION_CON
 const COUNTDOWN_FOR_LETTER_REQUEST = 'COUNTDOWN_FOR_LETTER_REQUEST';
 const LAST_AUTHORIZATION = 'LAST_AUTHORIZATION';
 const VALUE_IN_CHATSLIST_INPUT = 'VALUE_IN_CHATSLIST_INPUT';
+const AQUARIUM_STATUS = 'AQUARIUM_STATUS';
 
 export const emailVerificationConfirmationWaitingIsTrue = {
     type: EMAIL_VERIFICATION_CONFIRMATION_WAITING_IS_TRUE,
@@ -22,4 +23,8 @@ export const lastAuthorization = {
 
 export const valueInChatsListInput = {
     type: VALUE_IN_CHATSLIST_INPUT,
+};
+
+export const aquariumStatus = {
+    type: AQUARIUM_STATUS,
 };

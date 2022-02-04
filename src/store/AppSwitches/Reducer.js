@@ -1,4 +1,5 @@
 import { 
+    aquariumStatus,
     countdownForLetterRequest, 
     emailVerificationConfirmationWaitingIsFalse, 
     emailVerificationConfirmationWaitingIsTrue, 
@@ -38,6 +39,12 @@ export const statusesInTheAppReducer = (state = initialState, action) => {
             return {
                 ...state,
                 valueInChatsListInputIs: action.payload,
+            }
+        }
+        case aquariumStatus.type: {
+            return {
+                ...state,
+                isAquariumOpen: action.payload,
             }
         }
         default: {

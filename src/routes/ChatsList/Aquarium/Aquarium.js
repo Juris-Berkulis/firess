@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getBigChatIsOpenSelector } from '../../../store/BigChatStatus/Selectors';
 import { useStyles } from '../../../styles/Style';
 import { AquariumUI } from '../../../ui_components/AquariumUI';
 import goldFish from '../../../img/fish/goldFish.gif';
 import { getElementHeight, getElementWidth } from '../../../helper/helper';
+import { getStatusesInTheAppIsAquariumOpenSelector } from '../../../store/AppSwitches/Selectors';
+import { aquariumStatus } from '../../../store/AppSwitches/Action';
 
 export const Aquarium = () => {
     const classes = useStyles();
+
+    const dispatch = useDispatch();
 
     const refAquariumField = useRef(null);
 
@@ -23,6 +27,17 @@ export const Aquarium = () => {
     const [fishDelay, setFishDelay] = useState(1 + Math.floor(Math.random() * 2));
 
     const isBigChatOpen = useSelector(getBigChatIsOpenSelector);
+    const isAquariumStatus = useSelector(getStatusesInTheAppIsAquariumOpenSelector);
+
+    const changeAquariumStatus = () => {
+        console.log('222')
+        dispatch({
+            type: aquariumStatus.type,
+            payload: !isAquariumStatus,
+        });
+        console.log(isAquariumStatus)
+        console.log(!isAquariumStatus)
+    };
 
     useEffect(() => {
         const AquariumFieldWidth = getElementWidth(refAquariumField);
@@ -65,6 +80,6 @@ export const Aquarium = () => {
     }, []);
 
     return (
-        isBigChatOpen ? null : <AquariumUI classes={classes} goldFish={goldFish} moveOx={moveOx} moveOy={moveOy} rotateImg={rotateImg} fishDuration={fishDuration} fishTimingFunction={fishTimingFunction} fishDelay={fishDelay} fishWidth={fishWidthRef.current} refAquariumField={refAquariumField}></AquariumUI>
+        isBigChatOpen ? null : <AquariumUI classes={classes} goldFish={goldFish} moveOx={moveOx} moveOy={moveOy} rotateImg={rotateImg} fishDuration={fishDuration} fishTimingFunction={fishTimingFunction} fishDelay={fishDelay} fishWidth={fishWidthRef.current} refAquariumField={refAquariumField} isAquariumStatus={isAquariumStatus} changeAquariumStatus={changeAquariumStatus}></AquariumUI>
     )
 };
