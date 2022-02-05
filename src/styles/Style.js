@@ -37,6 +37,18 @@ export const useStyles = makeStyles({
   preloader__img: {
     width: '250px',
   },
+  universalPreloaderCenter: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    userSelect: 'none',
+  },
+  universalPreloaderImg: {
+    pointerEvents: 'none',
+  },
   field: {
     height: '90vh !important',
     padding: '5vh 10vw !important',

@@ -4,6 +4,7 @@ import { getBigChatIsOpenSelector } from '../../../store/BigChatStatus/Selectors
 import { useStyles } from '../../../styles/Style';
 import { AquariumUI } from '../../../ui_components/AquariumUI';
 import goldFish from '../../../img/fish/goldFish.gif';
+import preloader from '../../../img/preloader.gif';
 import { getElementHeight, getElementWidth, isMobileDevice } from '../../../helper/helper';
 import { getStatusesInTheAppIsAquariumOpenSelector } from '../../../store/AppSwitches/Selectors';
 import { aquariumStatus } from '../../../store/AppSwitches/Action';
@@ -19,6 +20,8 @@ export const Aquarium = () => {
     const fishWidthRef = useRef(15 + Math.floor(Math.random() * 11));
     const moveOxBeginRef = useRef(Math.floor(Math.random() * (100 - fishWidthRef.current)));
 
+    const [isPreloader, setIsPreloader] = useState(false);
+    const [preloaderDimensions, setPreloaderDimensions] = useState(25);
     const [moveOx, setMoveOx] = useState(moveOxBeginRef.current);
     const [moveOy, setMoveOy] = useState(0);
     const [rotateImg, setRotateImg] = useState(0);
@@ -38,23 +41,35 @@ export const Aquarium = () => {
     };
 
     useEffect(() => {
-        let AquariumFieldWidth;
-        let AquariumFieldHeight;
-        let ratioOfWidthToHeight;
+        if (isMobileDeviceBoolean) {
+            dispatch({
+                type: aquariumStatus.type,
+                payload: false,
+            });
+        }
+    }, [dispatch, isMobileDeviceBoolean]);
 
-        const getAquariumDimensions = () => {
-            AquariumFieldWidth = getElementWidth(refAquariumField);
-            AquariumFieldHeight = getElementHeight(refAquariumField);
-            ratioOfWidthToHeight = AquariumFieldWidth / AquariumFieldHeight;
+    useEffect(() => {
+        const getPreloaderDimensions = () => {
+            const AquariumFieldWidth = getElementWidth(refAquariumField);
+            const AquariumFieldHeight = getElementHeight(refAquariumField);
+            if (AquariumFieldHeight > AquariumFieldWidth) {
+                setPreloaderDimensions(AquariumFieldWidth * 0.3);
+            } else {
+                setPreloaderDimensions(AquariumFieldHeight * 0.3);
+            }
         };
 
-        getAquariumDimensions();
+        const openPreloader = () => {
+            getPreloaderDimensions();
+            setIsPreloader(true);
+        };
 
         //* Метод addEventListener() присоединяет обработчик события к определенному DOM-элементу:
         if (window.addEventListener) { //* - для всех основных браузеров.
-            window.addEventListener('resize', getAquariumDimensions);
+            window.addEventListener('resize', openPreloader);
         } else if (window.attachEvent) { //* - для IE 8 и более ранних версий, а также Opera 6.0 и более ранних версий.
-            window.attachEvent('resize', getAquariumDimensions);
+            window.attachEvent('resize', openPreloader);
         }
 
         const fishHeight = fishWidthRef.current / 1.38;
@@ -64,6 +79,10 @@ export const Aquarium = () => {
             let moveOxLast = moveOxBeginRef.current;
 
             const fishMoving = () => {
+                const AquariumFieldWidth = getElementWidth(refAquariumField);
+                const AquariumFieldHeight = getElementHeight(refAquariumField);
+                const ratioOfWidthToHeight = AquariumFieldWidth / AquariumFieldHeight;
+
                 let moveOxNext = Math.floor(Math.random() * (100 - fishWidthRef.current));
                 setMoveOx(moveOxNext);
                 setMoveOy(Math.floor(Math.random() * (100 - fishHeight * ratioOfWidthToHeight - 1)));
@@ -77,6 +96,8 @@ export const Aquarium = () => {
                 setFishDelay(1 + Math.floor(Math.random() * 2));
 
                 moveOxLast = moveOxNext;
+
+                setIsPreloader(false);
             };
     
             fishMoving();
@@ -90,15 +111,15 @@ export const Aquarium = () => {
             clearInterval(intervalId)
             clearTimeout(timerId)
             if (window.removeEventListener) {
-                window.removeEventListener('resize', getAquariumDimensions)
+                window.removeEventListener('resize', openPreloader)
             }
             if (window.detachEvent) {
-                window.detachEvent('resize', getAquariumDimensions)
+                window.detachEvent('resize', openPreloader)
             }
         }
     }, []);
 
     return (
-        isBigChatOpen ? null : <AquariumUI classes={classes} goldFish={goldFish} moveOx={moveOx} moveOy={moveOy} rotateImg={rotateImg} fishDuration={fishDuration} fishTimingFunction={fishTimingFunction} fishDelay={fishDelay} fishWidth={fishWidthRef.current} refAquariumField={refAquariumField} isAquariumStatus={isAquariumStatus} changeAquariumStatus={changeAquariumStatus} isMobileDeviceBoolean={isMobileDeviceBoolean}></AquariumUI>
+        isBigChatOpen ? null : <AquariumUI classes={classes} goldFish={goldFish} moveOx={moveOx} moveOy={moveOy} rotateImg={rotateImg} fishDuration={fishDuration} fishTimingFunction={fishTimingFunction} fishDelay={fishDelay} fishWidth={fishWidthRef.current} refAquariumField={refAquariumField} isAquariumStatus={isAquariumStatus} changeAquariumStatus={changeAquariumStatus} isMobileDeviceBoolean={isMobileDeviceBoolean} isPreloader={isPreloader} preloader={preloader} preloaderDimensions={preloaderDimensions}></AquariumUI>
     )
 };
