@@ -50,74 +50,78 @@ export const Aquarium = () => {
     }, [dispatch, isMobileDeviceBoolean]);
 
     useEffect(() => {
-        const getPreloaderDimensions = () => {
-            const AquariumFieldWidth = getElementWidth(refAquariumField);
-            const AquariumFieldHeight = getElementHeight(refAquariumField);
-            if (AquariumFieldHeight > AquariumFieldWidth) {
-                setPreloaderDimensions(AquariumFieldWidth * 0.3);
-            } else {
-                setPreloaderDimensions(AquariumFieldHeight * 0.3);
-            }
-        };
-
-        const openPreloader = () => {
-            getPreloaderDimensions();
-            setIsPreloader(true);
-        };
-
-        //* Метод addEventListener() присоединяет обработчик события к определенному DOM-элементу:
-        if (window.addEventListener) { //* - для всех основных браузеров.
-            window.addEventListener('resize', openPreloader);
-        } else if (window.attachEvent) { //* - для IE 8 и более ранних версий, а также Opera 6.0 и более ранних версий.
-            window.attachEvent('resize', openPreloader);
-        }
-
-        const fishHeight = fishWidthRef.current / 1.38;
-
-        let intervalId;
-        const timerId = setTimeout(() => {
-            let moveOxLast = moveOxBeginRef.current;
-
-            const fishMoving = () => {
+        if (isAquariumStatus) {
+            const getPreloaderDimensions = () => {
                 const AquariumFieldWidth = getElementWidth(refAquariumField);
                 const AquariumFieldHeight = getElementHeight(refAquariumField);
-                const ratioOfWidthToHeight = AquariumFieldWidth / AquariumFieldHeight;
-
-                let moveOxNext = Math.floor(Math.random() * (100 - fishWidthRef.current));
-                setMoveOx(moveOxNext);
-                setMoveOy(Math.floor(Math.random() * (100 - fishHeight * ratioOfWidthToHeight - 1)));
-                if (moveOxNext > moveOxLast) {
-                    setRotateImg(0)
-                } else if (moveOxNext < moveOxLast) {
-                    setRotateImg(180)
+                if (AquariumFieldHeight > AquariumFieldWidth) {
+                    setPreloaderDimensions(AquariumFieldWidth * 0.3);
+                } else {
+                    setPreloaderDimensions(AquariumFieldHeight * 0.3);
                 }
-                setFishDuration(3 + Math.floor(Math.random() * 10));
-                setFishTimingFunction(transitionTimingFunctionRef.current[Math.floor(Math.random() * transitionTimingFunctionRef.current.length)]);
-                setFishDelay(1 + Math.floor(Math.random() * 2));
-
-                moveOxLast = moveOxNext;
-
-                setIsPreloader(false);
             };
     
-            fishMoving();
+            const openPreloader = () => {
+                getPreloaderDimensions();
+                setIsPreloader(true);
+            };
     
-            intervalId = setInterval(() => {
-                fishMoving();
-            }, 10000);
-        }, 3000);
-
-        return () => {
-            clearInterval(intervalId)
-            clearTimeout(timerId)
-            if (window.removeEventListener) {
-                window.removeEventListener('resize', openPreloader)
+            openPreloader();
+    
+            //* Метод addEventListener() присоединяет обработчик события к определенному DOM-элементу:
+            if (window.addEventListener) { //* - для всех основных браузеров.
+                window.addEventListener('resize', openPreloader);
+            } else if (window.attachEvent) { //* - для IE 8 и более ранних версий, а также Opera 6.0 и более ранних версий.
+                window.attachEvent('resize', openPreloader);
             }
-            if (window.detachEvent) {
-                window.detachEvent('resize', openPreloader)
+    
+            const fishHeight = fishWidthRef.current / 1.38;
+    
+            let intervalId;
+            const timerId = setTimeout(() => {
+                let moveOxLast = moveOxBeginRef.current;
+    
+                const fishMoving = () => {
+                    const AquariumFieldWidth = getElementWidth(refAquariumField);
+                    const AquariumFieldHeight = getElementHeight(refAquariumField);
+                    const ratioOfWidthToHeight = AquariumFieldWidth / AquariumFieldHeight;
+    
+                    let moveOxNext = Math.floor(Math.random() * (100 - fishWidthRef.current));
+                    setMoveOx(moveOxNext);
+                    setMoveOy(Math.floor(Math.random() * (100 - fishHeight * ratioOfWidthToHeight - 1)));
+                    if (moveOxNext > moveOxLast) {
+                        setRotateImg(0)
+                    } else if (moveOxNext < moveOxLast) {
+                        setRotateImg(180)
+                    }
+                    setFishDuration(3 + Math.floor(Math.random() * 10));
+                    setFishTimingFunction(transitionTimingFunctionRef.current[Math.floor(Math.random() * transitionTimingFunctionRef.current.length)]);
+                    setFishDelay(1 + Math.floor(Math.random() * 2));
+    
+                    moveOxLast = moveOxNext;
+    
+                    setIsPreloader(false);
+                };
+        
+                fishMoving();
+        
+                intervalId = setInterval(() => {
+                    fishMoving();
+                }, 10000);
+            }, 3000);
+    
+            return () => {
+                clearInterval(intervalId)
+                clearTimeout(timerId)
+                if (window.removeEventListener) {
+                    window.removeEventListener('resize', openPreloader)
+                }
+                if (window.detachEvent) {
+                    window.detachEvent('resize', openPreloader)
+                }
             }
         }
-    }, []);
+    }, [isAquariumStatus]);
 
     return (
         isBigChatOpen ? null : <AquariumUI classes={classes} goldFish={goldFish} moveOx={moveOx} moveOy={moveOy} rotateImg={rotateImg} fishDuration={fishDuration} fishTimingFunction={fishTimingFunction} fishDelay={fishDelay} fishWidth={fishWidthRef.current} refAquariumField={refAquariumField} isAquariumStatus={isAquariumStatus} changeAquariumStatus={changeAquariumStatus} isMobileDeviceBoolean={isMobileDeviceBoolean} isPreloader={isPreloader} preloader={preloader} preloaderDimensions={preloaderDimensions}></AquariumUI>
