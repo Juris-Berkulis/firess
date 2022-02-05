@@ -58,6 +58,10 @@ export const ChatsList = () => {
     const isBigChatOpen = useSelector(getBigChatIsOpenSelector);
 
     return (
+        isBigChatOpen && isMobileDeviceBoolean 
+        ? 
+        null 
+        : 
         <Box height='100%' width={isMobileDeviceBoolean ? '100%' : '19vw'} display={isBigChatOpen && isMobileDeviceBoolean ? 'none' : null}>
             <ChangeChatsList></ChangeChatsList>
             <ChatsListUI classes={classes} newChatsListRed={newChatsListRed}></ChatsListUI>

@@ -50,7 +50,7 @@ export const Aquarium = () => {
     }, [dispatch, isMobileDeviceBoolean]);
 
     useEffect(() => {
-        if (isAquariumStatus) {
+        if (isAquariumStatus && !isBigChatOpen) {
             const getPreloaderDimensions = () => {
                 const AquariumFieldWidth = getElementWidth(refAquariumField);
                 const AquariumFieldHeight = getElementHeight(refAquariumField);
@@ -121,7 +121,7 @@ export const Aquarium = () => {
                 }
             }
         }
-    }, [isAquariumStatus]);
+    }, [isAquariumStatus, isBigChatOpen]);
 
     return (
         isBigChatOpen ? null : <AquariumUI classes={classes} goldFish={goldFish} moveOx={moveOx} moveOy={moveOy} rotateImg={rotateImg} fishDuration={fishDuration} fishTimingFunction={fishTimingFunction} fishDelay={fishDelay} fishWidth={fishWidthRef.current} refAquariumField={refAquariumField} isAquariumStatus={isAquariumStatus} changeAquariumStatus={changeAquariumStatus} isMobileDeviceBoolean={isMobileDeviceBoolean} isPreloader={isPreloader} preloader={preloader} preloaderDimensions={preloaderDimensions}></AquariumUI>

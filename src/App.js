@@ -26,6 +26,7 @@ import { useStyles } from './styles/Style';
 import { getStatusesInTheAppIsAquariumOpenSelector, getStatusesInTheAppLastAuthorizationDateAndTimeSelector } from './store/AppSwitches/Selectors';
 import { auth } from './firebase/firebase';
 import { Aquarium } from './routes/ChatsList/Aquarium/Aquarium';
+import { getBigChatIsOpenSelector } from '../src/store/BigChatStatus/Selectors';
 
 export const App = () => {
   const classes = useStyles();
@@ -44,6 +45,7 @@ export const App = () => {
   const mobileMenuOpen = useSelector(getMobileMenuIsOpenSelector);
   const lastAuthorizationDateAndTime = useSelector(getStatusesInTheAppLastAuthorizationDateAndTimeSelector)
   const isAquariumStatus = useSelector(getStatusesInTheAppIsAquariumOpenSelector);
+  const isBigChatOpen = useSelector(getBigChatIsOpenSelector);
 
   const emailVerificationStatus = useChangeEmailVerificationStatus(location);
 
@@ -88,7 +90,7 @@ export const App = () => {
         <PrivateRoute path={allAppComponentsWithPageTitle.messenger.path} authenticated={emailVerificationStatus}>
           <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white" height='100%'>
             {isMobileDeviceBoolean && isAquariumStatus ? null : <ChatsList></ChatsList>}
-            <Aquarium></Aquarium>
+            {isBigChatOpen ? null : <Aquarium></Aquarium>}
             <Route path={allAppComponentsWithPageTitle.error404.path}>
               <Error404></Error404>
             </Route>
