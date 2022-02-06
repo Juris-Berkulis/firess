@@ -27,8 +27,12 @@ export const ChangeChatsList = () => {
     setError(false);
     setSuccess(false);
 
-    if (!chatsListRed.filter(chat => chat.name.toLowerCase().includes(event.target.value.toLowerCase())).length) {
+    const newChatsListRed = chatsListRed.filter(chat => chat.name.toLowerCase().includes(event.target.value.toLowerCase())).length;
+
+    if (!newChatsListRed) {
       setError('Нет похожих чатов');
+    } else if (newChatsListRed && event.target.value !== '') {
+      setSuccess(`Совпадений: ${newChatsListRed}`);
     }
   };
 
