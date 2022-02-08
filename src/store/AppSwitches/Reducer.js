@@ -1,8 +1,10 @@
 import { 
+    aquariumStatus,
     countdownForLetterRequest, 
     emailVerificationConfirmationWaitingIsFalse, 
     emailVerificationConfirmationWaitingIsTrue, 
-    lastAuthorization
+    lastAuthorization,
+    valueInChatsListInput
 } from './Action';
 
 const initialState = {};
@@ -31,6 +33,18 @@ export const statusesInTheAppReducer = (state = initialState, action) => {
             return {
                 ...state,
                 lastAuthorizationDateAndTime: action.payload,
+            }
+        }
+        case valueInChatsListInput.type: {
+            return {
+                ...state,
+                valueInChatsListInputIs: action.payload,
+            }
+        }
+        case aquariumStatus.type: {
+            return {
+                ...state,
+                isAquariumOpen: action.payload,
             }
         }
         default: {

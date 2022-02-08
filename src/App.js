@@ -23,8 +23,10 @@ import { useChangeEmailVerificationStatus, useWindowDimensions } from './hooks/h
 import { getMobileMenuIsOpenSelector } from './store/MobileMenuStatus/Selectors';
 import { bigChatClose } from './store/BigChatStatus/Action';
 import { useStyles } from './styles/Style';
-import { getStatusesInTheAppLastAuthorizationDateAndTimeSelector } from './store/AppSwitches/Selectors';
+import { getStatusesInTheAppIsAquariumOpenSelector, getStatusesInTheAppLastAuthorizationDateAndTimeSelector } from './store/AppSwitches/Selectors';
 import { auth } from './firebase/firebase';
+import { Aquarium } from './routes/ChatsList/Aquarium/Aquarium';
+import { getBigChatIsOpenSelector } from '../src/store/BigChatStatus/Selectors';
 
 export const App = () => {
   const classes = useStyles();
@@ -42,6 +44,8 @@ export const App = () => {
   const isMobileDeviceBoolean = isMobileDevice();
   const mobileMenuOpen = useSelector(getMobileMenuIsOpenSelector);
   const lastAuthorizationDateAndTime = useSelector(getStatusesInTheAppLastAuthorizationDateAndTimeSelector)
+  const isAquariumStatus = useSelector(getStatusesInTheAppIsAquariumOpenSelector);
+  const isBigChatOpen = useSelector(getBigChatIsOpenSelector);
 
   const emailVerificationStatus = useChangeEmailVerificationStatus(location);
 
@@ -72,8 +76,9 @@ export const App = () => {
 
   return (
     <PersistGate loading={<Preloader />} persistor={persistor}>
-    <Switch>
     <div className={`${classes.main} ${classes.center}`}>
+    <Switch>
+    <>
       <Header></Header>
       <Box className={`${classes.field} ${mobileMenuOpen ? classes.field_mobileMenuOpen : null} ${isMobileDeviceBoolean ? classes.field_mobileDevice : null}`}>
         <Route exact path={allAppComponentsWithPageTitle.home.path}>
@@ -84,7 +89,8 @@ export const App = () => {
         </PrivateRoute>
         <PrivateRoute path={allAppComponentsWithPageTitle.messenger.path} authenticated={emailVerificationStatus}>
           <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white" height='100%'>
-            <ChatsList></ChatsList>
+            {isMobileDeviceBoolean && isAquariumStatus ? null : <ChatsList></ChatsList>}
+            {isBigChatOpen ? null : <Aquarium></Aquarium>}
             <Route path={allAppComponentsWithPageTitle.error404.path}>
               <Error404></Error404>
             </Route>
@@ -103,8 +109,9 @@ export const App = () => {
           <Login></Login>
         </PublicRoute>
       </Box>
-    </div>
+    </>
     </Switch>
+    </div>
     </PersistGate>
   );
 };

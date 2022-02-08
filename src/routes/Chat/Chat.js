@@ -7,6 +7,7 @@ import { ChatUI } from '../../ui_components/ChatUI.jsx';
 import { allAppComponentsWithPageTitle } from '../../data/consts';
 import { bigChatClose, bigChatOpen } from '../../store/BigChatStatus/Action';
 import { isMobileDevice } from '../../helper/helper';
+import { aquariumStatus } from '../../store/AppSwitches/Action';
 
 export const Chat = () => {
     const classes = useStyles();
@@ -18,6 +19,11 @@ export const Chat = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        dispatch({
+            type: aquariumStatus.type,
+            payload: false,
+        });
+
         dispatch({
             type: bigChatOpen.type,
         });

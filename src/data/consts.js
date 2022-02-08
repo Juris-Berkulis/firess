@@ -71,3 +71,5 @@ export const allAppComponentsWithPageTitle = {
 };
 
 export const startValueForTimer = 91;
+
+export const MAXIMUM_NUMBER_OF_CHARACTERS_FOR_A_CHAT_NAME = 50;
