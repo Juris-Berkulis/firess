@@ -16,8 +16,6 @@ export const ChartForm = (props) => {
   const refInput = useRef(null);
 
   const { chatId } = useParams();
-  // const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
-  // const [openContact] = chatsListRed.filter((item) => item.id === chatId);
 
   const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
   const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
@@ -54,14 +52,6 @@ export const ChartForm = (props) => {
   useEffect(() => {
     focusOnInput();
   }, [chatListRed]); 
-
-  // useEffect(() => {
-  //   dispatch(onTrackingAddMessageInChatListWithThunkAction(openContact.key));
-
-  //   return () => {
-  //     dispatch(offTrackingAddMessageInChatListWithThunkAction(openContact.key));
-  //   }
-  // }, [openContact.key, dispatch]);
 
   return (
     <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={value}></ChartFormUI>

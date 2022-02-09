@@ -7,8 +7,6 @@ import { Box, ListItem } from '@material-ui/core';
 import { useStyles } from '../../styles/Style';
 import { ChatsListUI } from '../../ui_components/ChatsListUI.jsx';
 import { offTrackingChangeValueInChatsListWithThunkAction, onTrackingChangeValueInChatsListWithThunkAction } from '../../store/ChatsList/Action';
-// import { offTrackingAddInChatsListWithThunkAction, offTrackingRemoveFromChatsListWithThunkAction, onTrackingAddInChatsListWithThunkAction, onTrackingRemoveFromChatsListWithThunkAction } from '../../store/ChatsList/Action';
-// import { offTrackingRemoveMessageInChatListWithThunkAction, onTrackingRemoveMessageInChatListWithThunkAction } from '../../store/ChatList/Action';
 import { getBigChatIsOpenSelector } from '../../store/BigChatStatus/Selectors';
 import { isMobileDevice, isNumberOrString, sortingConditions } from '../../helper/helper';
 import { bigChatClose } from '../../store/BigChatStatus/Action';
@@ -34,17 +32,9 @@ export const ChatsList = () => {
     const newChatsListRed = chatsListRed.filter(chat => chat.name.toLowerCase().includes(valueInChatsListInput.toLowerCase())).map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}</ListItem>);
 
     useEffect(() => {
-        // dispatch(onTrackingAddInChatsListWithThunkAction);
-        // dispatch(onTrackingRemoveFromChatsListWithThunkAction);
-        // dispatch(onTrackingRemoveMessageInChatListWithThunkAction);
-
         dispatch(onTrackingChangeValueInChatsListWithThunkAction);
 
         return () => {
-            // dispatch(offTrackingAddInChatsListWithThunkAction);
-            // dispatch(offTrackingRemoveFromChatsListWithThunkAction);
-            // dispatch(offTrackingRemoveMessageInChatListWithThunkAction);
-
             dispatch(offTrackingChangeValueInChatsListWithThunkAction);
         }
     }, [dispatch]);

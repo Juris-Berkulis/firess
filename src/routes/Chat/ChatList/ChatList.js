@@ -21,15 +21,10 @@ export const ChatList = () => {
 
     const dispatch = useDispatch();
 
-    // const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
-
-    // const [openContact] = chatsListRed.filter((item) => item.id === chatId);
-
     const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
     const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
 
     const chatListRed = useSelector(getChatListChatKindOfListById(openChatKey));
-    // console.log(chatListRed)
 
     const scrollDown = () => {
         if (refOpenChat.current) {

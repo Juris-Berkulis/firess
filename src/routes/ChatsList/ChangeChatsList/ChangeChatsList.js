@@ -4,7 +4,6 @@ import { MAXIMUM_NUMBER_OF_CHARACTERS_FOR_A_CHAT_NAME } from '../../../data/cons
 import { getKeyForTheChatByChatName, isMobileDevice } from '../../../helper/helper';
 import { aquariumStatus, valueInChatsListInput } from '../../../store/AppSwitches/Action';
 import { removeAllMessagesInDeleteChatWithThunkAction } from '../../../store/ChatList/Action';
-// import { removeMessageInChatListWithThunkAction } from '../../../store/ChatList/Action';
 import { addInChatsListWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
 import { getChatsListChatsKindOfDictSelector, getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
 import { useStyles } from '../../../styles/Style';
@@ -22,9 +21,7 @@ export const ChangeChatsList = () => {
   const dispatch = useDispatch();
 
   const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
-  // const chatsListChatsKindOfListWithKeysRed = useSelector(getChatsListChatsKindOfListWithKeysSelector);
   const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
-  // const chatsListWithKeysAndValuesRed = useSelector(getChatsListChatsKindOfListWithKeysAndValuesSelector);
 
   const isMobileDeviceBoolean = isMobileDevice();
 
@@ -111,19 +108,6 @@ export const ChangeChatsList = () => {
     return removeSpacesAtTheBeginningAndAtTheEndOfTheString(chatName)
   };
 
-  // const autoClearSuccessAndError = () => {
-  //   const timerId = setTimeout(() => {
-  //     if (valueName => valueName === '') {
-  //       setError(false);
-  //       setSuccess(false);
-  //     }
-      
-  //     return () => {
-  //       clearTimeout(timerId)
-  //     }
-  //   }, 5000);
-  // }
-
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
     setError(false);
@@ -151,8 +135,6 @@ export const ChangeChatsList = () => {
     } else {
       setError('Введите название чата');
     }
-
-    // autoClearSuccessAndError();
   };
 
   const deliteContact = () => {
@@ -161,10 +143,7 @@ export const ChangeChatsList = () => {
     if (valueName !== '') {
       const delChatsListRedKey = getKeyForTheChatByChatName(chatsListChatsKindOfDictRed, valueName);
       if (delChatsListRedKey) {
-        // const [delChatsListRed] = chatsListRed.filter((item) => item.name === valueName);
-        // dispatch(removeFromChatsListWithThunkAction(delChatsListRed.key, delChatsListRed.name));
         dispatch(removeFromChatsListWithThunkAction(delChatsListRedKey));
-        // dispatch(removeMessageInChatListWithThunkAction(delChatsListRed.key));
         dispatch(removeAllMessagesInDeleteChatWithThunkAction(delChatsListRedKey));
         const deleteChat = valueName;
         setSuccess(`Чат "${deleteChat}" удален`);
@@ -175,8 +154,6 @@ export const ChangeChatsList = () => {
     } else {
       setError('Введите название чата');
     }
-
-    // autoClearSuccessAndError();
   };
 
   const openAquarium = () => {

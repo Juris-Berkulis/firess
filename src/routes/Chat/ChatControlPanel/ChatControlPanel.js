@@ -23,10 +23,6 @@ export const ChatControlPanel = () => {
     const { chatId } = useParams();
 
     const dispatch = useDispatch();
-
-    // const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
-
-    // const [openContact] = chatsListRed.filter((item) => item.id === chatId);
     
     const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
     const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
@@ -41,9 +37,7 @@ export const ChatControlPanel = () => {
     };
 
     const deleteChat = () => {
-        // dispatch(removeFromChatsListWithThunkAction(openContact.key, openContact.name));
         dispatch(removeFromChatsListWithThunkAction(openChatKey));
-        // dispatch(removeMessageInChatListWithThunkAction(openContact.key));
         dispatch(removeAllMessagesInDeleteChatWithThunkAction(openChatKey));
         push(allAppComponentsWithPageTitle.messenger.path);
     };
