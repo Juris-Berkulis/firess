@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useStyles } from '../../../styles/Style';
-import { getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
-import { isMobileDevice } from '../../../helper/helper';
+import { getChatsListChatsKindOfDictSelector } from '../../../store/ChatsList/Selectors';
+import { getKeyForTheChatByChatId, isMobileDevice } from '../../../helper/helper';
 import { ChatControlPanelUI } from '../../../ui_components/ChatControlPanelUI';
 import { allAppComponentsWithPageTitle } from '../../../data/consts';
 import { useHistory } from 'react-router-dom';
 import { removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
-import { removeMessageInChatListWithThunkAction } from '../../../store/ChatList/Action';
+import { removeAllMessagesInDeleteChatWithThunkAction } from '../../../store/ChatList/Action';
 import { PopUpWindowUI } from '../../../ui_components/PopUpWindowUI';
 
 export const ChatControlPanel = () => {
@@ -24,9 +24,13 @@ export const ChatControlPanel = () => {
 
     const dispatch = useDispatch();
 
-    const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
+    // const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
 
-    const [openContact] = chatsListRed.filter((item) => item.id === chatId);
+    // const [openContact] = chatsListRed.filter((item) => item.id === chatId);
+    
+    const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
+    const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
+    const openContact = chatsListChatsKindOfDictRed[openChatKey];
 
     const openPopUpWindow = () => {
         setPopUpWindowIsOpen(true);
@@ -37,8 +41,10 @@ export const ChatControlPanel = () => {
     };
 
     const deleteChat = () => {
-        dispatch(removeFromChatsListWithThunkAction(openContact.key, openContact.name));
-        dispatch(removeMessageInChatListWithThunkAction(openContact.key));
+        // dispatch(removeFromChatsListWithThunkAction(openContact.key, openContact.name));
+        dispatch(removeFromChatsListWithThunkAction(openChatKey));
+        // dispatch(removeMessageInChatListWithThunkAction(openContact.key));
+        dispatch(removeAllMessagesInDeleteChatWithThunkAction(openChatKey));
         push(allAppComponentsWithPageTitle.messenger.path);
     };
 

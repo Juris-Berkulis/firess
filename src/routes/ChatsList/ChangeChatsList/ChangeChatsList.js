@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MAXIMUM_NUMBER_OF_CHARACTERS_FOR_A_CHAT_NAME } from '../../../data/consts';
-import { isMobileDevice } from '../../../helper/helper';
+import { getKeyForTheChatByChatName, isMobileDevice } from '../../../helper/helper';
 import { aquariumStatus, valueInChatsListInput } from '../../../store/AppSwitches/Action';
-import { removeMessageInChatListWithThunkAction } from '../../../store/ChatList/Action';
+import { removeAllMessagesInDeleteChatWithThunkAction } from '../../../store/ChatList/Action';
+// import { removeMessageInChatListWithThunkAction } from '../../../store/ChatList/Action';
 import { addInChatsListWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
-import { getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
+import { getChatsListChatsKindOfDictSelector, getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
 import { useStyles } from '../../../styles/Style';
 import { ChangeChatsListUI } from '../../../ui_components/ChangeChatsListUI.jsx';
 
@@ -19,7 +20,12 @@ export const ChangeChatsList = () => {
   const successForProps = success ? <p className={`${classes.chatsListActionResaltInfo} ${classes.chatsListActionResaltInfo_success}`}>{success}</p> : null
 
   const dispatch = useDispatch();
+
+  const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
+  // const chatsListChatsKindOfListWithKeysRed = useSelector(getChatsListChatsKindOfListWithKeysSelector);
   const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
+  // const chatsListWithKeysAndValuesRed = useSelector(getChatsListChatsKindOfListWithKeysAndValuesSelector);
+
   const isMobileDeviceBoolean = isMobileDevice();
 
   const onSaveNameFromInput = (event) => {
@@ -105,14 +111,18 @@ export const ChangeChatsList = () => {
     return removeSpacesAtTheBeginningAndAtTheEndOfTheString(chatName)
   };
 
-  const autoClearSuccessAndError = () => {
-    const timerId = setTimeout(() => {
-      setError(false);
-      setSuccess(false);
+  // const autoClearSuccessAndError = () => {
+  //   const timerId = setTimeout(() => {
+  //     if (valueName => valueName === '') {
+  //       setError(false);
+  //       setSuccess(false);
+  //     }
       
-      return clearTimeout(timerId)
-    }, 5000);
-  }
+  //     return () => {
+  //       clearTimeout(timerId)
+  //     }
+  //   }, 5000);
+  // }
 
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
@@ -142,17 +152,20 @@ export const ChangeChatsList = () => {
       setError('Введите название чата');
     }
 
-    autoClearSuccessAndError();
+    // autoClearSuccessAndError();
   };
 
   const deliteContact = () => {
     setError(false);
     setSuccess(false);
     if (valueName !== '') {
-      if (chatsListRed.find((item) => item.name === valueName)) {
-        const [delChatsListRed] = chatsListRed.filter((item) => item.name === valueName);
-        dispatch(removeFromChatsListWithThunkAction(delChatsListRed.key, delChatsListRed.name));
-        dispatch(removeMessageInChatListWithThunkAction(delChatsListRed.key));
+      const delChatsListRedKey = getKeyForTheChatByChatName(chatsListChatsKindOfDictRed, valueName);
+      if (delChatsListRedKey) {
+        // const [delChatsListRed] = chatsListRed.filter((item) => item.name === valueName);
+        // dispatch(removeFromChatsListWithThunkAction(delChatsListRed.key, delChatsListRed.name));
+        dispatch(removeFromChatsListWithThunkAction(delChatsListRedKey));
+        // dispatch(removeMessageInChatListWithThunkAction(delChatsListRed.key));
+        dispatch(removeAllMessagesInDeleteChatWithThunkAction(delChatsListRedKey));
         const deleteChat = valueName;
         setSuccess(`Чат "${deleteChat}" удален`);
         resetValue();
@@ -163,7 +176,7 @@ export const ChangeChatsList = () => {
       setError('Введите название чата');
     }
 
-    autoClearSuccessAndError();
+    // autoClearSuccessAndError();
   };
 
   const openAquarium = () => {
@@ -179,6 +192,19 @@ export const ChangeChatsList = () => {
       payload: valueName,
     });
   }, [dispatch, valueName]);
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      if (valueName === '') {
+        setError(false);
+        setSuccess(false);
+      }
+    }, 5000);
+
+    return () => {
+      clearTimeout(timerId)
+    }
+  }, [valueName]);
 
   return (
     <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} deliteContact={deliteContact} errorForProps={errorForProps} successForProps={successForProps} openAquarium={openAquarium} isMobileDeviceBoolean={isMobileDeviceBoolean}></ChangeChatsListUI>

@@ -8,6 +8,7 @@ import { allAppComponentsWithPageTitle } from '../../data/consts';
 import { bigChatClose, bigChatOpen } from '../../store/BigChatStatus/Action';
 import { isMobileDevice } from '../../helper/helper';
 import { aquariumStatus } from '../../store/AppSwitches/Action';
+import { dropMessagesInStateAction } from '../../store/ChatList/Action';
 
 export const Chat = () => {
     const classes = useStyles();
@@ -33,6 +34,14 @@ export const Chat = () => {
             });
         };
     }, [dispatch]);
+
+    useEffect(() => {
+        return () => {
+            dispatch({
+                type: dropMessagesInStateAction.type,
+            });
+        }
+    }, [dispatch, chatId]);
 
     const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
 

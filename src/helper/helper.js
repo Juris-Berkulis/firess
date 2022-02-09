@@ -11,11 +11,13 @@ export const sendMessage = (author, text, chatId) => {
     return somebodyMessage
 };
 
+//* This feature is no longer used, but not removed just in case:
 export const mapChatSnapshotToChat = (snapshot) => ({
     ...snapshot.val(),
     key: snapshot.key,
 });
 
+//* This feature is no longer used, but not removed just in case:
 export const mapMessageSnapshotToMessage = (snapshot) => ({
     ...snapshot.val(),
     messageKey: snapshot.key,
@@ -239,4 +241,23 @@ export const getElementHeight = (ref) => {
         return refHeight
     }
     return null
+};
+
+const getKeyForTheChat = (chatsListChatsKindOfDictRed, findValue, keyInValueOfDict) => {
+    for (let key in chatsListChatsKindOfDictRed) {
+        if (chatsListChatsKindOfDictRed[key][keyInValueOfDict] === findValue) {
+            return key
+        }
+    }
+    return null
+};
+
+export const getKeyForTheChatByChatName = (chatsListChatsKindOfDictRed, findValue) => {
+    const key = getKeyForTheChat(chatsListChatsKindOfDictRed, findValue, 'name');
+    return key
+};
+
+export const getKeyForTheChatByChatId = (chatsListChatsKindOfDictRed, findValue) => {
+    const key = getKeyForTheChat(chatsListChatsKindOfDictRed, findValue, 'id');
+    return key
 };

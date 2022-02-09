@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getChatListChatKindOfListById } from '../../../store/ChatList/Selectors';
 import { ListItem } from '@material-ui/core';
 import { useStyles } from '../../../styles/Style';
 import { ChatListUI } from '../../../ui_components/ChatListUI.jsx';
-import { getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
+import { getChatsListChatsKindOfDictSelector } from '../../../store/ChatsList/Selectors';
 import { auth } from '../../../firebase/firebase';
-import { isMobileDevice } from '../../../helper/helper';
+import { getKeyForTheChatByChatId, isMobileDevice } from '../../../helper/helper';
+import { offTrackingChangeValueInMessagesListFromOpenChatWithThunkAction, onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction } from '../../../store/ChatList/Action';
 
 export const ChatList = () => {
     const classes = useStyles();
@@ -18,11 +19,17 @@ export const ChatList = () => {
 
     const refOpenChat = useRef(null);
 
-    const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
+    const dispatch = useDispatch();
 
-    const [openContact] = chatsListRed.filter((item) => item.id === chatId);
+    // const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
 
-    const chatListRed = useSelector(getChatListChatKindOfListById(openContact.key));
+    // const [openContact] = chatsListRed.filter((item) => item.id === chatId);
+
+    const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
+    const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
+
+    const chatListRed = useSelector(getChatListChatKindOfListById(openChatKey));
+    // console.log(chatListRed)
 
     const scrollDown = () => {
         if (refOpenChat.current) {
@@ -39,6 +46,14 @@ export const ChatList = () => {
     useEffect(() => {
         scrollDown();
     }, [chatListRed]);
+
+    useEffect(() => {
+        dispatch(onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction(openChatKey));
+
+        return () => {
+            dispatch(offTrackingChangeValueInMessagesListFromOpenChatWithThunkAction(openChatKey));
+        }
+    }, [dispatch, openChatKey]);
 
     if (chatListRed.length === 0) {
         return null

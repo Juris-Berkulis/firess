@@ -27,6 +27,8 @@ import { getStatusesInTheAppIsAquariumOpenSelector, getStatusesInTheAppLastAutho
 import { auth } from './firebase/firebase';
 import { Aquarium } from './routes/ChatsList/Aquarium/Aquarium';
 import { getBigChatIsOpenSelector } from '../src/store/BigChatStatus/Selectors';
+import { dropMessagesInStateAction } from './store/ChatList/Action';
+import { dropChatsListInStateAction } from './store/ChatsList/Action';
 
 export const App = () => {
   const classes = useStyles();
@@ -73,6 +75,16 @@ export const App = () => {
 
     return () => unsubscribe()
   }, [lastAuthorizationDateAndTime]);
+
+  useEffect(() => {
+    dispatch({
+      type: dropChatsListInStateAction.type,
+    });
+
+    dispatch({
+      type: dropMessagesInStateAction.type,
+    });
+  }, [dispatch]);
 
   return (
     <PersistGate loading={<Preloader />} persistor={persistor}>
