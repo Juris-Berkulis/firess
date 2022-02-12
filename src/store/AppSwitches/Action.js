@@ -4,6 +4,7 @@ const COUNTDOWN_FOR_LETTER_REQUEST = 'COUNTDOWN_FOR_LETTER_REQUEST';
 const LAST_AUTHORIZATION = 'LAST_AUTHORIZATION';
 const VALUE_IN_CHATSLIST_INPUT = 'VALUE_IN_CHATSLIST_INPUT';
 const AQUARIUM_STATUS = 'AQUARIUM_STATUS';
+const APP_DARK_THEME = 'APP_DARK_THEME';
 
 export const emailVerificationConfirmationWaitingIsTrue = {
     type: EMAIL_VERIFICATION_CONFIRMATION_WAITING_IS_TRUE,
@@ -27,4 +28,8 @@ export const valueInChatsListInput = {
 
 export const aquariumStatus = {
     type: AQUARIUM_STATUS,
+};
+
+export const appDarkTheme = {
+    type: APP_DARK_THEME,
 };

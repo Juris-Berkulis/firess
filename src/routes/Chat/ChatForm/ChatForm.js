@@ -21,7 +21,7 @@ export const ChartForm = (props) => {
   const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
   const openContact = chatsListChatsKindOfDictRed[openChatKey];
 
-  const chatListRed = useSelector(getChatListMessagesSelector);
+  const chatListMessagesRed = useSelector(getChatListMessagesSelector);
 
   const author = (auth.currentUser !== null ? auth.currentUser.email : null);
 
@@ -51,7 +51,7 @@ export const ChartForm = (props) => {
 
   useEffect(() => {
     focusOnInput();
-  }, [chatListRed]); 
+  }, [chatListMessagesRed]); 
 
   return (
     <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={value}></ChartFormUI>

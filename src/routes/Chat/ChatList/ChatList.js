@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getChatListChatKindOfListById } from '../../../store/ChatList/Selectors';
+import { getChatListChatKindOfListById, getChatListMessagesSelector } from '../../../store/ChatList/Selectors';
 import { ListItem } from '@material-ui/core';
 import { useStyles } from '../../../styles/Style';
 import { ChatListUI } from '../../../ui_components/ChatListUI.jsx';
@@ -24,6 +24,7 @@ export const ChatList = () => {
     const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
     const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
 
+    const chatListMessagesRed = useSelector(getChatListMessagesSelector);
     const chatListRed = useSelector(getChatListChatKindOfListById(openChatKey));
 
     const scrollDown = () => {
@@ -40,7 +41,7 @@ export const ChatList = () => {
 
     useEffect(() => {
         scrollDown();
-    }, [chatListRed]);
+    }, [chatListMessagesRed]);
 
     useEffect(() => {
         dispatch(onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction(openChatKey));

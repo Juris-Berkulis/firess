@@ -10,6 +10,9 @@ export const useStyles = makeStyles({
     backgroundColor: styleConsts.backgroundColor.mainColor2,
     padding: '0 0 10vh',
   },
+  main_darkTheme: {
+    filter: 'brightness(0.6)',
+  },
   preloader__field: {
     height: '90vh',
     width: '100vw',
@@ -325,7 +328,7 @@ export const useStyles = makeStyles({
   },
   chatListItemMessageTextMobileDevice: {
     marginBottom: '2px',
-    fontSize: '12px',
+    fontSize: '14px',
   },
   chatListItemMessageDateAndTime: {
     color: '#777777',

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useLocation } from "react-router";
 import { Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,12 +23,14 @@ import { useChangeEmailVerificationStatus, useWindowDimensions } from './hooks/h
 import { getMobileMenuIsOpenSelector } from './store/MobileMenuStatus/Selectors';
 import { bigChatClose } from './store/BigChatStatus/Action';
 import { useStyles } from './styles/Style';
-import { getStatusesInTheAppIsAquariumOpenSelector, getStatusesInTheAppLastAuthorizationDateAndTimeSelector } from './store/AppSwitches/Selectors';
+import { getStatusesInTheAppIsAquariumOpenSelector, getStatusesInTheAppisDarkThemeSelector, getStatusesInTheAppLastAuthorizationDateAndTimeSelector } from './store/AppSwitches/Selectors';
 import { auth } from './firebase/firebase';
 import { Aquarium } from './routes/ChatsList/Aquarium/Aquarium';
 import { getBigChatIsOpenSelector } from '../src/store/BigChatStatus/Selectors';
 import { dropMessagesInStateAction } from './store/ChatList/Action';
 import { dropChatsListInStateAction } from './store/ChatsList/Action';
+import { appDarkTheme } from './store/AppSwitches/Action';
+import { styleConsts } from './styles/StyleConsts';
 
 export const App = () => {
   const classes = useStyles();
@@ -48,8 +50,38 @@ export const App = () => {
   const lastAuthorizationDateAndTime = useSelector(getStatusesInTheAppLastAuthorizationDateAndTimeSelector)
   const isAquariumStatus = useSelector(getStatusesInTheAppIsAquariumOpenSelector);
   const isBigChatOpen = useSelector(getBigChatIsOpenSelector);
+  const isAppDarkTheme = useSelector(getStatusesInTheAppisDarkThemeSelector);
 
   const emailVerificationStatus = useChangeEmailVerificationStatus(location);
+
+  const isDarkTheme = useCallback(() => {
+    const newDate = new Date();
+
+    const hourLocal = newDate.getHours();
+    const minuteLocal = newDate.getMinutes();
+    const timeLocal = newDate.setHours(hourLocal, minuteLocal);
+
+    const lightThemeStartAt = newDate.setHours(8, 30);
+    const darkThemeStartAt = newDate.setHours(20, 30);
+
+    const meta = document.querySelector('meta[name=theme-color]');
+
+    if (timeLocal >= lightThemeStartAt && timeLocal < darkThemeStartAt) {
+      meta.setAttribute("content", styleConsts.backgroundColor.mainColor1);
+
+      dispatch({
+        type: appDarkTheme.type,
+        payload: false,
+      });
+    } else {
+      meta.setAttribute("content", styleConsts.backgroundColor.mainColor1DarkTheme);
+
+      dispatch({
+        type: appDarkTheme.type,
+        payload: true,
+      });
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch({
@@ -86,9 +118,19 @@ export const App = () => {
     });
   }, [dispatch]);
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      isDarkTheme();
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    }
+  }, [isDarkTheme]);
+
   return (
     <PersistGate loading={<Preloader />} persistor={persistor}>
-    <div className={`${classes.main} ${classes.center}`}>
+    <div className={`${classes.main} ${isAppDarkTheme ? classes.main_darkTheme : null} ${classes.center}`}>
     <Switch>
     <>
       <Header></Header>
