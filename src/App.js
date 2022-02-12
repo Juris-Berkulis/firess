@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation } from "react-router";
 import { Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -45,6 +45,8 @@ export const App = () => {
   const fullPageTitle = makeFullPageTitle(pageTitle);
   giveTitleForPage(fullPageTitle);
 
+  const [booleanForChangeTheme, setBooleanForChangeTheme] = useState(false);
+
   const isMobileDeviceBoolean = isMobileDevice();
   const mobileMenuOpen = useSelector(getMobileMenuIsOpenSelector);
   const lastAuthorizationDateAndTime = useSelector(getStatusesInTheAppLastAuthorizationDateAndTimeSelector)
@@ -54,15 +56,26 @@ export const App = () => {
 
   const emailVerificationStatus = useChangeEmailVerificationStatus(location);
 
+  const getTimeBeforeThemeChange = (themeStartAt, timeLocal) => {
+    if (themeStartAt < timeLocal) {
+      return (24 * 60 * 60 * 1000 - (timeLocal - themeStartAt))
+    } else {
+      return (themeStartAt - timeLocal)
+    }
+  };
+
   const isDarkTheme = useCallback(() => {
     const newDate = new Date();
 
     const hourLocal = newDate.getHours();
     const minuteLocal = newDate.getMinutes();
-    const timeLocal = newDate.setHours(hourLocal, minuteLocal);
+    const secondLocal = newDate.getSeconds();
+    const millisecundLocal = newDate.getMilliseconds();
 
-    const lightThemeStartAt = newDate.setHours(8, 30);
-    const darkThemeStartAt = newDate.setHours(20, 30);
+    const timeLocal = newDate.setHours(hourLocal, minuteLocal, secondLocal, millisecundLocal);
+
+    const lightThemeStartAt = newDate.setHours(8, 30, 0, 0);
+    const darkThemeStartAt = newDate.setHours(20, 30, 0, 0);
 
     const meta = document.querySelector('meta[name=theme-color]');
 
@@ -81,6 +94,17 @@ export const App = () => {
         payload: true,
       });
     }
+
+    const timeUntilNextLightTheme = getTimeBeforeThemeChange(lightThemeStartAt, timeLocal);
+    const timeUntilNextDarkTheme = getTimeBeforeThemeChange(darkThemeStartAt, timeLocal);
+
+    const timeUntilNextThemeChange = Math.min(timeUntilNextLightTheme, timeUntilNextDarkTheme);
+
+    const timerId = setTimeout(() => {
+      setBooleanForChangeTheme(booleanForChangeTheme => !booleanForChangeTheme);
+
+      return clearTimeout(timerId)
+      }, timeUntilNextThemeChange);
   }, [dispatch]);
 
   useEffect(() => {
@@ -119,14 +143,8 @@ export const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      isDarkTheme();
-    }, 1000);
-
-    return () => {
-      clearInterval(intervalId);
-    }
-  }, [isDarkTheme]);
+    isDarkTheme();
+  }, [isDarkTheme, booleanForChangeTheme]);
 
   return (
     <PersistGate loading={<Preloader />} persistor={persistor}>
