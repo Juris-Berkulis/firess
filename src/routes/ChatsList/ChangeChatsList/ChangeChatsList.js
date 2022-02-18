@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MAXIMUM_NUMBER_OF_CHARACTERS_FOR_A_CHAT_NAME } from '../../../data/consts';
+import { auth } from '../../../firebase/firebase';
 import { getKeyForTheChatByChatName, isMobileDevice } from '../../../helper/helper';
 import { aquariumStatus, valueInChatsListInput } from '../../../store/AppSwitches/Action';
 import { removeAllMessagesInDeleteChatWithThunkAction } from '../../../store/ChatList/Action';
@@ -51,8 +52,10 @@ export const ChangeChatsList = () => {
 
   const addContact = (newName) => {
     const now = newContactId();
+    const chatAuthor = auth.currentUser !== null ? auth.currentUser.uid : null;
     const newContact = {
       id: now,
+      chatAuthor: chatAuthor,
       name: newName,
     };
     return newContact

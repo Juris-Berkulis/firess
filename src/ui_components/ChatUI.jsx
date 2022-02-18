@@ -3,6 +3,7 @@ import { ChatList } from '../routes/Chat/ChatList/ChatList';
 import { ChartForm } from '../routes/Chat/ChatForm/ChatForm';
 import { Box } from '@material-ui/core';
 import { ChatControlPanel } from '../routes/Chat/ChatControlPanel/ChatControlPanel';
+import { YouAreDeniedAccessToTheChat } from '../routes/Chat/YouAreDeniedAccessToTheChat/YouAreDeniedAccessToTheChat';
 
 export const ChatUI = (props) => {
     return (
@@ -11,8 +12,20 @@ export const ChatUI = (props) => {
                 <ChatControlPanel></ChatControlPanel>
             </div>
             <div className={props.classes.chatDownPart}>
-                <ChatList></ChatList>
-                <ChartForm></ChartForm>
+                {
+                    (
+                        props.publicChat 
+                        || 
+                        props.canIReadThisChatBoolean
+                    ) 
+                    ? 
+                    <>
+                        <ChatList></ChatList>
+                        <ChartForm></ChartForm>
+                    </>
+                    : 
+                    <YouAreDeniedAccessToTheChat></YouAreDeniedAccessToTheChat>
+                }
             </div>
         </Box>
     )

@@ -9,7 +9,7 @@ import { ChartFormUI } from '../../../ui_components/ChatFormUI.jsx';
 import { auth } from '../../../firebase/firebase';
 import { getKeyForTheChatByChatId } from '../../../helper/helper';
 
-export const ChartForm = (props) => {
+export const ChartForm = () => {
   const classes = useStyles();
   const [value, setValue] = useState('');
 

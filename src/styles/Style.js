@@ -391,6 +391,9 @@ export const useStyles = makeStyles({
     fontSize: '12px',
     lineHeight: '12px',
   },
+  chatControlPanelBtn__changeChatPassword: {
+    transform: 'rotateY(180deg)',
+  },
   popUpWindow: {
     width: '50vw',
     minHeight: '20vh',
@@ -445,6 +448,17 @@ export const useStyles = makeStyles({
     fontSize: '10px',
     lineHeight: '10px',
   },
+  popUpWindowForChangeChatPasswor_input: {
+    width: '80%',
+    marginBottom: '5vh',
+    border: '1px solid #cccccc',
+    borderRadius: '0.8em',
+    padding: '0.3em 0.6em',
+    fontSize: '1em',
+  },
+  popUpWindowForChangeChatPasswor_input_mobileDevice: {
+    fontSize: '0.7em',
+  },
   aquarium: {
     width: '60vw',
     height: '100%',
@@ -471,6 +485,55 @@ export const useStyles = makeStyles({
   aquariumFish: {
     position: 'absolute',
     pointerEvents: 'none',
+  },
+  youAreDeniedAccessToTheChat_field: {
+    overflow: 'auto',
+    width: '100%',
+  },
+  youAreDeniedAccessToTheChat_wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    fontSize: '14px',
+  },
+  youAreDeniedAccessToTheChat_wrapperInfo: {
+    width: '90%',
+  },
+  youAreDeniedAccessToTheChat_textInfo: {
+    marginBottom: '2.5vh',
+    color: '#eeeeee',
+    fontSize: '1.5em',
+    lineHeight: '1.2em',
+  },
+  youAreDeniedAccessToTheChat_textInfo__first: {
+    marginBottom: '0',
+  },
+  youAreDeniedAccessToTheChat_input: {
+    width: '80%',
+    marginBottom: '2.5vh',
+    border: '1px solid #cccccc',
+    borderRadius: '0.8em',
+    padding: '0.3em 0.6em',
+    fontSize: '1em',
+  },
+  youAreDeniedAccessToTheChat_wrapper_input_mobileDevice: {
+    width: '100%',
+  },
+  youAreDeniedAccessToTheChat_errorWrapper: {
+    width: '80%',
+    backgroundColor: '#ffcccc',
+    padding: '1em',
+    marginBottom: '2.5vh',
+    borderRadius: '1.5em',
+  },
+  youAreDeniedAccessToTheChat_errorText: {
+    textAlign: 'center',
+    color: '#ff0000',
+    fontSize: '1em',
+  },
+  youAreDeniedAccessToTheChat_btn: {
+    color: '#eeeeee',
   },
   api_users__title: {
     color: '#eeeeee',

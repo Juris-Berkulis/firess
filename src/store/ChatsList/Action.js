@@ -34,3 +34,13 @@ export const onTrackingChangeValueInChatsListWithThunkAction = (dispatch) => {
 export const offTrackingChangeValueInChatsListWithThunkAction = (dispatch) => {
     chatsRef.off('value', changeChatsList(dispatch));
 };
+
+export const changeChatPasswordWithThunkAction = (chatKey, password, chatAuthorUID) => () => {
+    chatsRef.child(chatKey).child('chatPassword').set(password);
+    chatsRef.child(chatKey).child('theyCanReadThisChat').set('');
+    chatsRef.child(chatKey).child('theyCanReadThisChat').push(chatAuthorUID);
+};
+
+export const addUserIntoChatWithThunkAction = (chatKey, userUID) => () => {
+    chatsRef.child(chatKey).child('theyCanReadThisChat').push(userUID);
+};

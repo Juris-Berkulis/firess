@@ -10,6 +10,19 @@ export const ChatControlPanelUI = (props) => {
                 <div className={props.classes.chatControlPanelMenu}>
                     <button className={`${props.classes.chatControlPanelBtn} ${props.isMobileDeviceBoolean ? props.classes.chatControlPanelBtn_mobileDevice : null}`} onClick={props.openPopUpWindow}>&#128465;</button>
                 </div>
+                {
+                    (
+                        props.myUID !== null 
+                        && 
+                        props.openContact.chatAuthor === props.myUID
+                    )
+                    ? 
+                    <div className={props.classes.chatControlPanelMenu}>
+                        <button className={`${props.classes.chatControlPanelBtn} ${props.isMobileDeviceBoolean ? props.classes.chatControlPanelBtn_mobileDevice : null} ${props.classes.chatControlPanelBtn__changeChatPassword}`} onClick={props.openPopUpWindowForChangeChatPassword}>&#9998;</button>
+                    </div>
+                    : 
+                    null
+                }
                 <button className={`${props.classes.chatControlPanelBtn} ${props.isMobileDeviceBoolean ? props.classes.chatControlPanelBtn_mobileDevice : null}`} onClick={props.closeChat}>&#10006;</button>
             </div>
         </div>
