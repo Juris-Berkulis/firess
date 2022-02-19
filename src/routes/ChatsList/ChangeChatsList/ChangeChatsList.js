@@ -146,11 +146,15 @@ export const ChangeChatsList = () => {
     if (valueName !== '') {
       const delChatsListRedKey = getKeyForTheChatByChatName(chatsListChatsKindOfDictRed, valueName);
       if (delChatsListRedKey) {
-        dispatch(removeFromChatsListWithThunkAction(delChatsListRedKey));
-        dispatch(removeAllMessagesInDeleteChatWithThunkAction(delChatsListRedKey));
-        const deleteChat = valueName;
-        setSuccess(`Чат "${deleteChat}" удален`);
-        resetValue();
+        if ((chatsListChatsKindOfDictRed[delChatsListRedKey]['chatAuthor'] && chatsListChatsKindOfDictRed[delChatsListRedKey]['chatAuthor'] === auth.currentUser.uid) || !chatsListChatsKindOfDictRed[delChatsListRedKey]['chatAuthor']) {
+          dispatch(removeFromChatsListWithThunkAction(delChatsListRedKey));
+          dispatch(removeAllMessagesInDeleteChatWithThunkAction(delChatsListRedKey));
+          const deleteChat = valueName;
+          setSuccess(`Чат "${deleteChat}" удален`);
+          resetValue();
+        } else {
+          setError('Чаты могут удалять только их авторы');
+        }
       } else {
         setError('Чат не найден');
       }
