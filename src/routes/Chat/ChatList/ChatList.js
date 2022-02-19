@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getChatListChatKindOfListById, getChatListMessagesSelector } from '../../../store/ChatList/Selectors';
@@ -43,7 +43,7 @@ export const ChatList = () => {
         scrollDown();
     }, [chatListMessagesRed]);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         dispatch(onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction(openChatKey));
 
         return () => {

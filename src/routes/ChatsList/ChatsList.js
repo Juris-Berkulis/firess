@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangeChatsList } from './ChangeChatsList/ChangeChatsList';
@@ -31,7 +31,7 @@ export const ChatsList = () => {
 
     const newChatsListRed = chatsListRed.filter(chat => chat.name.toLowerCase().includes(valueInChatsListInput.toLowerCase())).map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}{(item.chatPassword && item.chatPassword !== '') ? <p className={classes.allChatsListItem_wrapperSymbols}><span>&#128274;</span></p> : null}</ListItem>);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         dispatch(onTrackingChangeValueInChatsListWithThunkAction);
 
         return () => {

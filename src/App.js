@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { useLocation } from "react-router";
 import { Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -132,7 +132,7 @@ export const App = () => {
     return () => unsubscribe()
   }, [lastAuthorizationDateAndTime]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch({
       type: dropChatsListInStateAction.type,
     });
