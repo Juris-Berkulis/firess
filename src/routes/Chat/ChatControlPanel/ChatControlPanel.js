@@ -46,6 +46,8 @@ export const ChatControlPanel = () => {
     };
 
     const openPopUpWindowForChangeChatPassword = () => {
+        setErrorPassword(false);
+        setPasswordValue('');
         setPopUpWindowForChangeChatPasswordIsOpen(true);
     };
 
@@ -66,6 +68,14 @@ export const ChatControlPanel = () => {
     const onSavePasswordValueFromInput = (event) => {
         setErrorPassword(false);
         setPasswordValue(event.target.value);
+    };
+
+    const newPasswordIsNot = (newPassword) => {
+        if (newPassword === '') {
+            return true
+        }
+
+        return false
     };
 
     const validLengthOfTheNewPassword = (newPassword) => {
@@ -91,10 +101,11 @@ export const ChatControlPanel = () => {
     };
 
     const changeChatPassword = () => {
+        const chatIsPublic = newPasswordIsNot(passwordValue);
         const validLength = validLengthOfTheNewPassword(passwordValue);
         const validCharacters = validCharactersInTheNewPassword(passwordValue);
 
-        if (validLength && validCharacters) {
+        if (chatIsPublic || (validLength && validCharacters)) {
             dispatch(changeChatPasswordWithThunkAction(openChatKey, passwordValue, myUID));
             closePopUpWindowForChangeChatPassword();
         }

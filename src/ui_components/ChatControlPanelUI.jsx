@@ -4,6 +4,19 @@ export const ChatControlPanelUI = (props) => {
     return (
         <div className={props.classes.chatControlPanel}>
             <div className={props.classes.chatControlPanelLeftPart}>
+                {
+                    (
+                        props.openContact.chatPassword 
+                        && 
+                        props.openContact.chatPassword !== ''
+                    ) 
+                    ? 
+                    <div className={props.classes.chatControlPanelIconsWrapper}>
+                        <span className={props.classes.chatControlPanelIcon}>&#128274;</span>
+                    </div>
+                    : 
+                    null
+                }
                 <p className={`${props.classes.chatControlPanelName} ${props.isMobileDeviceBoolean ? props.classes.chatControlPanelName_mobileDevice : null}`}>{props.openContact.name}</p>
             </div>
             <div className={props.classes.chatControlPanelRightPart}>
@@ -25,7 +38,7 @@ export const ChatControlPanelUI = (props) => {
                     : 
                     null
                 }
-                <button className={`${props.classes.chatControlPanelBtn} ${props.isMobileDeviceBoolean ? props.classes.chatControlPanelBtn_mobileDevice : null}`} onClick={props.closeChat}>&#10006;</button>
+                <button className={`${props.classes.chatControlPanelBtn} ${props.isMobileDeviceBoolean ? props.classes.chatControlPanelBtn_mobileDevice : null}`} onClick={props.closeChat}>&#10060;</button>
             </div>
         </div>
     )

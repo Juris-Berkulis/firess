@@ -228,6 +228,11 @@ export const useStyles = makeStyles({
     fontSize: '20px',
     overflow: 'auto',
     whiteSpace: 'pre', //* - It is preferable to use "nowrap" instead of "pre", but in this case it will be difficult to delete the chat from the database.
+    position: 'relative',
+  },
+  allChatsListItem_wrapperSymbols: {
+    position: 'absolute',
+    right: '5px',
   },
   chat: {
     width: '60vw',
@@ -352,6 +357,9 @@ export const useStyles = makeStyles({
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingLeft: '10px',
+  },
+  chatControlPanelIconsWrapper: {
+    marginRight: '5px',
   },
   chatControlPanelName: {
     width: '100%',

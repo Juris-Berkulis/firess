@@ -29,7 +29,7 @@ export const ChatsList = () => {
     const valueInChatsListInput = useSelector(getStatusesInTheAppValueInChatsListInputIsSelector);
     const chatsListRed = useSelector(getChatsListChatsKindOfListSelector).sort(rulesForSortingTheChatsList);
 
-    const newChatsListRed = chatsListRed.filter(chat => chat.name.toLowerCase().includes(valueInChatsListInput.toLowerCase())).map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}</ListItem>);
+    const newChatsListRed = chatsListRed.filter(chat => chat.name.toLowerCase().includes(valueInChatsListInput.toLowerCase())).map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}{(item.chatPassword && item.chatPassword !== '') ? <p className={classes.allChatsListItem_wrapperSymbols}><span>&#128274;</span></p> : null}</ListItem>);
 
     useEffect(() => {
         dispatch(onTrackingChangeValueInChatsListWithThunkAction);
