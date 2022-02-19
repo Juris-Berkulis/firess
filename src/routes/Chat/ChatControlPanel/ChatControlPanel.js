@@ -19,6 +19,7 @@ export const ChatControlPanel = () => {
     const [popUpWindowIsOpen, setPopUpWindowIsOpen] = useState(false);
     const [popUpWindowForChangeChatPasswordIsOpen, setPopUpWindowForChangeChatPasswordIsOpen] = useState(false);
     const [passwordValue, setPasswordValue] = useState('');
+    const [errorPassword, setErrorPassword] = useState(false);
 
     const isMobileDeviceBoolean = isMobileDevice();
 
@@ -63,17 +64,46 @@ export const ChatControlPanel = () => {
     };
 
     const onSavePasswordValueFromInput = (event) => {
+        setErrorPassword(false);
         setPasswordValue(event.target.value);
     };
 
+    const validLengthOfTheNewPassword = (newPassword) => {
+        const minLengthPassword = 4;
+        const maxLengthPassword = 20;
+
+        if (newPassword.length >= minLengthPassword && newPassword.length <= maxLengthPassword) {
+            return true
+        }
+
+        setErrorPassword(`Допустимая длина от ${minLengthPassword} до ${maxLengthPassword} символов`)
+        return false
+    };
+
+    const validCharactersInTheNewPassword = (newPassword) => {
+        const regExp = /^[0-9a-zа-яё_(),.[\]{}\-!@#$%^&+=?;:]+$/i;
+        if (regExp.test(newPassword)) {
+            return true
+        }
+    
+        setErrorPassword('Только "цифры, буквы, скобки, !, @, #, $, %, ^, &, _, -, +, =, ?, ;, :, . и ,"');
+        return false
+    };
+
     const changeChatPassword = () => {
-        dispatch(changeChatPasswordWithThunkAction(openChatKey, passwordValue, myUID));
-        closePopUpWindowForChangeChatPassword();
+        const validLength = validLengthOfTheNewPassword(passwordValue);
+        const validCharacters = validCharactersInTheNewPassword(passwordValue);
+
+        if (validLength && validCharacters) {
+            dispatch(changeChatPasswordWithThunkAction(openChatKey, passwordValue, myUID));
+            closePopUpWindowForChangeChatPassword();
+        }
     };
 
     useEffect(() => {
         setPopUpWindowIsOpen(false);
         setPopUpWindowForChangeChatPasswordIsOpen(false);
+        setErrorPassword(false);
         setPasswordValue('');
     }, [chatId]);
 
@@ -81,7 +111,7 @@ export const ChatControlPanel = () => {
         <>
             <ChatControlPanelUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} closeChat={closeChat} openPopUpWindow={openPopUpWindow} openContact={openContact} myUID={myUID} openPopUpWindowForChangeChatPassword={openPopUpWindowForChangeChatPassword}></ChatControlPanelUI>
             {popUpWindowIsOpen ? <PopUpWindowUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} deleteChat={deleteChat} closePopUpWindow={closePopUpWindow} openContact={openContact}></PopUpWindowUI> : null}
-            {popUpWindowForChangeChatPasswordIsOpen ? <PopUpWindowForChangeChatPasswordUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} closePopUpWindowForChangeChatPassword={closePopUpWindowForChangeChatPassword} openContact={openContact} refInput={refInput} onSavePasswordValueFromInput={onSavePasswordValueFromInput} changeChatPassword={changeChatPassword} chatPassword={chatPassword}></PopUpWindowForChangeChatPasswordUI> : null}
+            {popUpWindowForChangeChatPasswordIsOpen ? <PopUpWindowForChangeChatPasswordUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} closePopUpWindowForChangeChatPassword={closePopUpWindowForChangeChatPassword} openContact={openContact} refInput={refInput} onSavePasswordValueFromInput={onSavePasswordValueFromInput} changeChatPassword={changeChatPassword} chatPassword={chatPassword} errorPassword={errorPassword}></PopUpWindowForChangeChatPasswordUI> : null}
         </>
     )
 };

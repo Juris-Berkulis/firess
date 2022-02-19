@@ -450,7 +450,7 @@ export const useStyles = makeStyles({
   },
   popUpWindowForChangeChatPasswor_input: {
     width: '80%',
-    marginBottom: '5vh',
+    marginBottom: '2.5vh',
     border: '1px solid #cccccc',
     borderRadius: '0.8em',
     padding: '0.3em 0.6em',
@@ -458,6 +458,18 @@ export const useStyles = makeStyles({
   },
   popUpWindowForChangeChatPasswor_input_mobileDevice: {
     fontSize: '0.7em',
+  },
+  popUpWindowForChangeChatPasswor_errorWrapper: {
+    width: '80%',
+    backgroundColor: '#ffcccc',
+    padding: '1em',
+    marginBottom: '2.5vh',
+    borderRadius: '1.5em',
+  },
+  popUpWindowForChangeChatPasswor_errorText: {
+    textAlign: 'center',
+    color: '#ff0000',
+    fontSize: '1em',
   },
   aquarium: {
     width: '60vw',
