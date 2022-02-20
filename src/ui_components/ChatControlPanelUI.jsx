@@ -3,7 +3,7 @@ import React from 'react';
 export const ChatControlPanelUI = (props) => {
     return (
         <div className={props.classes.chatControlPanel}>
-            <div className={props.classes.chatControlPanelLeftPart}>
+            <div className={`${props.classes.chatControlPanelLeftPart} ${props.isMobileDeviceBoolean ? props.classes.chatControlPanelLeftPart_mobileDevice : null}`}>
                 {
                     (
                         props.openContact.chatPassword 
@@ -12,7 +12,15 @@ export const ChatControlPanelUI = (props) => {
                     ) 
                     ? 
                     <div className={props.classes.chatControlPanelIconsWrapper}>
-                        <span className={props.classes.chatControlPanelIcon}>&#128274;</span>
+                        <span className={props.classes.chatControlPanelIcon}>
+                            {
+                                Object.values(props.openContact.theyCanReadThisChat).find((itemUID) => itemUID === props.myUID) 
+                                ? 
+                                <span className={props.classes.chatControlPanelIPrivatChatIcon}>&#128273;</span>
+                                : 
+                                <span className={props.classes.chatControlPanelIPrivatChatIcon}>&#128274;</span>
+                            }
+                        </span>
                     </div>
                     : 
                     null

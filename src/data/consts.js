@@ -1,7 +1,7 @@
 export const appTitle = {
-    name: 'Firess Messenger',
+    name: 'ℱírεss ℳεssεngεr',
     delimiter: '. ',
-}
+};
 
 export const mobileScreenWidth = 1000;
 

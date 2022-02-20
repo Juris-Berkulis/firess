@@ -129,7 +129,7 @@ export const ChangeChatsList = () => {
         if (!(chatsListRed.find((item) => item.name === newValueName))) {
           const newContact = addContact(newValueName);
           dispatch(addInChatsListWithThunkAction(newContact));
-          setSuccess(`Чат "${newValueName}" добавлен`);
+          setSuccess(`Чат "${newValueName}" создан`);
           resetValue();
         } else {
           setError('Чат уже существует');

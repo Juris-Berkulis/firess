@@ -234,6 +234,9 @@ export const useStyles = makeStyles({
     position: 'absolute',
     right: '5px',
   },
+  allChatsListItem_privatChatIcon: {
+    fontSize: '80%',
+  },
   chat: {
     width: '60vw',
     height: '100%',
@@ -358,8 +361,14 @@ export const useStyles = makeStyles({
     alignItems: 'center',
     paddingLeft: '10px',
   },
+  chatControlPanelLeftPart_mobileDevice: {
+    paddingLeft: '5px',
+  },
   chatControlPanelIconsWrapper: {
     marginRight: '5px',
+  },
+  chatControlPanelIPrivatChatIcon: {
+    fontSize: '80%',
   },
   chatControlPanelName: {
     width: '100%',
@@ -367,6 +376,7 @@ export const useStyles = makeStyles({
     whiteSpace: 'nowrap',
     color: '#555555',
     fontSize: '18px',
+    paddingLeft: '5px',
   },
   chatControlPanelName_mobileDevice: {
     fontSize: '12px',

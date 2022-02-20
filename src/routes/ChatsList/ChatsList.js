@@ -11,6 +11,7 @@ import { getBigChatIsOpenSelector } from '../../store/BigChatStatus/Selectors';
 import { isMobileDevice, isNumberOrString, sortingConditions } from '../../helper/helper';
 import { bigChatClose } from '../../store/BigChatStatus/Action';
 import { getStatusesInTheAppValueInChatsListInputIsSelector } from '../../store/AppSwitches/Selectors';
+import { auth } from '../../firebase/firebase';
 
 export const ChatsList = () => {
     const classes = useStyles();
@@ -18,6 +19,8 @@ export const ChatsList = () => {
     const isMobileDeviceBoolean = isMobileDevice();
 
     const dispatch = useDispatch();
+
+    const myUID = auth.currentUser !== null ? auth.currentUser.uid : null;
 
     const rulesForSortingTheChatsList = (a, b) => {
         const chatNameA = isNumberOrString(a.name);
@@ -29,7 +32,40 @@ export const ChatsList = () => {
     const valueInChatsListInput = useSelector(getStatusesInTheAppValueInChatsListInputIsSelector);
     const chatsListRed = useSelector(getChatsListChatsKindOfListSelector).sort(rulesForSortingTheChatsList);
 
-    const newChatsListRed = chatsListRed.filter(chat => chat.name.toLowerCase().includes(valueInChatsListInput.toLowerCase())).map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}{(item.chatPassword && item.chatPassword !== '') ? <p className={classes.allChatsListItem_wrapperSymbols}><span>&#128274;</span></p> : null}</ListItem>);
+    const newChatsListRed = chatsListRed.filter(chat => chat.name.toLowerCase().includes(valueInChatsListInput.toLowerCase())).map((item) => {
+        return (
+            <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>
+                {
+                    item.name
+                }
+                {
+                    (
+                        item.chatPassword 
+                        && 
+                        item.chatPassword !== ''
+                    ) 
+                    ? 
+                    (
+                        item.theyCanReadThisChat 
+                        ? 
+                        <p className={classes.allChatsListItem_wrapperSymbols}>
+                            {
+                                Object.values(item.theyCanReadThisChat).find((itemUID) => itemUID === myUID) 
+                                ? 
+                                <span className={classes.allChatsListItem_privatChatIcon}>&#128273;</span>
+                                : 
+                                <span className={classes.allChatsListItem_privatChatIcon}>&#128274;</span>
+                            }
+                        </p>
+                        : 
+                        null
+                    ) 
+                    : 
+                    null
+                }
+            </ListItem>
+        )
+    });
 
     useLayoutEffect(() => {
         dispatch(onTrackingChangeValueInChatsListWithThunkAction);
