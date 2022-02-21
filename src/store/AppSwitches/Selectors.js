@@ -4,4 +4,4 @@ export const getStatusesInTheAppCountdownForLetterRequestIsNumberSelector = (sta
 export const getStatusesInTheAppLastAuthorizationDateAndTimeSelector = (state) => getStatusesInTheAppRootSelector(state).lastAuthorizationDateAndTime || null;
 export const getStatusesInTheAppValueInChatsListInputIsSelector = (state) => getStatusesInTheAppRootSelector(state).valueInChatsListInputIs || '';
 export const getStatusesInTheAppIsAquariumOpenSelector = (state) => getStatusesInTheAppRootSelector(state).isAquariumOpen || null;
-export const getStatusesInTheAppisDarkThemeSelector = (state) => getStatusesInTheAppRootSelector(state).isDarkTheme;
+export const getStatusesInTheAppappThemeIsSelector = (state) => getStatusesInTheAppRootSelector(state).appThemeIs;

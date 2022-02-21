@@ -73,3 +73,55 @@ export const allAppComponentsWithPageTitle = {
 export const startValueForTimer = 91;
 
 export const MAXIMUM_NUMBER_OF_CHARACTERS_FOR_A_CHAT_NAME = 50;
+
+export const APP_THEMES_NAMES = {
+    theme_1: {
+        nameEn: 'lightTheme',
+        nameRu: 'Светлая',
+    },
+    theme_2: {
+        nameEn: 'dartTheme',
+        nameRu: 'Темная',
+    },
+    theme_3: {
+        nameEn: 'greyTheme',
+        nameRu: 'Серая',
+    },
+    theme_4: {
+        nameEn: 'sunnyTheme',
+        nameRu: 'Солнечно',
+    },
+};
+
+export const appThemesSchedule = [
+    {
+        themeNameEn: APP_THEMES_NAMES.theme_3.nameEn,
+        themeNameRu: APP_THEMES_NAMES.theme_3.nameRu,
+        themeStartAt: new Date().setHours(0, 0, 0, 0),
+    },
+    {
+        themeNameEn: APP_THEMES_NAMES.theme_2.nameEn,
+        themeNameRu: APP_THEMES_NAMES.theme_2.nameRu,
+        themeStartAt: new Date().setHours(6, 0, 0, 0),
+    },
+    {
+        themeNameEn: APP_THEMES_NAMES.theme_1.nameEn,
+        themeNameRu: APP_THEMES_NAMES.theme_1.nameRu,
+        themeStartAt: new Date().setHours(8, 30, 0, 0),
+    },
+    {
+        themeNameEn: APP_THEMES_NAMES.theme_4.nameEn,
+        themeNameRu: APP_THEMES_NAMES.theme_4.nameRu,
+        themeStartAt: new Date().setHours(12, 0, 0, 0),
+    },
+    {
+        themeNameEn: APP_THEMES_NAMES.theme_1.nameEn,
+        themeNameRu: APP_THEMES_NAMES.theme_1.nameRu,
+        themeStartAt: new Date().setHours(12, 5, 0, 0),
+    },
+    {
+        themeNameEn: APP_THEMES_NAMES.theme_2.nameEn,
+        themeNameRu: APP_THEMES_NAMES.theme_2.nameRu,
+        themeStartAt: new Date().setHours(20, 30, 0, 0),
+    },
+];

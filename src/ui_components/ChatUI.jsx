@@ -7,7 +7,7 @@ import { YouAreDeniedAccessToTheChat } from '../routes/Chat/YouAreDeniedAccessTo
 
 export const ChatUI = (props) => {
     return (
-        <Box className={`${props.classes.chat} ${props.isMobileDeviceBoolean ? props.classes.chatMobileDevice : null}`}>
+        <Box className={`${props.classes.chat} ${props.isMobileDeviceBoolean ? props.classes.chatMobileDevice : null} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.chat_greyTheme : null) : null}`}>
             <div className={props.classes.chatUpPart}>
                 <ChatControlPanel></ChatControlPanel>
             </div>

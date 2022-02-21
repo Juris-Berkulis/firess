@@ -13,6 +13,12 @@ export const useStyles = makeStyles({
   main_darkTheme: {
     filter: 'brightness(0.6)',
   },
+  main_greyTheme: {
+    filter: 'grayscale(1)',
+  },
+  main_sunnyTheme: {
+    filter: 'saturate(3)',
+  },
   preloader__field: {
     height: '90vh',
     width: '100vw',
@@ -248,6 +254,9 @@ export const useStyles = makeStyles({
     justifyContent: 'space-between',
     padding: '5vh 5vw',
     borderRadius: '5vw',
+  },
+  chat_greyTheme: {
+    filter: 'grayscale(1) invert(1)',
   },
   chatMobileDevice: {
     width: '100%',
@@ -515,6 +524,9 @@ export const useStyles = makeStyles({
   aquariumFish: {
     position: 'absolute',
     pointerEvents: 'none',
+  },
+  aquariumFish_greyTheme: {
+    filter: 'brightness(0.8) opacity(0.5)',
   },
   youAreDeniedAccessToTheChat_field: {
     overflow: 'auto',

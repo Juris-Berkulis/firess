@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getChatsListChatsKindOfDictSelector, getChatsListChatsKindOfListSelector } from '../../store/ChatsList/Selectors';
 import { useStyles } from '../../styles/Style';
 import { ChatUI } from '../../ui_components/ChatUI.jsx';
-import { allAppComponentsWithPageTitle } from '../../data/consts';
+import { allAppComponentsWithPageTitle, APP_THEMES_NAMES } from '../../data/consts';
 import { bigChatClose, bigChatOpen } from '../../store/BigChatStatus/Action';
 import { getKeyForTheChatByChatId, isMobileDevice } from '../../helper/helper';
 import { aquariumStatus } from '../../store/AppSwitches/Action';
 import { dropMessagesInStateAction } from '../../store/ChatList/Action';
 import { auth } from '../../firebase/firebase';
+import { getStatusesInTheAppappThemeIsSelector } from '../../store/AppSwitches/Selectors';
 
 export const Chat = () => {
     const classes = useStyles();
@@ -19,6 +20,8 @@ export const Chat = () => {
     const { chatId } = useParams();
 
     const dispatch = useDispatch();
+
+    const appThemeSel = useSelector(getStatusesInTheAppappThemeIsSelector);
 
     const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
     const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
@@ -60,6 +63,6 @@ export const Chat = () => {
     };
 
     return (
-        <ChatUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} publicChat={publicChat} canIReadThisChatBoolean={canIReadThisChatBoolean}></ChatUI>
+        <ChatUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} publicChat={publicChat} canIReadThisChatBoolean={canIReadThisChatBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES}></ChatUI>
     )
 };

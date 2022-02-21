@@ -1,5 +1,5 @@
 import { 
-    appDarkTheme,
+    appTheme,
     aquariumStatus,
     countdownForLetterRequest, 
     emailVerificationConfirmationWaitingIsFalse, 
@@ -48,10 +48,10 @@ export const statusesInTheAppReducer = (state = initialState, action) => {
                 isAquariumOpen: action.payload,
             }
         }
-        case appDarkTheme.type: {
+        case appTheme.type: {
             return {
                 ...state,
-                isDarkTheme: action.payload,
+                appThemeIs: action.payload,
             }
         }
         default: {

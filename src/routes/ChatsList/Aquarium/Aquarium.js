@@ -6,8 +6,9 @@ import { AquariumUI } from '../../../ui_components/AquariumUI';
 import goldFish from '../../../img/fish/goldFish.gif';
 import preloader from '../../../img/preloader.gif';
 import { getElementHeight, getElementWidth, isMobileDevice } from '../../../helper/helper';
-import { getStatusesInTheAppIsAquariumOpenSelector } from '../../../store/AppSwitches/Selectors';
+import { getStatusesInTheAppappThemeIsSelector, getStatusesInTheAppIsAquariumOpenSelector } from '../../../store/AppSwitches/Selectors';
 import { aquariumStatus } from '../../../store/AppSwitches/Action';
+import { APP_THEMES_NAMES } from '../../../data/consts';
 
 export const Aquarium = () => {
     const classes = useStyles();
@@ -31,6 +32,8 @@ export const Aquarium = () => {
 
     const isBigChatOpen = useSelector(getBigChatIsOpenSelector);
     const isAquariumStatus = useSelector(getStatusesInTheAppIsAquariumOpenSelector);
+    const appThemeSel = useSelector(getStatusesInTheAppappThemeIsSelector);
+
     const isMobileDeviceBoolean = isMobileDevice();
 
     const changeAquariumStatus = () => {
@@ -124,6 +127,6 @@ export const Aquarium = () => {
     }, [isAquariumStatus, isBigChatOpen]);
 
     return (
-        isBigChatOpen ? null : <AquariumUI classes={classes} goldFish={goldFish} moveOx={moveOx} moveOy={moveOy} rotateImg={rotateImg} fishDuration={fishDuration} fishTimingFunction={fishTimingFunction} fishDelay={fishDelay} fishWidth={fishWidthRef.current} refAquariumField={refAquariumField} isAquariumStatus={isAquariumStatus} changeAquariumStatus={changeAquariumStatus} isMobileDeviceBoolean={isMobileDeviceBoolean} isPreloader={isPreloader} preloader={preloader} preloaderDimensions={preloaderDimensions}></AquariumUI>
+        isBigChatOpen ? null : <AquariumUI classes={classes} goldFish={goldFish} moveOx={moveOx} moveOy={moveOy} rotateImg={rotateImg} fishDuration={fishDuration} fishTimingFunction={fishTimingFunction} fishDelay={fishDelay} fishWidth={fishWidthRef.current} refAquariumField={refAquariumField} isAquariumStatus={isAquariumStatus} changeAquariumStatus={changeAquariumStatus} isMobileDeviceBoolean={isMobileDeviceBoolean} isPreloader={isPreloader} preloader={preloader} preloaderDimensions={preloaderDimensions} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES}></AquariumUI>
     )
 };
