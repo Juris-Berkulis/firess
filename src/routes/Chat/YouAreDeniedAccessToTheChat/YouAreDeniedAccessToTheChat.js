@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { auth } from '../../../firebase/firebase';
-import { getKeyForTheChatByChatId, isMobileDevice } from '../../../helper/helper';
+import { auth, chatAccessRef } from '../../../firebase/firebase';
+import { isMobileDevice, getKeyForTheChatByChatId } from '../../../helper/helper';
 import { addUserIntoChatWithThunkAction } from '../../../store/ChatsList/Action';
 import { getChatsListChatsKindOfDictSelector } from '../../../store/ChatsList/Selectors';
 import { useStyles } from '../../../styles/Style';
@@ -24,8 +24,6 @@ export const YouAreDeniedAccessToTheChat = () => {
     
     const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
     const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
-    const openContact = chatsListChatsKindOfDictRed[openChatKey];
-    const chatPassword = openContact.chatPassword;
     const myUID = auth.currentUser !== null ? auth.currentUser.uid : null;
 
     const resetPasswordInInput = () => {
@@ -39,11 +37,17 @@ export const YouAreDeniedAccessToTheChat = () => {
     };
 
     const registerToChat = () => {
-        if (passwordValue === chatPassword) {
-            dispatch(addUserIntoChatWithThunkAction(openChatKey, myUID));
-        } else {
-            setError('Неверный пароль');
-        }
+        chatAccessRef.get().then((snapshot) => {
+            if (snapshot.exists()) {
+                if (snapshot.val()[chatId] && snapshot.val()[chatId].chatPassword) {
+                    if (passwordValue === snapshot.val()[chatId].chatPassword) {
+                        dispatch(addUserIntoChatWithThunkAction(openChatKey, chatId, myUID));
+                    } else {
+                        setError('Неверный пароль');
+                    }
+                }
+            }
+        });
     };
 
     useEffect(() => {

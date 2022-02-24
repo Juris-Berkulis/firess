@@ -5,7 +5,7 @@ import { auth } from '../../../firebase/firebase';
 import { getKeyForTheChatByChatName, isMobileDevice } from '../../../helper/helper';
 import { aquariumStatus, valueInChatsListInput } from '../../../store/AppSwitches/Action';
 import { removeAllMessagesInDeleteChatWithThunkAction } from '../../../store/ChatList/Action';
-import { addInChatsListWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
+import { addInChatsListWithThunkAction, deleteSecretIntoAboutDeletedChatWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
 import { getChatsListChatsKindOfDictSelector, getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
 import { useStyles } from '../../../styles/Style';
 import { ChangeChatsListUI } from '../../../ui_components/ChangeChatsListUI.jsx';
@@ -149,6 +149,7 @@ export const ChangeChatsList = () => {
         if ((chatsListChatsKindOfDictRed[delChatsListRedKey]['chatAuthor'] && chatsListChatsKindOfDictRed[delChatsListRedKey]['chatAuthor'] === auth.currentUser.uid) || !chatsListChatsKindOfDictRed[delChatsListRedKey]['chatAuthor']) {
           dispatch(removeFromChatsListWithThunkAction(delChatsListRedKey));
           dispatch(removeAllMessagesInDeleteChatWithThunkAction(delChatsListRedKey));
+          dispatch(deleteSecretIntoAboutDeletedChatWithThunkAction(chatsListChatsKindOfDictRed[delChatsListRedKey]['id']));
           const deleteChat = valueName;
           setSuccess(`Чат "${deleteChat}" удален`);
           resetValue();

@@ -6,9 +6,9 @@ export const ChatControlPanelUI = (props) => {
             <div className={`${props.classes.chatControlPanelLeftPart} ${props.isMobileDeviceBoolean ? props.classes.chatControlPanelLeftPart_mobileDevice : null}`}>
                 {
                     (
-                        props.openContact.chatPassword 
+                        props.openContact.chatIsPrivate 
                         && 
-                        props.openContact.chatPassword !== ''
+                        props.openContact.chatIsPrivate === true
                     ) 
                     ? 
                     <div className={props.classes.chatControlPanelIconsWrapper}>

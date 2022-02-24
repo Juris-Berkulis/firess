@@ -40,9 +40,9 @@ export const ChatsList = () => {
                 }
                 {
                     (
-                        item.chatPassword 
+                        item.chatIsPrivate 
                         && 
-                        item.chatPassword !== ''
+                        item.chatIsPrivate === true
                     ) 
                     ? 
                     (

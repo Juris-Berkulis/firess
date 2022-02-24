@@ -7,10 +7,10 @@ import { getKeyForTheChatByChatId, isMobileDevice } from '../../../helper/helper
 import { ChatControlPanelUI } from '../../../ui_components/ChatControlPanelUI';
 import { allAppComponentsWithPageTitle } from '../../../data/consts';
 import { useHistory } from 'react-router-dom';
-import { changeChatPasswordWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
+import { changeChatPasswordWithThunkAction, deleteSecretIntoAboutDeletedChatWithThunkAction, makeTheChatPrivateWithThunkAction, makeTheChatPublicWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
 import { removeAllMessagesInDeleteChatWithThunkAction } from '../../../store/ChatList/Action';
 import { PopUpWindowUI } from '../../../ui_components/PopUpWindowUI';
-import { auth } from '../../../firebase/firebase';
+import { auth, chatAccessRef } from '../../../firebase/firebase';
 import { PopUpWindowForChangeChatPasswordUI } from '../../../ui_components/PopUpWindowForChangeChatPasswordUI';
 
 export const ChatControlPanel = () => {
@@ -20,6 +20,7 @@ export const ChatControlPanel = () => {
     const [popUpWindowForChangeChatPasswordIsOpen, setPopUpWindowForChangeChatPasswordIsOpen] = useState(false);
     const [passwordValue, setPasswordValue] = useState('');
     const [errorPassword, setErrorPassword] = useState(false);
+    const [chatPassword, setChatPassword] = useState(false);
 
     const isMobileDeviceBoolean = isMobileDevice();
 
@@ -35,7 +36,6 @@ export const ChatControlPanel = () => {
     const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
     const openContact = chatsListChatsKindOfDictRed[openChatKey];
     const myUID = auth.currentUser !== null ? auth.currentUser.uid : null;
-    const chatPassword = (openContact && openContact.chatAuthor === myUID) ? openContact.chatPassword : null;
 
     const openPopUpWindow = () => {
         setPopUpWindowIsOpen(true);
@@ -48,16 +48,25 @@ export const ChatControlPanel = () => {
     const openPopUpWindowForChangeChatPassword = () => {
         setErrorPassword(false);
         setPasswordValue('');
+
+        chatAccessRef.get().then((snapshot) => {
+            if (snapshot.exists()) {
+                setChatPassword(snapshot.val()[chatId] && snapshot.val()[chatId].chatPassword ? snapshot.val()[chatId].chatPassword : null);
+            }
+        });
+
         setPopUpWindowForChangeChatPasswordIsOpen(true);
     };
 
     const closePopUpWindowForChangeChatPassword = () => {
+        setChatPassword(false);
         setPopUpWindowForChangeChatPasswordIsOpen(false);
     };
 
     const deleteChat = () => {
         dispatch(removeFromChatsListWithThunkAction(openChatKey));
         dispatch(removeAllMessagesInDeleteChatWithThunkAction(openChatKey));
+        dispatch(deleteSecretIntoAboutDeletedChatWithThunkAction(openContact.id));
         push(allAppComponentsWithPageTitle.messenger.path);
     };
 
@@ -106,7 +115,12 @@ export const ChatControlPanel = () => {
         const validCharacters = validCharactersInTheNewPassword(passwordValue);
 
         if (chatIsPublic || (validLength && validCharacters)) {
-            dispatch(changeChatPasswordWithThunkAction(openChatKey, passwordValue, myUID));
+            dispatch(changeChatPasswordWithThunkAction(openChatKey, openContact.id, passwordValue, myUID));
+            if (chatIsPublic) {
+                dispatch(makeTheChatPublicWithThunkAction(openChatKey));
+            } else {
+                dispatch(makeTheChatPrivateWithThunkAction(openChatKey));
+            }
             closePopUpWindowForChangeChatPassword();
         }
     };
@@ -116,6 +130,7 @@ export const ChatControlPanel = () => {
         setPopUpWindowForChangeChatPasswordIsOpen(false);
         setErrorPassword(false);
         setPasswordValue('');
+        setChatPassword(false);
     }, [chatId]);
 
     return (

@@ -14,7 +14,7 @@ export const ChatUI = (props) => {
             <div className={props.classes.chatDownPart}>
                 {
                     (
-                        props.publicChat 
+                        !props.privateChat 
                         || 
                         props.canIReadThisChatBoolean
                     ) 

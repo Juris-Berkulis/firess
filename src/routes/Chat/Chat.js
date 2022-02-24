@@ -26,7 +26,7 @@ export const Chat = () => {
     const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
     const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
     const openContact = chatsListChatsKindOfDictRed[openChatKey];
-    const publicChat = openContact && (!openContact.chatPassword || (openContact.chatPassword && openContact.chatPassword === '')) ? true : false;
+    const privateChat = (openContact && openContact.chatIsPrivate === true) ? true : false;
     const myUID = auth.currentUser !== null ? auth.currentUser.uid : null;
     const canIReadThisChatBoolean = openContact && (!openContact.theyCanReadThisChat || (openContact.chatAuthor && openContact.chatAuthor === myUID) || (openContact.theyCanReadThisChat && Object.values(openContact.theyCanReadThisChat).find((usersUID) => usersUID === myUID))) ? true : false;
 
@@ -63,6 +63,6 @@ export const Chat = () => {
     };
 
     return (
-        <ChatUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} publicChat={publicChat} canIReadThisChatBoolean={canIReadThisChatBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES}></ChatUI>
+        <ChatUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} privateChat={privateChat} canIReadThisChatBoolean={canIReadThisChatBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES}></ChatUI>
     )
 };
