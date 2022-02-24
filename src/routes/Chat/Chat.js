@@ -8,7 +8,6 @@ import { allAppComponentsWithPageTitle, APP_THEMES_NAMES } from '../../data/cons
 import { bigChatClose, bigChatOpen } from '../../store/BigChatStatus/Action';
 import { getKeyForTheChatByChatId, isMobileDevice } from '../../helper/helper';
 import { aquariumStatus } from '../../store/AppSwitches/Action';
-import { dropMessagesInStateAction } from '../../store/ChatList/Action';
 import { auth } from '../../firebase/firebase';
 import { getStatusesInTheAppappThemeIsSelector } from '../../store/AppSwitches/Selectors';
 
@@ -45,14 +44,6 @@ export const Chat = () => {
             });
         };
     }, [dispatch]);
-
-    useEffect(() => {
-        return () => {
-            dispatch({
-                type: dropMessagesInStateAction.type,
-            });
-        }
-    }, [dispatch, chatId]);
 
     const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
 
