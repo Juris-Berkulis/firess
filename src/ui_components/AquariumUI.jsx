@@ -6,7 +6,7 @@ export const AquariumUI = (props) => {
         ?
         null 
         : 
-        <div className={`${props.classes.aquarium} ${props.isAquariumStatus ? props.classes.aquariumIsOpen : props.classes.aquariumIsClose} ${props.isMobileDeviceBoolean ? props.classes.aquarium_mobileDevice : null}`} ref={props.refAquariumField} onClick={props.changeAquariumStatus}>
+        <div className={`${props.classes.aquarium} ${props.isAquariumStatus ? props.classes.aquariumIsOpen : props.classes.aquariumIsClose} ${props.isMobileDeviceBoolean ? props.classes.aquarium_mobileDevice : null} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.aquariumIsOpen_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.aquariumIsOpen_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.aquariumIsOpen_sunnyTheme : null) : null}`} ref={props.refAquariumField} onClick={props.changeAquariumStatus}>
             {
                 props.isAquariumStatus 
                 ? 

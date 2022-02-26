@@ -93,35 +93,39 @@ export const APP_THEMES_NAMES = {
     },
 };
 
+const getTime =(hour, minute) => {
+    return +hour * 60 * 60 * 1000 + +minute * 60 * 1000
+};
+
 export const appThemesSchedule = [
     {
         themeNameEn: APP_THEMES_NAMES.theme_3.nameEn,
         themeNameRu: APP_THEMES_NAMES.theme_3.nameRu,
-        themeStartAt: new Date().setHours(0, 0, 0, 0),
+        themeStartAt: getTime(0, 0),
     },
     {
         themeNameEn: APP_THEMES_NAMES.theme_2.nameEn,
         themeNameRu: APP_THEMES_NAMES.theme_2.nameRu,
-        themeStartAt: new Date().setHours(6, 0, 0, 0),
+        themeStartAt: getTime(6, 0),
     },
     {
         themeNameEn: APP_THEMES_NAMES.theme_1.nameEn,
         themeNameRu: APP_THEMES_NAMES.theme_1.nameRu,
-        themeStartAt: new Date().setHours(8, 30, 0, 0),
+        themeStartAt: getTime(8, 30),
     },
     {
         themeNameEn: APP_THEMES_NAMES.theme_4.nameEn,
         themeNameRu: APP_THEMES_NAMES.theme_4.nameRu,
-        themeStartAt: new Date().setHours(12, 0, 0, 0),
+        themeStartAt: getTime(12, 0),
     },
     {
         themeNameEn: APP_THEMES_NAMES.theme_1.nameEn,
         themeNameRu: APP_THEMES_NAMES.theme_1.nameRu,
-        themeStartAt: new Date().setHours(12, 5, 0, 0),
+        themeStartAt: getTime(12, 5),
     },
     {
         themeNameEn: APP_THEMES_NAMES.theme_2.nameEn,
         themeNameRu: APP_THEMES_NAMES.theme_2.nameRu,
-        themeStartAt: new Date().setHours(20, 30, 0, 0),
+        themeStartAt: getTime(20, 30),
     },
 ];

@@ -72,7 +72,7 @@ export const App = () => {
     const secondLocal = newDate.getSeconds();
     const millisecundLocal = newDate.getMilliseconds();
 
-    const timeLocal = newDate.setHours(hourLocal, minuteLocal, secondLocal, millisecundLocal);
+    const timeLocal = hourLocal * 60 * 60 * 1000 + minuteLocal * 60 * 1000 + secondLocal * 1000 + millisecundLocal;
 
     const appThemesScheduleSort = appThemesSchedule.sort((a, b) => +a.themeStartAt > +b.themeStartAt ? 1 : -1);
 

@@ -9,6 +9,8 @@ import { getChatsListChatsKindOfDictSelector } from '../../../store/ChatsList/Se
 import { auth } from '../../../firebase/firebase';
 import { getKeyForTheChatByChatId, isMobileDevice } from '../../../helper/helper';
 import { dropMessagesInStateAction, offTrackingChangeValueInMessagesListFromOpenChatWithThunkAction, onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction } from '../../../store/ChatList/Action';
+import { getStatusesInTheAppappThemeIsSelector } from '../../../store/AppSwitches/Selectors';
+import { APP_THEMES_NAMES } from '../../../data/consts';
 
 export const ChatList = () => {
     const classes = useStyles();
@@ -25,6 +27,7 @@ export const ChatList = () => {
     const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
 
     const chatListRed = useSelector(getChatListChatKindOfListById(openChatKey));
+    const appThemeSel = useSelector(getStatusesInTheAppappThemeIsSelector);
 
     const scrollDown = () => {
         if (refOpenChat.current) {
@@ -180,7 +183,7 @@ export const ChatList = () => {
     
     const chatListRedForProps = chatListRed.map((item, index) => (
         <ListItem className={`${classes.chatListItem} ${item.author === myEmail ? classes.chatListItemMe : classes.chatListItemSomebody}`} key={index}>
-            <div className={`${classes.chatListItemMessage} ${item.author === myEmail ? classes.chatListItemMessageMe : classes.chatListItemMessageSomebody}`}>
+            <div className={`${classes.chatListItemMessage} ${item.author === myEmail ? classes.chatListItemMessageMe : `${classes.chatListItemMessageSomebody} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.chatListItemMessageSomebody_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.chatListItemMessageSomebody_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.chatListItemMessageSomebody_sunnyTheme : null) : null}`}`}>
                 <p className={`${classes.chatListItemMessageAuthor} ${isMobileDeviceBoolean ? classes.chatListItemMessageAuthorMobileDevice : null}`}>[{item.author}]:</p>
                 <p className={`${classes.chatListItemMessageText} ${isMobileDeviceBoolean ? classes.chatListItemMessageTextMobileDevice : null}`} dangerouslySetInnerHTML={{__html: convertStringLinksToWorkingLinks(item.text)}}></p>
                 <p className={`${classes.chatListItemMessageDateAndTime} ${isMobileDeviceBoolean ? classes.chatListItemMessageDateAndTimeMobileDevice : null}`}>{item.messageUTCDateAndTime ? getLocalDateAndTime(item.messageUTCDateAndTime) : 'Нет данных'}</p>
