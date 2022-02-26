@@ -1,48 +1,70 @@
-import { chatsRef, deletedChatRef } from "../../firebase/firebase";
-import { mapChatSnapshotToChat } from "../../helper/helper";
+import { chatAccessRef, chatsRef } from "../../firebase/firebase";
 
-export const ADD_IN_CHATS_LIST = 'ADD_IN_CHATS_LIST';
+export const CHANGE_CHATS_LIST = 'CHANGE_CHATS_LIST';
 
-export const addInChatsListAction = (chat) => ({
-    type: ADD_IN_CHATS_LIST,
-    payload: chat,
+export const changeChatsListAction = (snapshotVal) => ({
+    type: CHANGE_CHATS_LIST,
+    payload: snapshotVal,
 });
 
-export const REMOVE_FROM_CHATS_LIST = 'REMOVE_FROM_CHATS_LIST';
+export const DROP_CHATS_LIST_IN_STATE = 'DROP_CHATS_LIST_IN_STATE';
 
-export const removeFromChatsListAction = (chatName) => ({
-    type: REMOVE_FROM_CHATS_LIST,
-    payload: chatName,
-});
+export const dropChatsListInStateAction = {
+    type: DROP_CHATS_LIST_IN_STATE,
+};
 
 export const addInChatsListWithThunkAction = (chat) => () => {
     chatsRef.push(chat);
 };
 
-export const removeFromChatsListWithThunkAction = (chatKey, chatName) => (dispatch) => {
-    deletedChatRef.set({chatKey: chatKey, chatName: chatName});
-    chatsRef.child(chatKey).remove(() => {
-        dispatch(removeFromChatsListAction(chatName));
+export const removeFromChatsListWithThunkAction = (chatKey) => () => {
+    chatsRef.child(chatKey).remove();
+};
+
+const changeChatsList = (dispatch) => {
+    return (snapshot) => {
+        dispatch(changeChatsListAction(snapshot.val()));
+    }
+};
+
+export const onTrackingChangeValueInChatsListWithThunkAction = (dispatch) => {
+    chatsRef.on('value', changeChatsList(dispatch));
+};
+
+export const offTrackingChangeValueInChatsListWithThunkAction = (dispatch) => {
+    chatsRef.off('value', changeChatsList(dispatch));
+};
+
+export const changeChatPasswordWithThunkAction = (chatKey, chatId, password, chatAuthorUID) => () => {
+    chatsRef.child(chatKey).child('theyCanReadThisChat').set('');
+    chatsRef.child(chatKey).child('theyCanReadThisChat').push(chatAuthorUID);
+    chatAccessRef.update({
+        [chatId]: '',
+    });
+    chatAccessRef.child(chatId).child('chatPassword').set(password);
+    chatAccessRef.child(chatId).child('theyCanReadThisChat').set('');
+    chatAccessRef.child(chatId).child('theyCanReadThisChat').push(chatAuthorUID);
+};
+
+export const addUserIntoChatWithThunkAction = (chatKey, chatId, userUID) => () => {
+    chatsRef.child(chatKey).child('theyCanReadThisChat').push(userUID);
+    chatAccessRef.child(chatId).child('theyCanReadThisChat').push(userUID);
+};
+
+export const deleteSecretIntoAboutDeletedChatWithThunkAction = (chatId) => () => {
+    if (chatAccessRef.child(chatId)) {
+        chatAccessRef.child(chatId).remove();
+    }
+};
+
+export const makeTheChatPublicWithThunkAction = (chatKey) => () => {
+    chatsRef.child(chatKey).update({
+        chatIsPrivate: false,
     });
 };
 
-export const onTrackingAddInChatsListWithThunkAction = (dispatch) => {
-    chatsRef.on('child_added', (snapshot) => {
-        dispatch(addInChatsListAction(mapChatSnapshotToChat(snapshot)));
+export const makeTheChatPrivateWithThunkAction = (chatKey) => () => {
+    chatsRef.child(chatKey).update({
+        chatIsPrivate: true,
     });
-};
-
-export const offTrackingAddInChatsListWithThunkAction = () => {
-    chatsRef.off('child_added');
-};
-
-export const onTrackingRemoveFromChatsListWithThunkAction = (dispatch) => {
-    deletedChatRef.on('value', (snapshot) => {
-        const deletedChatName = snapshot.val().chatName;
-        dispatch(removeFromChatsListAction(deletedChatName));
-    });
-};
-
-export const offTrackingRemoveFromChatsListWithThunkAction = () => {
-    chatsRef.off('value');
 };

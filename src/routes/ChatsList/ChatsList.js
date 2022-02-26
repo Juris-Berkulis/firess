@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangeChatsList } from './ChangeChatsList/ChangeChatsList';
@@ -6,12 +6,13 @@ import { getChatsListChatsKindOfListSelector } from '../../store/ChatsList/Selec
 import { Box, ListItem } from '@material-ui/core';
 import { useStyles } from '../../styles/Style';
 import { ChatsListUI } from '../../ui_components/ChatsListUI.jsx';
-import { offTrackingAddInChatsListWithThunkAction, offTrackingRemoveFromChatsListWithThunkAction, onTrackingAddInChatsListWithThunkAction, onTrackingRemoveFromChatsListWithThunkAction } from '../../store/ChatsList/Action';
-import { offTrackingRemoveMessageInChatListWithThunkAction, onTrackingRemoveMessageInChatListWithThunkAction } from '../../store/ChatList/Action';
+import { offTrackingChangeValueInChatsListWithThunkAction, onTrackingChangeValueInChatsListWithThunkAction } from '../../store/ChatsList/Action';
 import { getBigChatIsOpenSelector } from '../../store/BigChatStatus/Selectors';
 import { isMobileDevice, isNumberOrString, sortingConditions } from '../../helper/helper';
 import { bigChatClose } from '../../store/BigChatStatus/Action';
-import { getStatusesInTheAppValueInChatsListInputIsSelector } from '../../store/AppSwitches/Selectors';
+import { getStatusesInTheAppappThemeIsSelector, getStatusesInTheAppValueInChatsListInputIsSelector } from '../../store/AppSwitches/Selectors';
+import { auth } from '../../firebase/firebase';
+import { APP_THEMES_NAMES } from '../../data/consts';
 
 export const ChatsList = () => {
     const classes = useStyles();
@@ -19,6 +20,8 @@ export const ChatsList = () => {
     const isMobileDeviceBoolean = isMobileDevice();
 
     const dispatch = useDispatch();
+
+    const myUID = auth.currentUser !== null ? auth.currentUser.uid : null;
 
     const rulesForSortingTheChatsList = (a, b) => {
         const chatNameA = isNumberOrString(a.name);
@@ -29,18 +32,48 @@ export const ChatsList = () => {
 
     const valueInChatsListInput = useSelector(getStatusesInTheAppValueInChatsListInputIsSelector);
     const chatsListRed = useSelector(getChatsListChatsKindOfListSelector).sort(rulesForSortingTheChatsList);
+    const appThemeSel = useSelector(getStatusesInTheAppappThemeIsSelector);
 
-    const newChatsListRed = chatsListRed.filter(chat => chat.name.toLowerCase().includes(valueInChatsListInput.toLowerCase())).map((item) => <ListItem className={classes.allChatsListItem} button to={`/messenger/${item.id}`} component={Link} key={item.id}>{item.name}</ListItem>);
+    const newChatsListRed = chatsListRed.filter(chat => chat.name.toLowerCase().includes(valueInChatsListInput.toLowerCase())).map((item) => {
+        return (
+            <ListItem className={`${classes.allChatsListItem} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.allChatsListItem_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.allChatsListItem_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.allChatsListItem_sunnyTheme : null) : null}`} button to={`/messenger/${item.id}`} component={Link} key={item.id}>
+                {
+                    item.name
+                }
+                {
+                    (
+                        item.chatIsPrivate 
+                        && 
+                        item.chatIsPrivate === true
+                    ) 
+                    ? 
+                    (
+                        item.theyCanReadThisChat 
+                        ? 
+                        <p className={classes.allChatsListItem_wrapperSymbols}>
+                            {
+                                Object.values(item.theyCanReadThisChat).find((itemUID) => itemUID === myUID) 
+                                ? 
+                                <span className={classes.allChatsListItem_privatChatIcon}>&#128273;</span>
+                                : 
+                                <span className={classes.allChatsListItem_privatChatIcon}>&#128274;</span>
+                            }
+                        </p>
+                        : 
+                        null
+                    ) 
+                    : 
+                    null
+                }
+            </ListItem>
+        )
+    });
 
-    useEffect(() => {
-        dispatch(onTrackingAddInChatsListWithThunkAction);
-        dispatch(onTrackingRemoveFromChatsListWithThunkAction);
-        dispatch(onTrackingRemoveMessageInChatListWithThunkAction);
+    useLayoutEffect(() => {
+        dispatch(onTrackingChangeValueInChatsListWithThunkAction);
 
         return () => {
-            dispatch(offTrackingAddInChatsListWithThunkAction);
-            dispatch(offTrackingRemoveFromChatsListWithThunkAction);
-            dispatch(offTrackingRemoveMessageInChatListWithThunkAction);
+            dispatch(offTrackingChangeValueInChatsListWithThunkAction);
         }
     }, [dispatch]);
 

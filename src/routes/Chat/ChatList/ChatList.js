@@ -1,13 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getChatListChatKindOfListById } from '../../../store/ChatList/Selectors';
 import { ListItem } from '@material-ui/core';
 import { useStyles } from '../../../styles/Style';
 import { ChatListUI } from '../../../ui_components/ChatListUI.jsx';
-import { getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
+import { getChatsListChatsKindOfDictSelector } from '../../../store/ChatsList/Selectors';
 import { auth } from '../../../firebase/firebase';
-import { isMobileDevice } from '../../../helper/helper';
+import { getKeyForTheChatByChatId, isMobileDevice } from '../../../helper/helper';
+import { dropMessagesInStateAction, offTrackingChangeValueInMessagesListFromOpenChatWithThunkAction, onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction } from '../../../store/ChatList/Action';
+import { getStatusesInTheAppappThemeIsSelector } from '../../../store/AppSwitches/Selectors';
+import { APP_THEMES_NAMES } from '../../../data/consts';
 
 export const ChatList = () => {
     const classes = useStyles();
@@ -18,11 +21,13 @@ export const ChatList = () => {
 
     const refOpenChat = useRef(null);
 
-    const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
+    const dispatch = useDispatch();
 
-    const [openContact] = chatsListRed.filter((item) => item.id === chatId);
+    const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
+    const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
 
-    const chatListRed = useSelector(getChatListChatKindOfListById(openContact.key));
+    const chatListRed = useSelector(getChatListChatKindOfListById(openChatKey));
+    const appThemeSel = useSelector(getStatusesInTheAppappThemeIsSelector);
 
     const scrollDown = () => {
         if (refOpenChat.current) {
@@ -39,6 +44,17 @@ export const ChatList = () => {
     useEffect(() => {
         scrollDown();
     }, [chatListRed]);
+
+    useLayoutEffect(() => {
+        dispatch(onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction(openChatKey));
+
+        return () => {
+            dispatch({
+                type: dropMessagesInStateAction.type,
+            });
+            dispatch(offTrackingChangeValueInMessagesListFromOpenChatWithThunkAction(openChatKey));
+        }
+    }, [dispatch, openChatKey]);
 
     if (chatListRed.length === 0) {
         return null
@@ -167,7 +183,7 @@ export const ChatList = () => {
     
     const chatListRedForProps = chatListRed.map((item, index) => (
         <ListItem className={`${classes.chatListItem} ${item.author === myEmail ? classes.chatListItemMe : classes.chatListItemSomebody}`} key={index}>
-            <div className={`${classes.chatListItemMessage} ${item.author === myEmail ? classes.chatListItemMessageMe : classes.chatListItemMessageSomebody}`}>
+            <div className={`${classes.chatListItemMessage} ${item.author === myEmail ? classes.chatListItemMessageMe : `${classes.chatListItemMessageSomebody} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.chatListItemMessageSomebody_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.chatListItemMessageSomebody_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.chatListItemMessageSomebody_sunnyTheme : null) : null}`}`}>
                 <p className={`${classes.chatListItemMessageAuthor} ${isMobileDeviceBoolean ? classes.chatListItemMessageAuthorMobileDevice : null}`}>[{item.author}]:</p>
                 <p className={`${classes.chatListItemMessageText} ${isMobileDeviceBoolean ? classes.chatListItemMessageTextMobileDevice : null}`} dangerouslySetInnerHTML={{__html: convertStringLinksToWorkingLinks(item.text)}}></p>
                 <p className={`${classes.chatListItemMessageDateAndTime} ${isMobileDeviceBoolean ? classes.chatListItemMessageDateAndTimeMobileDevice : null}`}>{item.messageUTCDateAndTime ? getLocalDateAndTime(item.messageUTCDateAndTime) : 'Нет данных'}</p>

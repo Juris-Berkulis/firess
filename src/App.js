@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { useLocation } from "react-router";
 import { Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,16 +17,20 @@ import { PrivateRoute } from './hocs/PrivateRoute';
 import { PublicRoute } from './hocs/PublicRoute';
 import { Box } from '@material-ui/core';
 import { Preloader } from './components/Preloader';
-import { allAppComponentsWithPageTitle } from './data/consts';
+import { allAppComponentsWithPageTitle, appThemesSchedule, APP_THEMES_NAMES } from './data/consts';
 import { allowedPeriodInsideTheApp, getPageTitle, giveTitleForPage, isMobileDevice, makeFullPageTitle } from './helper/helper';
 import { useChangeEmailVerificationStatus, useWindowDimensions } from './hooks/hooks';
 import { getMobileMenuIsOpenSelector } from './store/MobileMenuStatus/Selectors';
 import { bigChatClose } from './store/BigChatStatus/Action';
 import { useStyles } from './styles/Style';
-import { getStatusesInTheAppIsAquariumOpenSelector, getStatusesInTheAppLastAuthorizationDateAndTimeSelector } from './store/AppSwitches/Selectors';
+import { getStatusesInTheAppappThemeIsSelector, getStatusesInTheAppIsAquariumOpenSelector, getStatusesInTheAppLastAuthorizationDateAndTimeSelector } from './store/AppSwitches/Selectors';
 import { auth } from './firebase/firebase';
 import { Aquarium } from './routes/ChatsList/Aquarium/Aquarium';
 import { getBigChatIsOpenSelector } from '../src/store/BigChatStatus/Selectors';
+import { dropMessagesInStateAction } from './store/ChatList/Action';
+import { dropChatsListInStateAction } from './store/ChatsList/Action';
+import { appTheme } from './store/AppSwitches/Action';
+import { styleConsts } from './styles/StyleConsts';
 
 export const App = () => {
   const classes = useStyles();
@@ -41,13 +45,81 @@ export const App = () => {
   const fullPageTitle = makeFullPageTitle(pageTitle);
   giveTitleForPage(fullPageTitle);
 
+  const [booleanForChangeTheme, setBooleanForChangeTheme] = useState(false);
+
   const isMobileDeviceBoolean = isMobileDevice();
   const mobileMenuOpen = useSelector(getMobileMenuIsOpenSelector);
   const lastAuthorizationDateAndTime = useSelector(getStatusesInTheAppLastAuthorizationDateAndTimeSelector)
   const isAquariumStatus = useSelector(getStatusesInTheAppIsAquariumOpenSelector);
   const isBigChatOpen = useSelector(getBigChatIsOpenSelector);
+  const appThemeSel = useSelector(getStatusesInTheAppappThemeIsSelector);
 
   const emailVerificationStatus = useChangeEmailVerificationStatus(location);
+
+  const getTimeBeforeThemeChanging = (themeStartAt, timeLocal) => {
+    if (themeStartAt < timeLocal) {
+      return (24 * 60 * 60 * 1000 - (timeLocal - themeStartAt))
+    } else {
+      return (themeStartAt - timeLocal)
+    }
+  };
+
+  const changeThemeInApp = useCallback(() => {
+    const newDate = new Date();
+
+    const hourLocal = newDate.getHours();
+    const minuteLocal = newDate.getMinutes();
+    const secondLocal = newDate.getSeconds();
+    const millisecundLocal = newDate.getMilliseconds();
+
+    const timeLocal = hourLocal * 60 * 60 * 1000 + minuteLocal * 60 * 1000 + secondLocal * 1000 + millisecundLocal;
+
+    const appThemesScheduleSort = appThemesSchedule.sort((a, b) => +a.themeStartAt > +b.themeStartAt ? 1 : -1);
+
+    const appThemesWere = appThemesScheduleSort.filter((theme) => +theme.themeStartAt <= timeLocal);
+    const appThemesWill = appThemesScheduleSort.filter((theme) => +theme.themeStartAt > timeLocal);
+
+    const appThemeNow = (
+      appThemesWere.length === 0 
+      ? 
+      appThemesScheduleSort[appThemesScheduleSort.length - 1] 
+      : 
+      appThemesWere[appThemesWere.length - 1]
+    ) 
+
+    const meta = document.querySelector('meta[name=theme-color]');
+
+    if (appThemeNow.themeNameEn === APP_THEMES_NAMES.theme_1.nameEn) {
+      meta.setAttribute("content", styleConsts.backgroundColor.mainColor1);
+    } else if (appThemeNow.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn) {
+      meta.setAttribute("content", styleConsts.backgroundColor.mainColor1DarkTheme);
+    } else if (appThemeNow.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn) {
+      meta.setAttribute("content", styleConsts.backgroundColor.mainColor1GreyTheme);
+    } else if (appThemeNow.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn) {
+      meta.setAttribute("content", styleConsts.backgroundColor.mainColor1SunnyTheme);
+    }
+
+    dispatch({
+      type: appTheme.type,
+      payload: appThemeNow,
+    });
+
+    const appThemeNext = (
+      appThemesWill.length === 0 
+      ? 
+      appThemesScheduleSort[0] 
+      : 
+      appThemesWill[0]
+    ) 
+
+    const timeUntilNextThemeChanging = getTimeBeforeThemeChanging(appThemeNext.themeStartAt, timeLocal);
+
+    const timerId = setTimeout(() => {
+      setBooleanForChangeTheme(booleanForChangeTheme => !booleanForChangeTheme);
+
+      return clearTimeout(timerId)
+      }, timeUntilNextThemeChanging);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch({
@@ -74,9 +146,23 @@ export const App = () => {
     return () => unsubscribe()
   }, [lastAuthorizationDateAndTime]);
 
+  useLayoutEffect(() => {
+    dispatch({
+      type: dropChatsListInStateAction.type,
+    });
+
+    dispatch({
+      type: dropMessagesInStateAction.type,
+    });
+  }, [dispatch]);
+
+  useEffect(() => {
+    changeThemeInApp();
+  }, [changeThemeInApp, booleanForChangeTheme]);
+
   return (
     <PersistGate loading={<Preloader />} persistor={persistor}>
-    <div className={`${classes.main} ${classes.center}`}>
+    <div className={`${classes.main} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.main_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.main_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.main_sunnyTheme : null) : null}`}>
     <Switch>
     <>
       <Header></Header>

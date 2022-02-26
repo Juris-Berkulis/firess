@@ -6,7 +6,7 @@ export const AquariumUI = (props) => {
         ?
         null 
         : 
-        <div className={`${props.classes.aquarium} ${props.isAquariumStatus ? props.classes.aquariumIsOpen : props.classes.aquariumIsClose} ${props.isMobileDeviceBoolean ? props.classes.aquarium_mobileDevice : null}`} ref={props.refAquariumField} onClick={props.changeAquariumStatus}>
+        <div className={`${props.classes.aquarium} ${props.isAquariumStatus ? props.classes.aquariumIsOpen : props.classes.aquariumIsClose} ${props.isMobileDeviceBoolean ? props.classes.aquarium_mobileDevice : null} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.aquariumIsOpen_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.aquariumIsOpen_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.aquariumIsOpen_sunnyTheme : null) : null}`} ref={props.refAquariumField} onClick={props.changeAquariumStatus}>
             {
                 props.isAquariumStatus 
                 ? 
@@ -18,7 +18,7 @@ export const AquariumUI = (props) => {
                             <img className={props.classes.universalPreloaderImg} src={props.preloader} alt='Загрузка...' width={`${props.preloaderDimensions}px`}></img>
                         </div>
                         : 
-                        <img className={props.classes.aquariumFish} style={{ top: `${props.moveOy}%`, left: `${props.moveOx}%`, transition: `top ${props.fishDuration}s ${props.fishTimingFunction} ${props.fishDelay}s, left ${props.fishDuration}s ${props.fishTimingFunction} ${props.fishDelay}s, transform 0s linear ${props.fishDelay}s`, transform: `rotateY(${props.rotateImg}deg) rotateZ(12deg)` }} src={props.goldFish} alt='Рыбка' width={`${props.fishWidth}%`}></img>
+                        <img className={`${props.classes.aquariumFish} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.aquariumFish_greyTheme : null) : null}`} style={{ top: `${props.moveOy}%`, left: `${props.moveOx}%`, transition: `top ${props.fishDuration}s ${props.fishTimingFunction} ${props.fishDelay}s, left ${props.fishDuration}s ${props.fishTimingFunction} ${props.fishDelay}s, transform 0s linear ${props.fishDelay}s`, transform: `rotateY(${props.rotateImg}deg) rotateZ(12deg)` }} src={props.goldFish} alt='Рыбка' width={`${props.fishWidth}%`}></img>
                     }
                 </div>
                 : 

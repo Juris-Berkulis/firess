@@ -3,16 +3,29 @@ import { ChatList } from '../routes/Chat/ChatList/ChatList';
 import { ChartForm } from '../routes/Chat/ChatForm/ChatForm';
 import { Box } from '@material-ui/core';
 import { ChatControlPanel } from '../routes/Chat/ChatControlPanel/ChatControlPanel';
+import { YouAreDeniedAccessToTheChat } from '../routes/Chat/YouAreDeniedAccessToTheChat/YouAreDeniedAccessToTheChat';
 
 export const ChatUI = (props) => {
     return (
-        <Box className={`${props.classes.chat} ${props.isMobileDeviceBoolean ? props.classes.chatMobileDevice : null}`}>
+        <Box className={`${props.classes.chat} ${props.isMobileDeviceBoolean ? props.classes.chatMobileDevice : null} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.chat_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.chat_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.chat_sunnyTheme : null) : null}`}>
             <div className={props.classes.chatUpPart}>
                 <ChatControlPanel></ChatControlPanel>
             </div>
             <div className={props.classes.chatDownPart}>
-                <ChatList></ChatList>
-                <ChartForm></ChartForm>
+                {
+                    (
+                        !props.privateChat 
+                        || 
+                        props.canIReadThisChatBoolean
+                    ) 
+                    ? 
+                    <>
+                        <ChatList></ChatList>
+                        <ChartForm></ChartForm>
+                    </>
+                    : 
+                    <YouAreDeniedAccessToTheChat></YouAreDeniedAccessToTheChat>
+                }
             </div>
         </Box>
     )

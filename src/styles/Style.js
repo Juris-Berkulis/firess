@@ -10,6 +10,18 @@ export const useStyles = makeStyles({
     backgroundColor: styleConsts.backgroundColor.mainColor2,
     padding: '0 0 10vh',
   },
+  main_darkTheme: {
+    backgroundColor: styleConsts.backgroundColor.mainColor2DarkTheme,
+    filter: 'brightness(0.6)',
+  },
+  main_greyTheme: {
+    backgroundColor: styleConsts.backgroundColor.mainColor2GreyTheme,
+    filter: 'grayscale(1)',
+  },
+  main_sunnyTheme: {
+    backgroundColor: styleConsts.backgroundColor.mainColor2SunnyTheme,
+    filter: 'saturate(3)',
+  },
   preloader__field: {
     height: '90vh',
     width: '100vw',
@@ -131,7 +143,7 @@ export const useStyles = makeStyles({
     padding: '0.3em 0.6em',
     borderRadius: '0.8em',
     border: '1.5px solid #cccccc',
-    backgroundColor: styleConsts.backgroundColor.mainColor2,
+    backgroundColor: '#2b6d2b',
     color: '#eeeeee',
     cursor: 'pointer',
   },
@@ -214,29 +226,74 @@ export const useStyles = makeStyles({
   changeContactNameButtons: {
     display: 'flex',
     justifyContent: 'space-around',
-    borderBottom: '1px solid #ffffff',
+    borderBottom: `1px solid ${styleConsts.color.chatsListColor}`,
+  },
+  changeContactNameButtons_darkTheme: {
+    borderBottom: `1px solid ${styleConsts.color.chatsListColorDarkTheme}`,
+  },
+  changeContactNameButtons_greyTheme: {
+    borderBottom: `1px solid ${styleConsts.color.chatsListColorGreyTheme}`,
+  },
+  changeContactNameButtons_sunnyTheme: {
+    borderBottom: `1px solid ${styleConsts.color.chatsListColorSunnyTheme}`,
   },
   changeContactNameIcon: {
-    color: '#eeeeee',
+    color: styleConsts.color.chatsListColor,
+  },
+  changeContactNameIcon_darkTheme: {
+    color: styleConsts.color.chatsListColorDarkTheme,
+  },
+  changeContactNameIcon_greyTheme: {
+    color: styleConsts.color.chatsListColorGreyTheme,
+  },
+  changeContactNameIcon_sunnyTheme: {
+    color: styleConsts.color.chatsListColorSunnyTheme,
   },
   allChatsListItem: {
     marginBottom: '0.1vh',
-    color: '#dddddd',
+    color: styleConsts.color.chatsListColor,
     fontSize: '20px',
     overflow: 'auto',
     whiteSpace: 'pre', //* - It is preferable to use "nowrap" instead of "pre", but in this case it will be difficult to delete the chat from the database.
+    position: 'relative',
+  },
+  allChatsListItem_darkTheme: {
+    color: styleConsts.color.chatsListColorDarkTheme,
+  },
+  allChatsListItem_greyTheme: {
+    color: styleConsts.color.chatsListColorGreyTheme,
+  },
+  allChatsListItem_sunnyTheme: {
+    color: styleConsts.color.chatsListColorSunnyTheme,
+  },
+  allChatsListItem_wrapperSymbols: {
+    position: 'absolute',
+    right: '5px',
+  },
+  allChatsListItem_privatChatIcon: {
+    fontSize: '80%',
   },
   chat: {
     width: '60vw',
     height: '100%',
     margin: '0',
-    backgroundColor: '#88bbdd',
+    backgroundColor: styleConsts.backgroundColor.openChatColor,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '5vh 5vw',
     borderRadius: '5vw',
+  },
+  chat_darkTheme: {
+    backgroundColor: styleConsts.backgroundColor.openChatColorDarkTheme,
+  },
+  chat_greyTheme: {
+    backgroundColor: styleConsts.backgroundColor.openChatColorGreyTheme,
+    filter: 'grayscale(1) invert(1)',
+  },
+  chat_sunnyTheme: {
+    backgroundColor: styleConsts.backgroundColor.openChatColorSunnyTheme,
   },
   chatMobileDevice: {
     width: '100%',
@@ -304,12 +361,15 @@ export const useStyles = makeStyles({
   chatListItemMessageMe: {
     textAlign: 'left !important',
     margin: '0 2% 1vh 0',
-    backgroundColor: '#99ff9999',
+    backgroundColor: '#a4e8be',
   },
   chatListItemMessageSomebody: {
     textAlign: 'left !important',
     margin: '0 0 1vh 2%',
-    backgroundColor: '#ff999999',
+    backgroundColor: '#e1abbe',
+  },
+  chatListItemMessageSomebody_greyTheme: {
+    backgroundColor: '#ddcccc',
   },
   chatListItemMessageAuthor: {
     color: '#777777',
@@ -325,7 +385,7 @@ export const useStyles = makeStyles({
   },
   chatListItemMessageTextMobileDevice: {
     marginBottom: '2px',
-    fontSize: '12px',
+    fontSize: '14px',
   },
   chatListItemMessageDateAndTime: {
     color: '#777777',
@@ -350,12 +410,22 @@ export const useStyles = makeStyles({
     alignItems: 'center',
     paddingLeft: '10px',
   },
+  chatControlPanelLeftPart_mobileDevice: {
+    paddingLeft: '5px',
+  },
+  chatControlPanelIconsWrapper: {
+    marginRight: '5px',
+  },
+  chatControlPanelIPrivatChatIcon: {
+    fontSize: '80%',
+  },
   chatControlPanelName: {
     width: '100%',
     overflow: 'auto',
     whiteSpace: 'nowrap',
     color: '#555555',
     fontSize: '18px',
+    paddingLeft: '5px',
   },
   chatControlPanelName_mobileDevice: {
     fontSize: '12px',
@@ -376,7 +446,7 @@ export const useStyles = makeStyles({
     marginLeft: '10px',
     cursor: 'pointer',
     color: 'white',
-    backgroundColor: '#55555555',
+    backgroundColor: '#aaadb3',
     border: 'none',
     borderRadius: '5px',
     fontSize: '18px',
@@ -387,6 +457,9 @@ export const useStyles = makeStyles({
     marginLeft: '5px',
     fontSize: '12px',
     lineHeight: '12px',
+  },
+  chatControlPanelBtn__changeChatPassword: {
+    transform: 'rotateY(180deg)',
   },
   popUpWindow: {
     width: '50vw',
@@ -433,7 +506,7 @@ export const useStyles = makeStyles({
     padding: '10px 16px',
     margin: '0 2vw',
     cursor: 'pointer',
-    backgroundColor: styleConsts.backgroundColor.mainColor2,
+    backgroundColor: '#2b6d2b',
     color: '#dddddd',
     border: 'solid 1px #555555',
     borderRadius: '10px',
@@ -441,6 +514,29 @@ export const useStyles = makeStyles({
   popUpWindowBtn_mobileDevice: {
     fontSize: '10px',
     lineHeight: '10px',
+  },
+  popUpWindowForChangeChatPasswor_input: {
+    width: '80%',
+    marginBottom: '2.5vh',
+    border: '1px solid #cccccc',
+    borderRadius: '0.8em',
+    padding: '0.3em 0.6em',
+    fontSize: '1em',
+  },
+  popUpWindowForChangeChatPasswor_input_mobileDevice: {
+    fontSize: '0.7em',
+  },
+  popUpWindowForChangeChatPasswor_errorWrapper: {
+    width: '80%',
+    backgroundColor: '#ffcccc',
+    padding: '1em',
+    marginBottom: '2.5vh',
+    borderRadius: '1.5em',
+  },
+  popUpWindowForChangeChatPasswor_errorText: {
+    textAlign: 'center',
+    color: '#ff0000',
+    fontSize: '1em',
   },
   aquarium: {
     width: '60vw',
@@ -455,7 +551,17 @@ export const useStyles = makeStyles({
     width: '100vw',
   },
   aquariumIsOpen: {
-    backgroundColor: '#88bbdd',
+    backgroundColor: styleConsts.backgroundColor.openChatColor,
+  },
+  aquariumIsOpen_darkTheme: {
+    backgroundColor: styleConsts.backgroundColor.openChatColorDarkTheme,
+  },
+  aquariumIsOpen_greyTheme: {
+    backgroundColor: styleConsts.backgroundColor.openChatColorGreyTheme,
+    filter: 'grayscale(1) invert(1)',
+  },
+  aquariumIsOpen_sunnyTheme: {
+    backgroundColor: styleConsts.backgroundColor.openChatColorSunnyTheme,
   },
   aquariumIsClose: {
     backgroundColor: 'transparent',
@@ -468,6 +574,58 @@ export const useStyles = makeStyles({
   aquariumFish: {
     position: 'absolute',
     pointerEvents: 'none',
+  },
+  aquariumFish_greyTheme: {
+    filter: 'brightness(0.8) opacity(0.5)',
+  },
+  youAreDeniedAccessToTheChat_field: {
+    overflow: 'auto',
+    width: '100%',
+  },
+  youAreDeniedAccessToTheChat_wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    fontSize: '14px',
+  },
+  youAreDeniedAccessToTheChat_wrapperInfo: {
+    width: '90%',
+  },
+  youAreDeniedAccessToTheChat_textInfo: {
+    marginBottom: '2.5vh',
+    color: '#eeeeee',
+    fontSize: '1.5em',
+    lineHeight: '1.2em',
+  },
+  youAreDeniedAccessToTheChat_textInfo__first: {
+    marginBottom: '0',
+  },
+  youAreDeniedAccessToTheChat_input: {
+    width: '80%',
+    marginBottom: '2.5vh',
+    border: '1px solid #cccccc',
+    borderRadius: '0.8em',
+    padding: '0.3em 0.6em',
+    fontSize: '1em',
+  },
+  youAreDeniedAccessToTheChat_wrapper_input_mobileDevice: {
+    width: '100%',
+  },
+  youAreDeniedAccessToTheChat_errorWrapper: {
+    width: '80%',
+    backgroundColor: '#ffcccc',
+    padding: '1em',
+    marginBottom: '2.5vh',
+    borderRadius: '1.5em',
+  },
+  youAreDeniedAccessToTheChat_errorText: {
+    textAlign: 'center',
+    color: '#ff0000',
+    fontSize: '1em',
+  },
+  youAreDeniedAccessToTheChat_btn: {
+    color: '#eeeeee',
   },
   api_users__title: {
     color: '#eeeeee',

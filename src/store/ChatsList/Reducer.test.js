@@ -1,4 +1,6 @@
+/**
 import { addInChatsListAction, removeFromChatsListAction } from "./Action";
+*/
 import { chatsListReducer, initialState } from "./Reducer";
 
 describe('check reducer', () => {
@@ -7,6 +9,8 @@ describe('check reducer', () => {
         expect(result).toEqual(initialState);
     });
 
+    /** 
+    These reducer tests are no longer relevant as these reducers have been removed due to being replaced by other reducers:
     it("check reducer when adding a chat if chats weren't", () => {
         const result = chatsListReducer(undefined, addInChatsListAction({
                 id: '12345678',
@@ -93,4 +97,5 @@ describe('check reducer', () => {
             deletedChatName: 'newName1',
         });
     });
+    */
 });

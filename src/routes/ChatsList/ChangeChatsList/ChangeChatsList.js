@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MAXIMUM_NUMBER_OF_CHARACTERS_FOR_A_CHAT_NAME } from '../../../data/consts';
-import { isMobileDevice } from '../../../helper/helper';
+import { APP_THEMES_NAMES, MAXIMUM_NUMBER_OF_CHARACTERS_FOR_A_CHAT_NAME } from '../../../data/consts';
+import { auth } from '../../../firebase/firebase';
+import { getKeyForTheChatByChatName, isMobileDevice } from '../../../helper/helper';
 import { aquariumStatus, valueInChatsListInput } from '../../../store/AppSwitches/Action';
-import { removeMessageInChatListWithThunkAction } from '../../../store/ChatList/Action';
-import { addInChatsListWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
-import { getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
+import { getStatusesInTheAppappThemeIsSelector } from '../../../store/AppSwitches/Selectors';
+import { removeAllMessagesInDeleteChatWithThunkAction } from '../../../store/ChatList/Action';
+import { addInChatsListWithThunkAction, deleteSecretIntoAboutDeletedChatWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
+import { getChatsListChatsKindOfDictSelector, getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
 import { useStyles } from '../../../styles/Style';
 import { ChangeChatsListUI } from '../../../ui_components/ChangeChatsListUI.jsx';
 
@@ -19,7 +21,11 @@ export const ChangeChatsList = () => {
   const successForProps = success ? <p className={`${classes.chatsListActionResaltInfo} ${classes.chatsListActionResaltInfo_success}`}>{success}</p> : null
 
   const dispatch = useDispatch();
+
+  const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
   const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
+  const appThemeSel = useSelector(getStatusesInTheAppappThemeIsSelector);
+
   const isMobileDeviceBoolean = isMobileDevice();
 
   const onSaveNameFromInput = (event) => {
@@ -48,8 +54,10 @@ export const ChangeChatsList = () => {
 
   const addContact = (newName) => {
     const now = newContactId();
+    const chatAuthor = auth.currentUser !== null ? auth.currentUser.uid : null;
     const newContact = {
       id: now,
+      chatAuthor: chatAuthor,
       name: newName,
     };
     return newContact
@@ -105,15 +113,6 @@ export const ChangeChatsList = () => {
     return removeSpacesAtTheBeginningAndAtTheEndOfTheString(chatName)
   };
 
-  const autoClearSuccessAndError = () => {
-    const timerId = setTimeout(() => {
-      setError(false);
-      setSuccess(false);
-      
-      return clearTimeout(timerId)
-    }, 5000);
-  }
-
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
     setError(false);
@@ -132,7 +131,7 @@ export const ChangeChatsList = () => {
         if (!(chatsListRed.find((item) => item.name === newValueName))) {
           const newContact = addContact(newValueName);
           dispatch(addInChatsListWithThunkAction(newContact));
-          setSuccess(`Чат "${newValueName}" добавлен`);
+          setSuccess(`Чат "${newValueName}" создан`);
           resetValue();
         } else {
           setError('Чат уже существует');
@@ -141,29 +140,30 @@ export const ChangeChatsList = () => {
     } else {
       setError('Введите название чата');
     }
-
-    autoClearSuccessAndError();
   };
 
   const deliteContact = () => {
     setError(false);
     setSuccess(false);
     if (valueName !== '') {
-      if (chatsListRed.find((item) => item.name === valueName)) {
-        const [delChatsListRed] = chatsListRed.filter((item) => item.name === valueName);
-        dispatch(removeFromChatsListWithThunkAction(delChatsListRed.key, delChatsListRed.name));
-        dispatch(removeMessageInChatListWithThunkAction(delChatsListRed.key));
-        const deleteChat = valueName;
-        setSuccess(`Чат "${deleteChat}" удален`);
-        resetValue();
+      const delChatsListRedKey = getKeyForTheChatByChatName(chatsListChatsKindOfDictRed, valueName);
+      if (delChatsListRedKey) {
+        if ((chatsListChatsKindOfDictRed[delChatsListRedKey]['chatAuthor'] && chatsListChatsKindOfDictRed[delChatsListRedKey]['chatAuthor'] === auth.currentUser.uid) || !chatsListChatsKindOfDictRed[delChatsListRedKey]['chatAuthor']) {
+          dispatch(removeFromChatsListWithThunkAction(delChatsListRedKey));
+          dispatch(removeAllMessagesInDeleteChatWithThunkAction(delChatsListRedKey));
+          dispatch(deleteSecretIntoAboutDeletedChatWithThunkAction(chatsListChatsKindOfDictRed[delChatsListRedKey]['id']));
+          const deleteChat = valueName;
+          setSuccess(`Чат "${deleteChat}" удален`);
+          resetValue();
+        } else {
+          setError('Чаты могут удалять только их авторы');
+        }
       } else {
         setError('Чат не найден');
       }
     } else {
       setError('Введите название чата');
     }
-
-    autoClearSuccessAndError();
   };
 
   const openAquarium = () => {
@@ -180,7 +180,20 @@ export const ChangeChatsList = () => {
     });
   }, [dispatch, valueName]);
 
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      if (valueName === '') {
+        setError(false);
+        setSuccess(false);
+      }
+    }, 5000);
+
+    return () => {
+      clearTimeout(timerId)
+    }
+  }, [valueName]);
+
   return (
-    <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} deliteContact={deliteContact} errorForProps={errorForProps} successForProps={successForProps} openAquarium={openAquarium} isMobileDeviceBoolean={isMobileDeviceBoolean}></ChangeChatsListUI>
+    <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} deliteContact={deliteContact} errorForProps={errorForProps} successForProps={successForProps} openAquarium={openAquarium} isMobileDeviceBoolean={isMobileDeviceBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES}></ChangeChatsListUI>
   )
 };
