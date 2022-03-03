@@ -387,6 +387,10 @@ export const useStyles = makeStyles({
     marginBottom: '2px',
     fontSize: '14px',
   },
+  chatListItemMessageTextParagraph: {
+    marginTop: '2px',
+    marginBottom: '2px',
+  },
   chatListItemMessageDateAndTime: {
     color: '#777777',
     fontSize: '14px',

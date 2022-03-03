@@ -7,7 +7,7 @@ import { getChatListMessagesSelector } from '../../../store/ChatList/Selectors';
 import { useStyles } from '../../../styles/Style';
 import { ChartFormUI } from '../../../ui_components/ChatFormUI.jsx';
 import { auth } from '../../../firebase/firebase';
-import { getKeyForTheChatByChatId } from '../../../helper/helper';
+import { autoEditInputText, getKeyForTheChatByChatId } from '../../../helper/helper';
 
 export const ChartForm = () => {
   const classes = useStyles();
@@ -40,7 +40,8 @@ export const ChartForm = () => {
     if (value !== '') {
       const now = new Date();
       const messageUTCDateAndTime = now.toUTCString();
-      dispatch(addMessageInChatListWithThunkAction(openChatKey, openContact.name, openContact.id, value, author, messageUTCDateAndTime));
+      const newMessage = autoEditInputText(value, classes);
+      dispatch(addMessageInChatListWithThunkAction(openChatKey, openContact.name, openContact.id, newMessage, author, messageUTCDateAndTime));
       resetValue();
     }
   };

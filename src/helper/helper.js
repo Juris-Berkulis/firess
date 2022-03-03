@@ -261,3 +261,46 @@ export const getKeyForTheChatByChatId = (chatsListChatsKindOfDictRed, findValue)
     const key = getKeyForTheChat(chatsListChatsKindOfDictRed, findValue, 'id');
     return key
 };
+
+export const destroyForbiddenTags = (inputText) => {
+    const newInputText = inputText
+        .replaceAll('<meta', '< meta')
+        .replaceAll('<link', '< link')
+        .replaceAll('<title', '< title')
+        .replaceAll('</title', '< / title')
+        .replaceAll('<head', '< head')
+        .replaceAll('</head', '< / head')
+        .replaceAll('<html', '< html')
+        .replaceAll('</html', '< / html')
+        .replaceAll('<body', '< body')
+        .replaceAll('</body', '< / body')
+
+    return newInputText
+};
+
+export const createTagsToHighlightTheEnteredText = (inputText, classes) => {
+    const newInputText = inputText
+        .replaceAll('*,,', '<strong>')
+        .replaceAll(',,*', '</strong>')
+        .replaceAll('/,,', '<em>')
+        .replaceAll(',,/', '</em>')
+        .replaceAll('_,,', '<ins>')
+        .replaceAll(',,_', '</ins>')
+        .replaceAll('-,,', '<s>')
+        .replaceAll(',,-', '</s>')
+        .replaceAll('+,,', '<mark>')
+        .replaceAll(',,+', '</mark>')
+        .replaceAll('=,,', '<br>')
+        .replaceAll(',,=', '')
+        .replaceAll('(,,', `<p class="${classes.chatListItemMessageTextParagraph}">`)
+        .replaceAll(',,)', '</p>');
+
+    return newInputText
+};
+
+export const autoEditInputText = (inputText, classes) => {
+    const textWithoutForbiddenTags = destroyForbiddenTags(inputText);
+    const textWithHighlightTags = createTagsToHighlightTheEnteredText(textWithoutForbiddenTags, classes);
+
+    return textWithHighlightTags
+};
