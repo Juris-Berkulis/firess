@@ -15,8 +15,8 @@ export const PopUpWindowForChangeChatPasswordUI = (props) => {
                 null
             }
             <div className={props.classes.popUpWindowAction}>
-                <button className={`${props.classes.popUpWindowBtn} ${props.isMobileDeviceBoolean ? props.classes.popUpWindowBtn_mobileDevice : null}`} onClick={props.changeChatPassword}>Установить</button>
-                <button className={`${props.classes.popUpWindowBtn} ${props.isMobileDeviceBoolean ? props.classes.popUpWindowBtn_mobileDevice : null}`} onClick={props.closePopUpWindowForChangeChatPassword}>Отмена</button>
+                <button className={`${props.classes.popUpWindowBtn} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.popUpWindowBtn_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.popUpWindowBtn_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.popUpWindowBtn_sunnyTheme : null) : null} ${props.isMobileDeviceBoolean ? props.classes.popUpWindowBtn_mobileDevice : null}`} onClick={props.changeChatPassword}>Установить</button>
+                <button className={`${props.classes.popUpWindowBtn} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.popUpWindowBtn_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.popUpWindowBtn_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.popUpWindowBtn_sunnyTheme : null) : null} ${props.isMobileDeviceBoolean ? props.classes.popUpWindowBtn_mobileDevice : null}`} onClick={props.closePopUpWindowForChangeChatPassword}>Отмена</button>
             </div>
         </div>
     )

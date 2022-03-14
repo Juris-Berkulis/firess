@@ -49,10 +49,12 @@ export const ChatsList = () => {
         ).filter(chat => chat.name.toLowerCase().includes(valueInChatsListInput.toLowerCase())).map((item) => {
         return (
             <ListItem className={`${classes.allChatsListItem} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.allChatsListItem_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.allChatsListItem_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.allChatsListItem_sunnyTheme : null) : null}`} button to={`/messenger/${item.id}`} component={Link} key={item.id}>
-                {
-                    item.name
-                }
-                <p className={classes.allChatsListItem_wrapperSymbols}>
+                <div className={classes.allChatsListItem_chatNameWrapper}>
+                    {
+                        item.name
+                    }
+                </div>
+                <div className={classes.allChatsListItem_wrapperSymbols}>
                     {
                         (
                             item.chatIsPrivate 
@@ -66,9 +68,9 @@ export const ChatsList = () => {
                             (
                                 Object.values(item.theyCanReadThisChat).find((itemUID) => itemUID === myUID) 
                                 ? 
-                                <span className={classes.allChatsListItem_privatChatIcon}>&#128273;</span>
+                                <p className={classes.allChatsListItem_privatChatIcon}>&#128273;</p>
                                 : 
-                                <span className={classes.allChatsListItem_privatChatIcon}>&#128274;</span>
+                                <p className={classes.allChatsListItem_privatChatIcon}>&#128274;</p>
                             )
                             : 
                             null
@@ -79,11 +81,11 @@ export const ChatsList = () => {
                     {
                         item.theyLikeThisChat && item.theyLikeThisChat[myUID] 
                         ? 
-                        <span className={classes.allChatsListItem_favoriteIcon}>&#9733;</span>
+                        <p className={`${classes.allChatsListItem_favoriteIcon} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.allChatsListItem_favoriteIcon_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.allChatsListItem_favoriteIcon_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.allChatsListItem_favoriteIcon_sunnyTheme : null) : null}`}>&#9733;</p>
                         : 
-                        <span className={classes.allChatsListItem_favoriteIcon}>&#9734;</span>
+                        <p className={`${classes.allChatsListItem_favoriteIcon} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.allChatsListItem_favoriteIcon_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.allChatsListItem_favoriteIcon_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.allChatsListItem_favoriteIcon_sunnyTheme : null) : null}`}>&#9734;</p>
                     }
-                </p>
+                </div>
             </ListItem>
         )
     });

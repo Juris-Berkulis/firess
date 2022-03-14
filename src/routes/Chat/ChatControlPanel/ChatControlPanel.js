@@ -5,13 +5,14 @@ import { useStyles } from '../../../styles/Style';
 import { getChatsListChatsKindOfDictSelector } from '../../../store/ChatsList/Selectors';
 import { getKeyForTheChatByChatId, isMobileDevice } from '../../../helper/helper';
 import { ChatControlPanelUI } from '../../../ui_components/ChatControlPanelUI';
-import { allAppComponentsWithPageTitle } from '../../../data/consts';
+import { allAppComponentsWithPageTitle, APP_THEMES_NAMES } from '../../../data/consts';
 import { useHistory } from 'react-router-dom';
 import { addTheUserWhoLikesThisChatWithThunkAction, changeChatPasswordWithThunkAction, deleteSecretIntoAboutDeletedChatWithThunkAction, deleteTheUserWhoDoesNotLikeThisChatWithThunkAction, makeTheChatPrivateWithThunkAction, makeTheChatPublicWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
 import { removeAllMessagesInDeleteChatWithThunkAction } from '../../../store/ChatList/Action';
 import { PopUpWindowUI } from '../../../ui_components/PopUpWindowUI';
 import { auth, chatAccessRef } from '../../../firebase/firebase';
 import { PopUpWindowForChangeChatPasswordUI } from '../../../ui_components/PopUpWindowForChangeChatPasswordUI';
+import { getStatusesInTheAppappThemeIsSelector } from '../../../store/AppSwitches/Selectors';
 
 export const ChatControlPanel = () => {
     const classes = useStyles();
@@ -31,6 +32,8 @@ export const ChatControlPanel = () => {
     const dispatch = useDispatch();
     
     const refInput = useRef(null);
+
+    const appThemeSel = useSelector(getStatusesInTheAppappThemeIsSelector);
     
     const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
     const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
@@ -144,8 +147,8 @@ export const ChatControlPanel = () => {
     return (
         <>
             <ChatControlPanelUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} closeChat={closeChat} openPopUpWindow={openPopUpWindow} openContact={openContact} myUID={myUID} openPopUpWindowForChangeChatPassword={openPopUpWindowForChangeChatPassword} changeChatStatusAsFavorite={changeChatStatusAsFavorite}></ChatControlPanelUI>
-            {popUpWindowIsOpen ? <PopUpWindowUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} deleteChat={deleteChat} closePopUpWindow={closePopUpWindow} openContact={openContact}></PopUpWindowUI> : null}
-            {popUpWindowForChangeChatPasswordIsOpen ? <PopUpWindowForChangeChatPasswordUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} closePopUpWindowForChangeChatPassword={closePopUpWindowForChangeChatPassword} openContact={openContact} refInput={refInput} onSavePasswordValueFromInput={onSavePasswordValueFromInput} changeChatPassword={changeChatPassword} chatPassword={chatPassword} errorPassword={errorPassword}></PopUpWindowForChangeChatPasswordUI> : null}
+            {popUpWindowIsOpen ? <PopUpWindowUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} deleteChat={deleteChat} closePopUpWindow={closePopUpWindow} openContact={openContact} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES}></PopUpWindowUI> : null}
+            {popUpWindowForChangeChatPasswordIsOpen ? <PopUpWindowForChangeChatPasswordUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} closePopUpWindowForChangeChatPassword={closePopUpWindowForChangeChatPassword} openContact={openContact} refInput={refInput} onSavePasswordValueFromInput={onSavePasswordValueFromInput} changeChatPassword={changeChatPassword} chatPassword={chatPassword} errorPassword={errorPassword} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES}></PopUpWindowForChangeChatPasswordUI> : null}
         </>
     )
 };

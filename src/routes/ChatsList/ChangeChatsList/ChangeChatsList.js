@@ -177,7 +177,7 @@ export const ChangeChatsList = () => {
         type: aquariumStatus.type,
         payload: true,
     });
-};
+  };
 
   const changeStatusOnAllChatsOrOnlySelectedChats = () => {
     dispatch({

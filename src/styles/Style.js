@@ -253,9 +253,10 @@ export const useStyles = makeStyles({
     marginBottom: '0.1vh',
     color: styleConsts.color.chatsListColor,
     fontSize: '20px',
-    overflow: 'auto',
-    whiteSpace: 'pre', //* - It is preferable to use "nowrap" instead of "pre", but in this case it will be difficult to delete the chat from the database.
-    position: 'relative',
+    display: 'flex !important',
+    justifyContent: 'space-between !important',
+    alignItems: 'center !important',
+    padding: '8px 5px 8px 16px !important',
   },
   allChatsListItem_darkTheme: {
     color: styleConsts.color.chatsListColorDarkTheme,
@@ -266,18 +267,33 @@ export const useStyles = makeStyles({
   allChatsListItem_sunnyTheme: {
     color: styleConsts.color.chatsListColorSunnyTheme,
   },
+  allChatsListItem_chatNameWrapper: {
+    overflow: 'auto',
+    whiteSpace: 'pre', //* - It is preferable to use "nowrap" instead of "pre", but in this case it will be difficult to delete the chat from the database.
+  },
   allChatsListItem_wrapperSymbols: {
-    position: 'absolute',
-    right: '5px',
+    display: 'flex',
+    flexWrap: 'nowrap',
+    alignItems: 'center',
   },
   allChatsListItem_privatChatIcon: {
-    fontSize: '80%',
+    fontSize: '60%',
   },
   allChatsListItem_favoriteIcon: {
     fontSize: '100%',
-    color: '#f70707',
+    lineHeight: '80%',
+    color: styleConsts.color.favoriteIconColor,
     marginLeft: '5px',
     fontWeight: '500',
+  },
+  allChatsListItem_favoriteIcon_darkTheme: {
+    color: styleConsts.color.favoriteIconColorDarkTheme,
+  },
+  allChatsListItem_favoriteIcon_greyTheme: {
+    color: styleConsts.color.favoriteIconColorGreyTheme,
+  },
+  allChatsListItem_favoriteIcon_sunnyTheme: {
+    color: styleConsts.color.favoriteIconColorSunnyTheme,
   },
   chat: {
     width: '60vw',
@@ -503,7 +519,7 @@ export const useStyles = makeStyles({
   },
   popUpWindowQuestion_mobileDevice: {
     fontSize: '12px',
-    lineHeight: '14px',
+    lineHeight: '16px',
   },
   popUpWindowAction: {
     width: '100%',
@@ -516,10 +532,19 @@ export const useStyles = makeStyles({
     padding: '10px 16px',
     margin: '0 2vw',
     cursor: 'pointer',
-    backgroundColor: '#2b6d2b',
+    backgroundColor: styleConsts.backgroundColor.popUpWindowBtnColor,
     color: '#dddddd',
     border: 'solid 1px #555555',
     borderRadius: '10px',
+  },
+  popUpWindowBtn_darkTheme: {
+    backgroundColor: styleConsts.backgroundColor.popUpWindowBtnColorDarkTheme,
+  },
+  popUpWindowBtn_greyTheme: {
+    backgroundColor: styleConsts.backgroundColor.popUpWindowBtnColorGreyTheme,
+  },
+  popUpWindowBtn_sunnyTheme: {
+    backgroundColor: styleConsts.backgroundColor.popUpWindowBtnColorSunnyTheme,
   },
   popUpWindowBtn_mobileDevice: {
     fontSize: '10px',
