@@ -68,3 +68,13 @@ export const makeTheChatPrivateWithThunkAction = (chatKey) => () => {
         chatIsPrivate: true,
     });
 };
+
+export const addTheUserWhoLikesThisChatWithThunkAction = (chatKey, userUID) => () => {
+    chatsRef.child(chatKey).child('theyLikeThisChat').update({
+        [userUID]: userUID,
+    });
+};
+
+export const deleteTheUserWhoDoesNotLikeThisChatWithThunkAction = (chatKey, userUID) => () => {
+    chatsRef.child(chatKey).child('theyLikeThisChat').child(userUID).remove();
+};

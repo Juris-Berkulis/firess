@@ -273,6 +273,12 @@ export const useStyles = makeStyles({
   allChatsListItem_privatChatIcon: {
     fontSize: '80%',
   },
+  allChatsListItem_favoriteIcon: {
+    fontSize: '100%',
+    color: '#f70707',
+    marginLeft: '5px',
+    fontWeight: '500',
+  },
   chat: {
     width: '60vw',
     height: '100%',

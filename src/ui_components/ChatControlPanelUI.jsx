@@ -46,6 +46,19 @@ export const ChatControlPanelUI = (props) => {
                     : 
                     null
                 }
+                <button className={`${props.classes.chatControlPanelBtn} ${props.isMobileDeviceBoolean ? props.classes.chatControlPanelBtn_mobileDevice : null}`} onClick={props.changeChatStatusAsFavorite}>
+                    {
+                        (
+                            props.openContact.theyLikeThisChat 
+                            && 
+                            props.openContact.theyLikeThisChat[props.myUID]
+                        )
+                        ? 
+                        <span>&#9733;</span>
+                        : 
+                        <span>&#9734;</span>
+                    }
+                </button>
                 <button className={`${props.classes.chatControlPanelBtn} ${props.isMobileDeviceBoolean ? props.classes.chatControlPanelBtn_mobileDevice : null}`} onClick={props.closeChat}>&#10060;</button>
             </div>
         </div>
