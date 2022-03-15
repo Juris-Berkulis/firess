@@ -9,6 +9,7 @@ export const ProfileUI = (props) => {
                 <span>Мой Email: </span>
                 {props.myEmailForProps}
             </p>
+            <p>Страница еще не готова! Развитие этой страницы предполагается в дальнейшем.</p>
         </div>
     )
 };
