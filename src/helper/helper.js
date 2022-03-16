@@ -274,6 +274,8 @@ export const destroyForbiddenTags = (inputText) => {
         .replaceAll('</html', '< / html')
         .replaceAll('<body', '< body')
         .replaceAll('</body', '< / body')
+        .replaceAll('<script', '< script')
+        .replaceAll('</script', '< / script')
 
     return newInputText
 };
