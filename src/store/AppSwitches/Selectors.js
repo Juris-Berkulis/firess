@@ -7,3 +7,4 @@ export const getStatusesInTheAppIsAquariumOpenSelector = (state) => getStatusesI
 export const getStatusesInTheAppappThemeIsSelector = (state) => getStatusesInTheAppRootSelector(state).appThemeIs;
 export const getStatusesInTheAppOnlySelectedChatsBooleanSelector = (state) => getStatusesInTheAppRootSelector(state).onlySelectedChatsBoolean || false;
 export const getStatusesInTheAppChatsCountSelectedSelector = (state) => getStatusesInTheAppRootSelector(state).chatsCountSelected;
+export const getStatusesInTheAppEventForPWAInstallationSelector = (state) => getStatusesInTheAppRootSelector(state).eventForPWAInstallationCase || null;

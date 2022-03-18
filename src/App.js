@@ -29,7 +29,7 @@ import { Aquarium } from './routes/ChatsList/Aquarium/Aquarium';
 import { getBigChatIsOpenSelector } from '../src/store/BigChatStatus/Selectors';
 import { dropMessagesInStateAction } from './store/ChatList/Action';
 import { dropChatsListInStateAction } from './store/ChatsList/Action';
-import { appTheme } from './store/AppSwitches/Action';
+import { appTheme, eventForPWAInstallation } from './store/AppSwitches/Action';
 import { styleConsts } from './styles/StyleConsts';
 
 export const App = () => {
@@ -120,6 +120,46 @@ export const App = () => {
       return clearTimeout(timerId)
       }, timeUntilNextThemeChanging);
   }, [dispatch]);
+
+  //* The listener function will fire if the application can be installed on the desktop:
+  useEffect(() => {
+    const saveEventForfurtherPWAInstallation = (e) => {
+      //* Prevent the mini-infobar from appearing on mobile:
+      e.preventDefault();
+      //* 1. Stash the event so it can be triggered later; 2. update UI notify the user they can install the PWA:
+      dispatch({
+        type: eventForPWAInstallation.type,
+        payload: e,
+      });
+    };
+
+    if (window.addEventListener) {
+      window.addEventListener('beforeinstallprompt', saveEventForfurtherPWAInstallation);
+      return () => window.removeEventListener('beforeinstallprompt', saveEventForfurtherPWAInstallation);
+    } else if (window.attachEvent) {
+      window.attachEvent('beforeinstallprompt', saveEventForfurtherPWAInstallation);
+      return () => window.detachEvent('beforeinstallprompt', saveEventForfurtherPWAInstallation);
+    }
+  }, []);
+
+  //* The listener function will fire when the application is installed on the desktop:
+  useEffect(() => {
+    const reportAboutPWAInstallationSuccess = () => {
+      //* 1. Hide the app-provided install prompt; 2. Clear the instalation event:
+      dispatch({
+        type: eventForPWAInstallation.type,
+        payload: null,
+      });
+    };
+
+    if (window.addEventListener) {
+      window.addEventListener('appinstalled', reportAboutPWAInstallationSuccess);
+      return () => window.removeEventListener('appinstalled', reportAboutPWAInstallationSuccess);
+    } else if (window.attachEvent) {
+      window.attachEvent('appinstalled', reportAboutPWAInstallationSuccess);
+      return () => window.detachEvent('appinstalled', reportAboutPWAInstallationSuccess);
+    }
+  }, []);
 
   useEffect(() => {
     dispatch({

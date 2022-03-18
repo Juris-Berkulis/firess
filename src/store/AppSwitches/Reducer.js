@@ -5,6 +5,7 @@ import {
     countdownForLetterRequest, 
     emailVerificationConfirmationWaitingIsFalse, 
     emailVerificationConfirmationWaitingIsTrue, 
+    eventForPWAInstallation, 
     lastAuthorization,
     onlySelectedChats,
     valueInChatsListInput
@@ -66,6 +67,12 @@ export const statusesInTheAppReducer = (state = initialState, action) => {
             return {
                 ...state,
                 chatsCountSelected: action.payload,
+            }
+        }
+        case eventForPWAInstallation.type: {
+            return {
+                ...state,
+                eventForPWAInstallationCase: action.payload,
             }
         }
         default: {
