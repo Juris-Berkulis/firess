@@ -409,10 +409,6 @@ export const useStyles = makeStyles({
     marginBottom: '2px',
     fontSize: '14px',
   },
-  chatListItemMessageTextParagraph: {
-    marginTop: '2px',
-    marginBottom: '2px',
-  },
   chatListItemMessageDateAndTime: {
     color: '#777777',
     fontSize: '14px',
@@ -745,5 +741,84 @@ export const useStyles = makeStyles({
   },
   users_error__text: {
     color: '#333333'
+  },
+  page__field: {
+    height: '100%',
+    width: '100%',
+    overflow: 'auto',
+    color: styleConsts.color.chatsListColor,
+    fontSize: '48px',
+    lineHeight: '48px',
+    padding: '0 2vw 0 1vw',
+    textAlign: 'justify',
+  },
+  page__field_darkTheme: {
+    color: styleConsts.color.chatsListColorDarkTheme,
+  },
+  page__field_greyTheme: {
+    color: styleConsts.color.chatsListColorGreyTheme,
+  },
+  page__field_sunnyTheme: {
+    color: styleConsts.color.chatsListColorSunnyTheme,
+  },
+  page__field_mobileDevice: {
+    fontSize: '24px',
+    lineHeight: '24px',
+  },
+  page__title: {
+    fontSize: 'calc(1em / 48 * 48)',
+    lineHeight: 'calc(1em * 1)',
+    marginBottom: '2vh',
+  },
+  home__logoWrapper: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginBottom: '2vh',
+  },
+  home__appName: {
+    fontSize: 'calc(1em / 48 * 40)',
+    lineHeight: 'calc(1em * 1)',
+  },
+  home__appDescriptionWrapper: {
+    marginBottom: '2vh',
+  },
+  home__descriptionParagraph: {
+    fontSize: 'calc(1em / 48 * 28)',
+    lineHeight: 'calc(1em * 1.25)',
+    marginBottom: '1vh',
+  },
+  home__descriptionTitle: {
+    fontSize: 'calc(1em / 48 * 36)',
+    lineHeight: 'calc(1em * 1)',
+    margin: '2vh 0 1vh',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+  },
+  home__benefitsWrapper: {
+    marginBottom: '1vh',
+  },
+  home__benefitsParagraph: {
+    fontSize: 'calc(1em / 48 * 28)',
+    lineHeight: 'calc(1em * 1.25)',
+  },
+  home__benefitName: {
+    fontWeight: '700',
+    textTransform: 'uppercase',
+  },
+  home__benefitsList: {
+    fontSize: 'calc(1em / 48 * 28)',
+    lineHeight: 'calc(1em * 1.25)',
+    listStyle: 'inside',
+    listStyleType: 'disclosure-closed',
+    marginBottom: '2vh',
+  },
+  home__benefitsListItem: {
+    margin: '0.3vh 0',
+  },
+  home__descriptionMiniTitle: {
+    fontSize: 'calc(1em / 48 * 32)',
+    lineHeight: 'calc(1em * 1)',
+    margin: '2vh 0 1vh',
   },
 });

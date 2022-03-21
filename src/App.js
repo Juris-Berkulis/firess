@@ -140,7 +140,7 @@ export const App = () => {
       window.attachEvent('beforeinstallprompt', saveEventForfurtherPWAInstallation);
       return () => window.detachEvent('beforeinstallprompt', saveEventForfurtherPWAInstallation);
     }
-  }, []);
+  }, [dispatch]);
 
   //* The listener function will fire when the application is installed on the desktop:
   useEffect(() => {
@@ -159,7 +159,7 @@ export const App = () => {
       window.attachEvent('appinstalled', reportAboutPWAInstallationSuccess);
       return () => window.detachEvent('appinstalled', reportAboutPWAInstallationSuccess);
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch({
