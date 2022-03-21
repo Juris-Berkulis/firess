@@ -742,6 +742,14 @@ export const useStyles = makeStyles({
   users_error__text: {
     color: '#333333'
   },
+  page__fieldWrapper: {
+    height: '100%',
+    width: '100%',
+    paddingBottom: '0',
+  },
+  page__fieldWrapper_mobileDevice: {
+    paddingBottom: '5vh',
+  },
   page__field: {
     height: '100%',
     width: '100%',
@@ -778,11 +786,24 @@ export const useStyles = makeStyles({
     fontSize: 'calc(1em / 48 * 60)',
     lineHeight: 'calc(1em * 1)',
     marginBottom: '2vh',
-    color: styleConsts.backgroundColor.mainColor1,
+    color: styleConsts.color.homeAppNameColor,
     textAlign: 'center',
+  },
+  home__appName_darkTheme: {
+    color: styleConsts.color.homeAppNameColorDarkTheme,
+  },
+  home__appName_greyTheme: {
+    color: styleConsts.color.homeAppNameColorGreyTheme,
+  },
+  home__appName_sunnyTheme: {
+    color: styleConsts.color.homeAppNameColorSunnyTheme,
   },
   home__appDescriptionWrapper: {
     marginBottom: '2vh',
+  },
+  home__descriptionParagraphWrapper: {
+    fontSize: 'calc(1em / 48 * 28)',
+    lineHeight: 'calc(1em * 1.25)',
   },
   home__descriptionParagraph: {
     fontSize: 'calc(1em / 48 * 28)',
@@ -830,6 +851,8 @@ export const useStyles = makeStyles({
     marginBottom: '2vh',
   },
   home__logoImg: {
+    height: '50px',
+    width: 'auto',
     margin: '2vh 2vw',
   }
 });

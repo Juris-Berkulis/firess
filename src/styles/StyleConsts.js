@@ -26,5 +26,9 @@ export const styleConsts = {
         favoriteIconColorDarkTheme: '#ffd700',
         favoriteIconColorGreyTheme: '#ffd700',
         favoriteIconColorSunnyTheme: '#ffd700',
+        homeAppNameColor: '#4b44b4',
+        homeAppNameColorDarkTheme: '#ffffff',
+        homeAppNameColorGreyTheme: '#ffffff',
+        homeAppNameColorSunnyTheme: '#ffffff',
     },
 };
