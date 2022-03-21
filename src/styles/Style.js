@@ -194,7 +194,7 @@ export const useStyles = makeStyles({
     overflow: 'auto',
   },
   headerNavItem: {
-    color: '#cccccc'
+    color: '#ffffee'
   },
   headerNavItemMobile: {
     display: 'none',

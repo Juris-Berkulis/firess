@@ -1,9 +1,9 @@
 export const styleConsts = {
     backgroundColor: {
-        mainColor1: '#4b55b4',
-        mainColor1DarkTheme: '#2d336c',
-        mainColor1GreyTheme: '#5a5a5a',
-        mainColor1SunnyTheme: '#2e4cff',
+        mainColor1: '#4b44b4',
+        mainColor1DarkTheme: '#2d296c',
+        mainColor1GreyTheme: '#4e4e4e',
+        mainColor1SunnyTheme: '#4631ff',
         mainColor2: '#ccccff',
         mainColor2DarkTheme: '#4444aa',
         mainColor2GreyTheme: '#2b6d2b',
