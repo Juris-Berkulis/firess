@@ -851,7 +851,7 @@ export const useStyles = makeStyles({
     marginBottom: '2vh',
   },
   home__logoImg: {
-    height: '50px',
+    height: '10vw',
     width: 'auto',
     margin: '2vh 2vw',
   }
