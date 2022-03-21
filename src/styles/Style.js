@@ -770,15 +770,16 @@ export const useStyles = makeStyles({
     lineHeight: 'calc(1em * 1)',
     marginBottom: '2vh',
   },
-  home__logoWrapper: {
+  home__appNameWrapper: {
     display: 'flex',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    marginBottom: '2vh',
+    justifyContent: 'center',
   },
   home__appName: {
-    fontSize: 'calc(1em / 48 * 40)',
+    fontSize: 'calc(1em / 48 * 60)',
     lineHeight: 'calc(1em * 1)',
+    marginBottom: '2vh',
+    color: styleConsts.backgroundColor.mainColor1,
+    textAlign: 'center',
   },
   home__appDescriptionWrapper: {
     marginBottom: '2vh',
@@ -821,4 +822,14 @@ export const useStyles = makeStyles({
     lineHeight: 'calc(1em * 1)',
     margin: '2vh 0 1vh',
   },
+  home__logoWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginBottom: '2vh',
+  },
+  home__logoImg: {
+    margin: '2vh 2vw',
+  }
 });

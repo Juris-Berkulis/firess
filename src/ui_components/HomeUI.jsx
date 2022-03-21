@@ -4,8 +4,8 @@ export const HomeUI = (props) => {
     return (
         <div className={`${props.classes.page__field} ${props.isMobileDeviceBoolean ? props.classes.page__field_mobileDevice : null} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.page__field_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.page__field_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.page__field_sunnyTheme : null) : null}`}>
             <h1 className={props.classes.page__title}>Домашняя страница</h1>
-            <div className={props.classes.home__logoWrapper}>
-                <h2 className={props.classes.home__appName}>Firess</h2>
+            <div className={props.classes.home__appNameWrapper}>
+                <h2 className={props.classes.home__appName}>&#8497;i&#769;r&#949;ss &#8499;&#949;ss&#949;ng&#949;r</h2>
             </div>
             <div className={props.classes.home__appDescriptionWrapper}>
                 <p className={props.classes.home__descriptionParagraph}>Firess - легковесное, лаконичное, быстрое и полностью бесплатное приложение с отзывчивым дизайном, доступное и как web-сайт, и как отдельное приложение для смартфонов и компьютеров, и предназначенное для обмена текстовыми сообщениями между пользователями со всего мира.</p>
@@ -101,6 +101,11 @@ export const HomeUI = (props) => {
                 <p className={props.classes.home__descriptionParagraph}>(,,Открывающаяся скобка показывает, что начался абзац, а закрывающая - что абзац закончился.,,)(,,Поэтому здесь начнется второй абзац, а текст пойдет со следующей строки и с дополнительным вертикальным отступом.,,)(,,В третьем абзаце выделим текст /,,курсивом,,/, *,,жирным,,*, _,,подчеркнутым,,_, -,,зачеркнутым,,- шрифтом и +,,фоном,,+.,,)(,,В четвертом абзаце применим *,, _,,комбинации,,_ ,,* +,, /,,разных,,/ -,, *,,вариантов,,* ,,- _,,оформления,,_ текста,,+.,,)(,,В пятом абзаце напишем текст с новой строки. =,,При этом новая строка начнется без дополнительного вертикального отступа.,,= ,,)</p>
                 <h4 className={props.classes.home__descriptionMiniTitle}>Результат:</h4>
                 <p className={props.classes.home__descriptionParagraph}><p style={{margin: '1vh 0'}}>Открывающаяся скобка показывает, что начался абзац, а закрывающая - что абзац закончился.</p><p style={{margin: '1vh 0'}}>Поэтому здесь начнется второй абзац, а текст пойдет со следующей строки и с дополнительным вертикальным отступом.</p><p style={{margin: '1vh 0'}}>В третьем абзаце выделим текст <em>курсивом</em>, <strong>жирным</strong>, <ins>подчеркнутым</ins>, <s>зачеркнутым</s> шрифтом и <mark style={{backgroundColor: '#cccccc'}}>фоном</mark>.</p><p style={{margin: '1vh 0'}}>В четвертом абзаце применим <strong> <ins>комбинации</ins> </strong> <mark style={{backgroundColor: '#cccccc'}}> <em>разных</em> <s> <strong>вариантов</strong> </s> <ins>оформления</ins> текста</mark>.</p><p style={{margin: '1vh 0'}}>В пятом абзаце напишем текст с новой строки. <br/>При этом новая строка начнется без дополнительного вертикального отступа.</p></p>
+            </div>
+            <div className={props.classes.home__logoWrapper}>
+                <img className={props.classes.home__logoImg} src={props.logoEnvelope} alt='logo' height='50px' />
+                <img className={props.classes.home__logoImg} src={props.logoRectangle} alt='logo' height='50px' />
+                <img className={props.classes.home__logoImg} src={props.logoCircle} alt='logo' height='50px' />
             </div>
         </div>
     )
