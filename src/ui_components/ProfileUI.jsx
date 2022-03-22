@@ -9,6 +9,16 @@ export const ProfileUI = (props) => {
                 <span>Мой Email: </span>
                 {props.myEmailForProps}
             </p>
+            <p>Страница еще не готова! Развитие этой страницы предполагается в дальнейшем.</p>
+            {
+                props.eventForPWAInstallationSel 
+                ? 
+                <div id="installContainer">
+                    <button id="butInstall" type="button" onClick={props.installApp}>Установить</button>
+                </div>
+                : 
+                null
+            }
         </div>
     )
 };

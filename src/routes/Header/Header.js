@@ -13,6 +13,7 @@ import { getMobileMenuIsOpenSelector } from '../../store/MobileMenuStatus/Select
 import { closeMobileMenuStatus, toggleMobileMenuStatus } from '../../store/MobileMenuStatus/Action';
 import { useChangeEmailVerificationStatus } from '../../hooks/hooks';
 import { functionsForMocks } from '../../helper/forMocks/functions';
+import { TECHNICAL_UID } from '../../TECHNICAL/TECHNICAL_CONSTS';
 
 export const Header = () => {
     const classes = useStyles();
@@ -21,12 +22,25 @@ export const Header = () => {
 
     const isMobileDeviceProps = isMobileDevice();
 
+    const myUID = auth.currentUser !== null ? auth.currentUser.uid : null;
+
     const dispatch = useDispatch();
     const mobileMenuOpen = useSelector(getMobileMenuIsOpenSelector);
     
-    const navigationForProps = navigation.map((item) => <Button className={`${classes.headerNavItem} ${isMobileDeviceProps && !mobileMenuOpen ? classes.headerNavItemMobile : null}`} to={item.href} component={Link} key={item.name}>{item.name}</Button>);
-
     const emailVerificationStatus = useChangeEmailVerificationStatus(location);
+
+    const navigationForProps = (
+        emailVerificationStatus 
+        ? 
+        (
+            myUID === TECHNICAL_UID 
+            ? navigation 
+            : 
+            navigation.filter((item) => item.name !== allAppComponentsWithPageTitle.usersApi.displayTitle)
+        ).map((item) => <Button className={`${classes.headerNavItem} ${isMobileDeviceProps && !mobileMenuOpen ? classes.headerNavItemMobile : null}`} to={item.href} component={Link} key={item.name}>{item.name}</Button>) 
+        : 
+        null
+    );
 
     const logoutUser = async () => {
         auth.signOut();

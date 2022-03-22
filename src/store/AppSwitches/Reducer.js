@@ -1,10 +1,13 @@
 import { 
     appTheme,
     aquariumStatus,
+    chatsCount,
     countdownForLetterRequest, 
     emailVerificationConfirmationWaitingIsFalse, 
     emailVerificationConfirmationWaitingIsTrue, 
+    eventForPWAInstallation, 
     lastAuthorization,
+    onlySelectedChats,
     valueInChatsListInput
 } from './Action';
 
@@ -52,6 +55,24 @@ export const statusesInTheAppReducer = (state = initialState, action) => {
             return {
                 ...state,
                 appThemeIs: action.payload,
+            }
+        }
+        case onlySelectedChats.type: {
+            return {
+                ...state,
+                onlySelectedChatsBoolean: action.payload,
+            }
+        }
+        case chatsCount.type: {
+            return {
+                ...state,
+                chatsCountSelected: action.payload,
+            }
+        }
+        case eventForPWAInstallation.type: {
+            return {
+                ...state,
+                eventForPWAInstallationCase: action.payload,
             }
         }
         default: {

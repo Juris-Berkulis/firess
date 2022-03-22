@@ -19,7 +19,7 @@ export const allAppComponentsWithPageTitle = {
         pathCheck: /^$/,
     },
     messenger: {
-        pageTitle: 'Мессенджер',
+        pageTitle: 'Список чатов',
         displayTitle: 'Мессенджер',
         path: '/messenger',
         pathCheck: /^$/,

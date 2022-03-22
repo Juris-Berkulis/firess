@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, InputBase, IconButton } from '@material-ui/core';
-import { PersonAdd, DeleteForever, AccessTime } from '@material-ui/icons';
+import { PersonAdd, DeleteForever, AccessTime, Star, StarBorder } from '@material-ui/icons';
 
 export const ChangeChatsListUI = (props) => {
     return (
@@ -10,16 +10,25 @@ export const ChangeChatsListUI = (props) => {
             {props.successForProps}
             <div className={`${props.classes.changeContactNameButtons} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.changeContactNameButtons_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.changeContactNameButtons_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.changeContactNameButtons_sunnyTheme : null) : null}`}>
                 <IconButton type='submit'>
-                <PersonAdd className={`${props.classes.changeContactNameIcon} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.changeContactNameIcon_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.changeContactNameIcon_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.changeContactNameIcon_sunnyTheme : null) : null}`} />
+                    <PersonAdd className={`${props.classes.changeContactNameIcon} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.changeContactNameIcon_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.changeContactNameIcon_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.changeContactNameIcon_sunnyTheme : null) : null}`} />
                 </IconButton>
                 <IconButton onClick={props.deliteContact}>
-                <DeleteForever className={`${props.classes.changeContactNameIcon} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.changeContactNameIcon_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.changeContactNameIcon_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.changeContactNameIcon_sunnyTheme : null) : null}`} />
+                    <DeleteForever className={`${props.classes.changeContactNameIcon} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.changeContactNameIcon_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.changeContactNameIcon_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.changeContactNameIcon_sunnyTheme : null) : null}`} />
+                </IconButton>
+                <IconButton onClick={props.changeStatusOnAllChatsOrOnlySelectedChats}>
+                    {
+                        props.onlySelectedChatsSel 
+                        ? 
+                        <Star className={`${props.classes.changeContactNameIcon} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.changeContactNameIcon_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.changeContactNameIcon_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.changeContactNameIcon_sunnyTheme : null) : null}`} />
+                        : 
+                        <StarBorder className={`${props.classes.changeContactNameIcon} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.changeContactNameIcon_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.changeContactNameIcon_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.changeContactNameIcon_sunnyTheme : null) : null}`} />
+                    }
                 </IconButton>
                 {
                     props.isMobileDeviceBoolean 
                     ? 
                     <IconButton onClick={props.openAquarium}>
-                    <AccessTime className={`${props.classes.changeContactNameIcon} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.changeContactNameIcon_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.changeContactNameIcon_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.changeContactNameIcon_sunnyTheme : null) : null}`} />
+                        <AccessTime className={`${props.classes.changeContactNameIcon} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.changeContactNameIcon_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.changeContactNameIcon_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.changeContactNameIcon_sunnyTheme : null) : null}`} />
                     </IconButton>
                     : 
                     null

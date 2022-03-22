@@ -194,7 +194,7 @@ export const useStyles = makeStyles({
     overflow: 'auto',
   },
   headerNavItem: {
-    color: '#cccccc'
+    color: '#ffffee'
   },
   headerNavItemMobile: {
     display: 'none',
@@ -253,9 +253,10 @@ export const useStyles = makeStyles({
     marginBottom: '0.1vh',
     color: styleConsts.color.chatsListColor,
     fontSize: '20px',
-    overflow: 'auto',
-    whiteSpace: 'pre', //* - It is preferable to use "nowrap" instead of "pre", but in this case it will be difficult to delete the chat from the database.
-    position: 'relative',
+    display: 'flex !important',
+    justifyContent: 'space-between !important',
+    alignItems: 'center !important',
+    padding: '8px 5px 8px 16px !important',
   },
   allChatsListItem_darkTheme: {
     color: styleConsts.color.chatsListColorDarkTheme,
@@ -266,12 +267,33 @@ export const useStyles = makeStyles({
   allChatsListItem_sunnyTheme: {
     color: styleConsts.color.chatsListColorSunnyTheme,
   },
+  allChatsListItem_chatNameWrapper: {
+    overflow: 'auto',
+    whiteSpace: 'pre', //* - It is preferable to use "nowrap" instead of "pre", but in this case it will be difficult to delete the chat from the database.
+  },
   allChatsListItem_wrapperSymbols: {
-    position: 'absolute',
-    right: '5px',
+    display: 'flex',
+    flexWrap: 'nowrap',
+    alignItems: 'center',
   },
   allChatsListItem_privatChatIcon: {
-    fontSize: '80%',
+    fontSize: '60%',
+  },
+  allChatsListItem_favoriteIcon: {
+    fontSize: '100%',
+    lineHeight: '80%',
+    color: styleConsts.color.favoriteIconColor,
+    marginLeft: '5px',
+    fontWeight: '500',
+  },
+  allChatsListItem_favoriteIcon_darkTheme: {
+    color: styleConsts.color.favoriteIconColorDarkTheme,
+  },
+  allChatsListItem_favoriteIcon_greyTheme: {
+    color: styleConsts.color.favoriteIconColorGreyTheme,
+  },
+  allChatsListItem_favoriteIcon_sunnyTheme: {
+    color: styleConsts.color.favoriteIconColorSunnyTheme,
   },
   chat: {
     width: '60vw',
@@ -493,7 +515,7 @@ export const useStyles = makeStyles({
   },
   popUpWindowQuestion_mobileDevice: {
     fontSize: '12px',
-    lineHeight: '14px',
+    lineHeight: '16px',
   },
   popUpWindowAction: {
     width: '100%',
@@ -506,10 +528,19 @@ export const useStyles = makeStyles({
     padding: '10px 16px',
     margin: '0 2vw',
     cursor: 'pointer',
-    backgroundColor: '#2b6d2b',
+    backgroundColor: styleConsts.backgroundColor.popUpWindowBtnColor,
     color: '#dddddd',
     border: 'solid 1px #555555',
     borderRadius: '10px',
+  },
+  popUpWindowBtn_darkTheme: {
+    backgroundColor: styleConsts.backgroundColor.popUpWindowBtnColorDarkTheme,
+  },
+  popUpWindowBtn_greyTheme: {
+    backgroundColor: styleConsts.backgroundColor.popUpWindowBtnColorGreyTheme,
+  },
+  popUpWindowBtn_sunnyTheme: {
+    backgroundColor: styleConsts.backgroundColor.popUpWindowBtnColorSunnyTheme,
   },
   popUpWindowBtn_mobileDevice: {
     fontSize: '10px',
@@ -711,4 +742,117 @@ export const useStyles = makeStyles({
   users_error__text: {
     color: '#333333'
   },
+  page__fieldWrapper: {
+    height: '100%',
+    width: '100%',
+    paddingBottom: '0',
+  },
+  page__fieldWrapper_mobileDevice: {
+    paddingBottom: '5vh',
+  },
+  page__field: {
+    height: '100%',
+    width: '100%',
+    overflow: 'auto',
+    color: styleConsts.color.chatsListColor,
+    fontSize: '48px',
+    lineHeight: '48px',
+    padding: '0 2vw 0 1vw',
+    textAlign: 'justify',
+  },
+  page__field_darkTheme: {
+    color: styleConsts.color.chatsListColorDarkTheme,
+  },
+  page__field_greyTheme: {
+    color: styleConsts.color.chatsListColorGreyTheme,
+  },
+  page__field_sunnyTheme: {
+    color: styleConsts.color.chatsListColorSunnyTheme,
+  },
+  page__field_mobileDevice: {
+    fontSize: '24px',
+    lineHeight: '24px',
+  },
+  page__title: {
+    fontSize: 'calc(1em / 48 * 48)',
+    lineHeight: 'calc(1em * 1)',
+    marginBottom: '2vh',
+  },
+  home__appNameWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  home__appName: {
+    fontSize: 'calc(1em / 48 * 60)',
+    lineHeight: 'calc(1em * 1)',
+    marginBottom: '2vh',
+    color: styleConsts.color.homeAppNameColor,
+    textAlign: 'center',
+  },
+  home__appName_darkTheme: {
+    color: styleConsts.color.homeAppNameColorDarkTheme,
+  },
+  home__appName_greyTheme: {
+    color: styleConsts.color.homeAppNameColorGreyTheme,
+  },
+  home__appName_sunnyTheme: {
+    color: styleConsts.color.homeAppNameColorSunnyTheme,
+  },
+  home__appDescriptionWrapper: {
+    marginBottom: '2vh',
+  },
+  home__descriptionParagraphWrapper: {
+    fontSize: 'calc(1em / 48 * 28)',
+    lineHeight: 'calc(1em * 1.25)',
+  },
+  home__descriptionParagraph: {
+    fontSize: 'calc(1em / 48 * 28)',
+    lineHeight: 'calc(1em * 1.25)',
+    marginBottom: '1vh',
+  },
+  home__descriptionTitle: {
+    fontSize: 'calc(1em / 48 * 36)',
+    lineHeight: 'calc(1em * 1)',
+    margin: '2vh 0 1vh',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+  },
+  home__benefitsWrapper: {
+    marginBottom: '1vh',
+  },
+  home__benefitsParagraph: {
+    fontSize: 'calc(1em / 48 * 28)',
+    lineHeight: 'calc(1em * 1.25)',
+  },
+  home__benefitName: {
+    fontWeight: '700',
+    textTransform: 'uppercase',
+  },
+  home__benefitsList: {
+    fontSize: 'calc(1em / 48 * 28)',
+    lineHeight: 'calc(1em * 1.25)',
+    listStyle: 'inside',
+    listStyleType: 'disclosure-closed',
+    marginBottom: '2vh',
+  },
+  home__benefitsListItem: {
+    margin: '0.3vh 0',
+  },
+  home__descriptionMiniTitle: {
+    fontSize: 'calc(1em / 48 * 32)',
+    lineHeight: 'calc(1em * 1)',
+    margin: '2vh 0 1vh',
+  },
+  home__logoWrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginBottom: '2vh',
+  },
+  home__logoImg: {
+    height: '10vw',
+    width: 'auto',
+    margin: '2vh 2vw',
+  }
 });

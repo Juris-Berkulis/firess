@@ -25,3 +25,5 @@ node_modules
 src/old/
 info/
 archive/
+src/TECHNICAL/
+src/firebase/

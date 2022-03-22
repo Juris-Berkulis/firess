@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { APP_THEMES_NAMES, MAXIMUM_NUMBER_OF_CHARACTERS_FOR_A_CHAT_NAME } from '../../../data/consts';
 import { auth } from '../../../firebase/firebase';
 import { getKeyForTheChatByChatName, isMobileDevice } from '../../../helper/helper';
-import { aquariumStatus, valueInChatsListInput } from '../../../store/AppSwitches/Action';
-import { getStatusesInTheAppappThemeIsSelector } from '../../../store/AppSwitches/Selectors';
+import { aquariumStatus, onlySelectedChats, valueInChatsListInput } from '../../../store/AppSwitches/Action';
+import { getStatusesInTheAppappThemeIsSelector, getStatusesInTheAppChatsCountSelectedSelector, getStatusesInTheAppOnlySelectedChatsBooleanSelector } from '../../../store/AppSwitches/Selectors';
 import { removeAllMessagesInDeleteChatWithThunkAction } from '../../../store/ChatList/Action';
 import { addInChatsListWithThunkAction, deleteSecretIntoAboutDeletedChatWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
 import { getChatsListChatsKindOfDictSelector, getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
@@ -25,20 +25,26 @@ export const ChangeChatsList = () => {
   const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
   const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
   const appThemeSel = useSelector(getStatusesInTheAppappThemeIsSelector);
+  const onlySelectedChatsSel = useSelector(getStatusesInTheAppOnlySelectedChatsBooleanSelector);
+  const chatsCountSelectedSel = useSelector(getStatusesInTheAppChatsCountSelectedSelector);
 
   const isMobileDeviceBoolean = isMobileDevice();
+
+  const showSimilarChatsCount = useCallback(() => {
+    if (chatsCountSelectedSel === 0) {
+      setError('Нет похожих чатов');
+    } else if (chatsCountSelectedSel !== 0) {
+      setSuccess(`Совпадений: ${chatsCountSelectedSel}`);
+    }
+  }, [chatsCountSelectedSel]);
 
   const onSaveNameFromInput = (event) => {
     setValueName(event.target.value);
     setError(false);
     setSuccess(false);
 
-    const newChatsListRed = chatsListRed.filter(chat => chat.name.toLowerCase().includes(event.target.value.toLowerCase())).length;
-
-    if (!newChatsListRed) {
-      setError('Нет похожих чатов');
-    } else if (newChatsListRed && event.target.value !== '') {
-      setSuccess(`Совпадений: ${newChatsListRed}`);
+    if (event.target.value !== '') {
+      showSimilarChatsCount();
     }
   };
 
@@ -171,7 +177,14 @@ export const ChangeChatsList = () => {
         type: aquariumStatus.type,
         payload: true,
     });
-};
+  };
+
+  const changeStatusOnAllChatsOrOnlySelectedChats = () => {
+    dispatch({
+      type: onlySelectedChats.type,
+      payload: !onlySelectedChatsSel,
+    });
+  };
 
   useEffect(() => {
     dispatch({
@@ -193,7 +206,16 @@ export const ChangeChatsList = () => {
     }
   }, [valueName]);
 
+  useEffect(() => {
+    if (valueName !== '') {
+      setError(false);
+      setSuccess(false);
+
+      showSimilarChatsCount();
+    }
+  }, [chatsCountSelectedSel, showSimilarChatsCount, valueName]);
+
   return (
-    <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} deliteContact={deliteContact} errorForProps={errorForProps} successForProps={successForProps} openAquarium={openAquarium} isMobileDeviceBoolean={isMobileDeviceBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES}></ChangeChatsListUI>
+    <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} deliteContact={deliteContact} errorForProps={errorForProps} successForProps={successForProps} openAquarium={openAquarium} isMobileDeviceBoolean={isMobileDeviceBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES} onlySelectedChatsSel={onlySelectedChatsSel} changeStatusOnAllChatsOrOnlySelectedChats={changeStatusOnAllChatsOrOnlySelectedChats}></ChangeChatsListUI>
   )
 };

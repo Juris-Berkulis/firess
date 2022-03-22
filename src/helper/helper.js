@@ -261,3 +261,38 @@ export const getKeyForTheChatByChatId = (chatsListChatsKindOfDictRed, findValue)
     const key = getKeyForTheChat(chatsListChatsKindOfDictRed, findValue, 'id');
     return key
 };
+
+export const destroyAllTags = (inputText) => {
+    const newInputText = inputText
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+
+    return newInputText
+};
+
+export const createTagsToHighlightTheEnteredText = (inputText, classes) => {
+    const newInputText = inputText
+        .replaceAll('*,,', '<strong>')
+        .replaceAll(',,*', '</strong>')
+        .replaceAll('/,,', '<em>')
+        .replaceAll(',,/', '</em>')
+        .replaceAll('_,,', '<ins>')
+        .replaceAll(',,_', '</ins>')
+        .replaceAll('-,,', '<s>')
+        .replaceAll(',,-', '</s>')
+        .replaceAll('+,,', '<mark style="background-color: #cccccc;">')
+        .replaceAll(',,+', '</mark>')
+        .replaceAll('=,,', '<br>')
+        .replaceAll(',,=', '')
+        .replaceAll('(,,', `<p style="margin: 1vh 0;">`)
+        .replaceAll(',,)', '</p>');
+
+    return newInputText
+};
+
+export const autoEditInputText = (inputText, classes) => {
+    const textWithoutForbiddenTags = destroyAllTags(inputText);
+    const textWithHighlightTags = createTagsToHighlightTheEnteredText(textWithoutForbiddenTags, classes);
+
+    return textWithHighlightTags
+};
