@@ -7,11 +7,18 @@ import { getChatListMessagesSelector } from '../../../store/ChatList/Selectors';
 import { useStyles } from '../../../styles/Style';
 import { ChartFormUI } from '../../../ui_components/ChatFormUI.jsx';
 import { auth } from '../../../firebase/firebase';
-import { autoEditInputText, getKeyForTheChatByChatId } from '../../../helper/helper';
+import { autoEditInputText, getKeyForTheChatByChatId, isMobileDevice } from '../../../helper/helper';
 
 export const ChartForm = () => {
   const classes = useStyles();
+
+  const isMobileDeviceBoolean = isMobileDevice();
+
+  const inputMinHeight = 32;
+  const inputMaxHeight = 90;
+
   const [value, setValue] = useState('');
+  const [inputHeight, setInputHeight] = useState(inputMinHeight);
 
   const refInput = useRef(null);
 
@@ -29,7 +36,19 @@ export const ChartForm = () => {
 
   const onSaveValueFromInput = (event) => {
     setValue(event.target.value);
+
+    if (refInput) {
+      setInputHeight(`${inputMinHeight}px`);
+    }
   };
+
+  useEffect(() => {
+    if (refInput.current.scrollHeight < inputMaxHeight) {
+      setInputHeight(`${refInput.current.scrollHeight}px`);
+    } else {
+      setInputHeight(`${inputMaxHeight}px`)
+    }
+  }, [value]);
 
   const resetValue = () => {
     setValue('');
@@ -55,6 +74,6 @@ export const ChartForm = () => {
   }, [chatListMessagesRed]); 
 
   return (
-    <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={value}></ChartFormUI>
+    <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={value} inputHeight={inputHeight} inputMinHeight={inputMinHeight} isMobileDeviceBoolean={isMobileDeviceBoolean}></ChartFormUI>
   )
 };
