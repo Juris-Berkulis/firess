@@ -34,12 +34,16 @@ export const ChartForm = () => {
 
   const dispatch = useDispatch();
 
-  const onSaveValueFromInput = (event) => {
-    setValue(event.target.value);
-
+  const resetInputHeight = () => {
     if (refInput) {
       setInputHeight(`${inputMinHeight}px`);
     }
+  };
+
+  const onSaveValueFromInput = (event) => {
+    setValue(event.target.value);
+
+    resetInputHeight();
   };
 
   useEffect(() => {
@@ -52,6 +56,8 @@ export const ChartForm = () => {
 
   const resetValue = () => {
     setValue('');
+
+    resetInputHeight();
   };
 
   const onSubmit = (event) => {
