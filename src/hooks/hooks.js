@@ -30,7 +30,7 @@ export const useWindowDimensions = () => {
 };
 
 export const useChangeEmailVerificationStatus = (location) => {
-    const [verified, setVerified] = useState(false);
+    const [verified, setVerified] = useState(null);
 
     useEffect(() => {
         const unsubscribe = auth.onIdTokenChanged((user) => {

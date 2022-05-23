@@ -31,6 +31,7 @@ import { dropMessagesInStateAction } from './store/ChatList/Action';
 import { dropChatsListInStateAction } from './store/ChatsList/Action';
 import { appTheme, eventForPWAInstallation } from './store/AppSwitches/Action';
 import { styleConsts } from './styles/StyleConsts';
+import { StartingScreensaver } from './routes/StartingScreensaver/StartingScreensaver';
 
 export const App = () => {
   const classes = useStyles();
@@ -203,40 +204,46 @@ export const App = () => {
   return (
     <PersistGate loading={<Preloader />} persistor={persistor}>
     <div className={`${classes.main} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.main_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.main_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.main_sunnyTheme : null) : null}`}>
-    <Switch>
-    <>
-      <Header></Header>
-      <Box className={`${classes.field} ${mobileMenuOpen ? classes.field_mobileMenuOpen : null} ${isMobileDeviceBoolean ? classes.field_mobileDevice : null}`}>
-        <Route exact path={allAppComponentsWithPageTitle.home.path}>
-          <Home></Home>
-        </Route>
-        <PrivateRoute path={allAppComponentsWithPageTitle.profile.path} authenticated={emailVerificationStatus}>
-          <Profile></Profile>
-        </PrivateRoute>
-        <PrivateRoute path={allAppComponentsWithPageTitle.messenger.path} authenticated={emailVerificationStatus}>
-          <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white" height='100%'>
-            {isMobileDeviceBoolean && isAquariumStatus ? null : <ChatsList></ChatsList>}
-            {isBigChatOpen ? null : <Aquarium></Aquarium>}
-            <Route path={allAppComponentsWithPageTitle.error404.path}>
-              <Error404></Error404>
+      {
+        emailVerificationStatus !== null
+        ? 
+        <Switch>
+        <>
+          <Header></Header>
+          <Box className={`${classes.field} ${mobileMenuOpen ? classes.field_mobileMenuOpen : null} ${isMobileDeviceBoolean ? classes.field_mobileDevice : null}`}>
+            <Route exact path={allAppComponentsWithPageTitle.home.path}>
+              <Home></Home>
             </Route>
-            <Route path={allAppComponentsWithPageTitle.openChat.path}>
-              <Chat></Chat>
+            <PrivateRoute path={allAppComponentsWithPageTitle.profile.path} authenticated={emailVerificationStatus}>
+              <Profile></Profile>
+            </PrivateRoute>
+            <PrivateRoute path={allAppComponentsWithPageTitle.messenger.path} authenticated={emailVerificationStatus}>
+              <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white" height='100%'>
+                {isMobileDeviceBoolean && isAquariumStatus ? null : <ChatsList></ChatsList>}
+                {isBigChatOpen ? null : <Aquarium></Aquarium>}
+                <Route path={allAppComponentsWithPageTitle.error404.path}>
+                  <Error404></Error404>
+                </Route>
+                <Route path={allAppComponentsWithPageTitle.openChat.path}>
+                  <Chat></Chat>
+                </Route>
+              </Box>
+            </PrivateRoute>
+            <Route path={allAppComponentsWithPageTitle.usersApi.path}>
+              <ApiUsers></ApiUsers>
             </Route>
+            <PublicRoute path={allAppComponentsWithPageTitle.signup.path} authenticated={emailVerificationStatus}>
+              <Signup></Signup>
+            </PublicRoute>
+            <PublicRoute path={allAppComponentsWithPageTitle.login.path} authenticated={emailVerificationStatus}>
+              <Login></Login>
+            </PublicRoute>
           </Box>
-        </PrivateRoute>
-        <Route path={allAppComponentsWithPageTitle.usersApi.path}>
-          <ApiUsers></ApiUsers>
-        </Route>
-        <PublicRoute path={allAppComponentsWithPageTitle.signup.path} authenticated={emailVerificationStatus}>
-          <Signup></Signup>
-        </PublicRoute>
-        <PublicRoute path={allAppComponentsWithPageTitle.login.path} authenticated={emailVerificationStatus}>
-          <Login></Login>
-        </PublicRoute>
-      </Box>
-    </>
-    </Switch>
+        </>
+        </Switch>
+        :
+        <StartingScreensaver></StartingScreensaver>
+      }
     </div>
     </PersistGate>
   );
