@@ -8,3 +8,4 @@ export const getStatusesInTheAppappThemeIsSelector = (state) => getStatusesInThe
 export const getStatusesInTheAppOnlySelectedChatsBooleanSelector = (state) => getStatusesInTheAppRootSelector(state).onlySelectedChatsBoolean || false;
 export const getStatusesInTheAppChatsCountSelectedSelector = (state) => getStatusesInTheAppRootSelector(state).chatsCountSelected;
 export const getStatusesInTheAppEventForPWAInstallationSelector = (state) => getStatusesInTheAppRootSelector(state).eventForPWAInstallationCase || null;
+export const getAppSwitchesDeviceOnTheNetworkSelector = (state) => getStatusesInTheAppRootSelector(state).deviceOnTheNetworkCase || false;

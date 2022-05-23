@@ -24,14 +24,15 @@ import { getMobileMenuIsOpenSelector } from './store/MobileMenuStatus/Selectors'
 import { bigChatClose } from './store/BigChatStatus/Action';
 import { useStyles } from './styles/Style';
 import { getStatusesInTheAppappThemeIsSelector, getStatusesInTheAppIsAquariumOpenSelector, getStatusesInTheAppLastAuthorizationDateAndTimeSelector } from './store/AppSwitches/Selectors';
-import { auth } from './firebase/firebase';
+import { auth, connectedRef } from './firebase/firebase';
 import { Aquarium } from './routes/ChatsList/Aquarium/Aquarium';
 import { getBigChatIsOpenSelector } from '../src/store/BigChatStatus/Selectors';
 import { dropMessagesInStateAction } from './store/ChatList/Action';
 import { dropChatsListInStateAction } from './store/ChatsList/Action';
-import { appTheme, eventForPWAInstallation } from './store/AppSwitches/Action';
+import { appTheme, deviceOnTheNetworkAction, eventForPWAInstallation } from './store/AppSwitches/Action';
 import { styleConsts } from './styles/StyleConsts';
 import { StartingScreensaver } from './routes/StartingScreensaver/StartingScreensaver';
+import { DeviceOnTheNetwork } from './routes/DeviceOnTheNetwork/DeviceOnTheNetwork';
 
 export const App = () => {
   const classes = useStyles();
@@ -201,6 +202,22 @@ export const App = () => {
     changeThemeInApp();
   }, [changeThemeInApp, booleanForChangeTheme]);
 
+  useEffect(() => {
+    connectedRef.on("value", (snapshot) => {
+      if (snapshot.val() === true) {
+        dispatch({
+          type: deviceOnTheNetworkAction.type,
+          payload: true,
+        });
+      } else {
+        dispatch({
+          type: deviceOnTheNetworkAction.type,
+          payload: false,
+        });
+      }
+    });
+  }, [dispatch]);
+
   return (
     <PersistGate loading={<Preloader />} persistor={persistor}>
     <div className={`${classes.main} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.main_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.main_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.main_sunnyTheme : null) : null}`}>
@@ -209,6 +226,7 @@ export const App = () => {
         ? 
         <Switch>
         <>
+          <DeviceOnTheNetwork></DeviceOnTheNetwork>
           <Header></Header>
           <Box className={`${classes.field} ${mobileMenuOpen ? classes.field_mobileMenuOpen : null} ${isMobileDeviceBoolean ? classes.field_mobileDevice : null}`}>
             <Route exact path={allAppComponentsWithPageTitle.home.path}>

@@ -3,6 +3,7 @@ import {
     aquariumStatus,
     chatsCount,
     countdownForLetterRequest, 
+    deviceOnTheNetworkAction, 
     emailVerificationConfirmationWaitingIsFalse, 
     emailVerificationConfirmationWaitingIsTrue, 
     eventForPWAInstallation, 
@@ -73,6 +74,12 @@ export const statusesInTheAppReducer = (state = initialState, action) => {
             return {
                 ...state,
                 eventForPWAInstallationCase: action.payload,
+            }
+        }
+        case deviceOnTheNetworkAction.type: {
+            return {
+                ...state,
+                deviceOnTheNetworkCase: action.payload,
             }
         }
         default: {
