@@ -9,3 +9,4 @@ export const getStatusesInTheAppOnlySelectedChatsBooleanSelector = (state) => ge
 export const getStatusesInTheAppChatsCountSelectedSelector = (state) => getStatusesInTheAppRootSelector(state).chatsCountSelected;
 export const getStatusesInTheAppEventForPWAInstallationSelector = (state) => getStatusesInTheAppRootSelector(state).eventForPWAInstallationCase || null;
 export const getAppSwitchesDeviceOnTheNetworkSelector = (state) => getStatusesInTheAppRootSelector(state).deviceOnTheNetworkCase || false;
+export const getStatusesInTheAppIsStrictSearchSelector = (state) => getStatusesInTheAppRootSelector(state).isStrictSearchCase || false;

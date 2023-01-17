@@ -10,7 +10,7 @@ import { offTrackingChangeValueInChatsListWithThunkAction, onTrackingChangeValue
 import { getBigChatIsOpenSelector } from '../../store/BigChatStatus/Selectors';
 import { isMobileDevice, isNumberOrString, sortingConditions } from '../../helper/helper';
 import { bigChatClose } from '../../store/BigChatStatus/Action';
-import { getStatusesInTheAppappThemeIsSelector, getStatusesInTheAppOnlySelectedChatsBooleanSelector, getStatusesInTheAppValueInChatsListInputIsSelector } from '../../store/AppSwitches/Selectors';
+import { getStatusesInTheAppappThemeIsSelector, getStatusesInTheAppIsStrictSearchSelector, getStatusesInTheAppOnlySelectedChatsBooleanSelector, getStatusesInTheAppValueInChatsListInputIsSelector } from '../../store/AppSwitches/Selectors';
 import { auth } from '../../firebase/firebase';
 import { APP_THEMES_NAMES } from '../../data/consts';
 import { chatsCount } from '../../store/AppSwitches/Action';
@@ -35,6 +35,17 @@ export const ChatsList = () => {
     const chatsListRed = useSelector(getChatsListChatsKindOfListSelector).sort(rulesForSortingTheChatsList);
     const appThemeSel = useSelector(getStatusesInTheAppappThemeIsSelector);
     const onlySelectedChatsSel = useSelector(getStatusesInTheAppOnlySelectedChatsBooleanSelector);
+    const isStrictSearchSel = useSelector(getStatusesInTheAppIsStrictSearchSelector);
+
+    const regExp = new RegExp(valueInChatsListInput.toLowerCase().split('').join('.*'));
+
+    const searchForEnteredValue = (chatName) => {
+        if(isStrictSearchSel) {
+            return chatName.includes(valueInChatsListInput.toLowerCase())
+        } else {
+            return chatName.match(regExp)
+        }
+    };
 
     const newChatsListRed = (
         onlySelectedChatsSel 
@@ -46,7 +57,7 @@ export const ChatsList = () => {
         )) 
         : 
         chatsListRed
-        ).filter(chat => chat.name.toLowerCase().includes(valueInChatsListInput.toLowerCase())).map((item) => {
+        ).filter(chat => searchForEnteredValue(chat.name.toLowerCase())).map((item) => {
         return (
             <ListItem className={`${classes.allChatsListItem} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.allChatsListItem_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.allChatsListItem_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.allChatsListItem_sunnyTheme : null) : null}`} button to={`/messenger/${item.id}`} component={Link} key={item.id}>
                 <div className={classes.allChatsListItem_chatNameWrapper}>

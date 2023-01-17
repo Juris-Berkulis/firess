@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { APP_THEMES_NAMES, MAXIMUM_NUMBER_OF_CHARACTERS_FOR_A_CHAT_NAME } from '../../../data/consts';
 import { auth } from '../../../firebase/firebase';
 import { getKeyForTheChatByChatName, isMobileDevice } from '../../../helper/helper';
-import { aquariumStatus, onlySelectedChats, valueInChatsListInput } from '../../../store/AppSwitches/Action';
-import { getStatusesInTheAppappThemeIsSelector, getStatusesInTheAppChatsCountSelectedSelector, getStatusesInTheAppOnlySelectedChatsBooleanSelector } from '../../../store/AppSwitches/Selectors';
+import { aquariumStatus, isStrictSearchAction, onlySelectedChats, valueInChatsListInput } from '../../../store/AppSwitches/Action';
+import { getStatusesInTheAppappThemeIsSelector, getStatusesInTheAppChatsCountSelectedSelector, getStatusesInTheAppIsStrictSearchSelector, getStatusesInTheAppOnlySelectedChatsBooleanSelector } from '../../../store/AppSwitches/Selectors';
 import { removeAllMessagesInDeleteChatWithThunkAction } from '../../../store/ChatList/Action';
 import { addInChatsListWithThunkAction, deleteSecretIntoAboutDeletedChatWithThunkAction, removeFromChatsListWithThunkAction } from '../../../store/ChatsList/Action';
 import { getChatsListChatsKindOfDictSelector, getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
@@ -27,8 +27,11 @@ export const ChangeChatsList = () => {
   const appThemeSel = useSelector(getStatusesInTheAppappThemeIsSelector);
   const onlySelectedChatsSel = useSelector(getStatusesInTheAppOnlySelectedChatsBooleanSelector);
   const chatsCountSelectedSel = useSelector(getStatusesInTheAppChatsCountSelectedSelector);
+  const isStrictSearchSel = useSelector(getStatusesInTheAppIsStrictSearchSelector);
 
   const isMobileDeviceBoolean = isMobileDevice();
+
+  const refInput = useRef(null);
 
   const showSimilarChatsCount = useCallback(() => {
     if (chatsCountSelectedSel === 0) {
@@ -186,6 +189,21 @@ export const ChangeChatsList = () => {
     });
   };
 
+  const focusOnInput = () => {
+    refInput.current.focus();
+  };
+
+  const changeChatsSearchMode = () => {
+    dispatch({
+      type: isStrictSearchAction.type,
+      payload: !isStrictSearchSel,
+    });
+
+    focusOnInput();
+  };
+
+  const isStrictSearchForProps = valueName ? <div onClick={() => changeChatsSearchMode()} className={`${classes.changeChatsSearchMode} ${success && !error && classes.changeChatsSearchMode_success} ${!success && error && classes.changeChatsSearchMode_attention}`}>{isStrictSearchSel ? 'Строгий поиск' : 'Не строгий поиск'}</div> : null;
+
   useEffect(() => {
     dispatch({
       type: valueInChatsListInput.type,
@@ -216,6 +234,6 @@ export const ChangeChatsList = () => {
   }, [chatsCountSelectedSel, showSimilarChatsCount, valueName]);
 
   return (
-    <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} deliteContact={deliteContact} errorForProps={errorForProps} successForProps={successForProps} openAquarium={openAquarium} isMobileDeviceBoolean={isMobileDeviceBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES} onlySelectedChatsSel={onlySelectedChatsSel} changeStatusOnAllChatsOrOnlySelectedChats={changeStatusOnAllChatsOrOnlySelectedChats}></ChangeChatsListUI>
+    <ChangeChatsListUI classes={classes} onSubmit={onSubmit} onSaveNameFromInput={onSaveNameFromInput} valueName={valueName} deliteContact={deliteContact} errorForProps={errorForProps} successForProps={successForProps} openAquarium={openAquarium} isMobileDeviceBoolean={isMobileDeviceBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES} onlySelectedChatsSel={onlySelectedChatsSel} changeStatusOnAllChatsOrOnlySelectedChats={changeStatusOnAllChatsOrOnlySelectedChats} isStrictSearchForProps={isStrictSearchForProps} refInput={refInput}></ChangeChatsListUI>
   )
 };

@@ -199,14 +199,6 @@ export const useStyles = makeStyles({
   headerNavItemMobile: {
     display: 'none',
   },
-  chatsListActionResaltInfo: {
-    textAlign: 'center',
-    backgroundColor: '#eeeeee',
-    margin: '0 2.5vw',
-    padding: '0 2.5vw',
-    borderBottomLeftRadius: '2.5vw',
-    borderBottomRightRadius: '2.5vw',
-  },
   chatsListActionResaltInfo_attention: {
     color: '#ff0000',
   },
@@ -217,11 +209,41 @@ export const useStyles = makeStyles({
     width: '100%',
     padding: '0 5px',
   },
+  changeContactNameInfo: {
+    textAlign: 'center',
+    backgroundColor: '#eeeeee',
+    margin: '0 2.5vw',
+    padding: '0 2.5vw',
+    borderBottomLeftRadius: '2.5vw',
+    borderBottomRightRadius: '2.5vw',
+  },
   changeContactNameInput: {
     width: '100%',
     backgroundColor: '#eeeeee',
-    padding: '0 2.5vw',
+    padding: '10px 2.5vw',
     borderRadius: '2.5vw',
+    border: 'none',
+    '&:focus': {
+      outline: 'none',
+    }
+  },
+  changeChatsSearchMode: {
+    width: '100%',
+    marginBottom: '5px',
+    padding: '5px',
+    backgroundColor: '#dddddd',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: '#cccccc',
+    }
+  },
+  changeChatsSearchMode_success: {
+    color: '#33aa33',
+  },
+  changeChatsSearchMode_attention: {
+    color: '#ff0000',
   },
   changeContactNameButtons: {
     display: 'flex',

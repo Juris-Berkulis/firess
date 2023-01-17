@@ -7,6 +7,7 @@ import {
     emailVerificationConfirmationWaitingIsFalse, 
     emailVerificationConfirmationWaitingIsTrue, 
     eventForPWAInstallation, 
+    isStrictSearchAction, 
     lastAuthorization,
     onlySelectedChats,
     valueInChatsListInput
@@ -80,6 +81,12 @@ export const statusesInTheAppReducer = (state = initialState, action) => {
             return {
                 ...state,
                 deviceOnTheNetworkCase: action.payload,
+            }
+        }
+        case isStrictSearchAction.type: {
+            return {
+                ...state,
+                isStrictSearchCase: action.payload,
             }
         }
         default: {
