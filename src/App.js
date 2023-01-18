@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation } from "react-router";
 import { Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,8 +27,6 @@ import { getStatusesInTheAppappThemeIsSelector, getStatusesInTheAppIsAquariumOpe
 import { auth, connectedRef } from './firebase/firebase';
 import { Aquarium } from './routes/ChatsList/Aquarium/Aquarium';
 import { getBigChatIsOpenSelector } from '../src/store/BigChatStatus/Selectors';
-import { dropMessagesInStateAction } from './store/ChatList/Action';
-import { dropChatsListInStateAction } from './store/ChatsList/Action';
 import { appTheme, deviceOnTheNetworkAction, eventForPWAInstallation } from './store/AppSwitches/Action';
 import { styleConsts } from './styles/StyleConsts';
 import { StartingScreensaver } from './routes/StartingScreensaver/StartingScreensaver';
@@ -187,16 +185,6 @@ export const App = () => {
 
     return () => unsubscribe()
   }, [lastAuthorizationDateAndTime]);
-
-  useLayoutEffect(() => {
-    dispatch({
-      type: dropChatsListInStateAction.type,
-    });
-
-    dispatch({
-      type: dropMessagesInStateAction.type,
-    });
-  }, [dispatch]);
 
   useEffect(() => {
     changeThemeInApp();

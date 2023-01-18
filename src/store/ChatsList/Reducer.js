@@ -13,7 +13,7 @@ export const chatsListReducer = (state = initialState, action) => {
         }
         case DROP_CHATS_LIST_IN_STATE: {
             return {
-                chats: []
+                chats: {}
             }
         }
         default: {
