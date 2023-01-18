@@ -279,6 +279,12 @@ export const useStyles = makeStyles({
     justifyContent: 'space-between !important',
     alignItems: 'center !important',
     padding: '8px 5px 8px 16px !important',
+    '&:hover': {
+      backgroundColor: '#aaaaee',
+    },
+  },
+  allChatsListItem_openChat: {
+    backgroundColor: '#bbbbee',
   },
   allChatsListItem_darkTheme: {
     color: styleConsts.color.chatsListColorDarkTheme,

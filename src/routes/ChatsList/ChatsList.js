@@ -35,6 +35,7 @@ export const ChatsList = () => {
     const chatsListRed = useSelector(getChatsListChatsKindOfListSelector).sort(rulesForSortingTheChatsList);
     const appThemeSel = useSelector(getStatusesInTheAppappThemeIsSelector);
     const onlySelectedChatsSel = useSelector(getStatusesInTheAppOnlySelectedChatsBooleanSelector);
+    const isBigChatOpen = useSelector(getBigChatIsOpenSelector);
     const isStrictSearchSel = useSelector(getStatusesInTheAppIsStrictSearchSelector);
 
     const regExp = new RegExp(valueInChatsListInput.toLowerCase().split('').join('.*'));
@@ -59,7 +60,7 @@ export const ChatsList = () => {
         chatsListRed
         ).filter(chat => searchForEnteredValue(chat.name.toLowerCase())).map((item) => {
         return (
-            <ListItem className={`${classes.allChatsListItem} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.allChatsListItem_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.allChatsListItem_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.allChatsListItem_sunnyTheme : null) : null}`} button to={`/messenger/${item.id}`} component={Link} key={item.id}>
+            <ListItem className={`${classes.allChatsListItem} ${isBigChatOpen && isBigChatOpen === item.id && classes.allChatsListItem_openChat} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.allChatsListItem_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.allChatsListItem_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.allChatsListItem_sunnyTheme : null) : null}`} button to={`/messenger/${item.id}`} component={Link} key={item.id}>
                 <div className={classes.allChatsListItem_chatNameWrapper}>
                     {
                         item.name
@@ -126,8 +127,6 @@ export const ChatsList = () => {
             payload: newChatsListRed.length,
         });
     }, [dispatch, newChatsListRed.length]);
-
-    const isBigChatOpen = useSelector(getBigChatIsOpenSelector);
 
     return (
         isBigChatOpen && isMobileDeviceBoolean 
