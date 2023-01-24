@@ -38,13 +38,31 @@ export const ChatsList = () => {
     const isBigChatOpen = useSelector(getBigChatIsOpenSelector);
     const isStrictSearchSel = useSelector(getStatusesInTheAppIsStrictSearchSelector);
 
-    const regExp = new RegExp(valueInChatsListInput.toLowerCase().split('').join('.*'));
+    const valueInChatsListInputLowerCase = valueInChatsListInput.toLowerCase();
 
     const searchForEnteredValue = (chatName) => {
-        if(isStrictSearchSel) {
-            return chatName.includes(valueInChatsListInput.toLowerCase())
+        const chatNameLowerCase = chatName.toLowerCase(); //* - Проверяемое название чата в нижнем регистре.
+
+        if(isStrictSearchSel) { //* - Строгий ли поиск.
+            return chatNameLowerCase.includes(valueInChatsListInputLowerCase) //* Ищим подстроку в строке (введённое пользователем значение в названии чата).
         } else {
-            return chatName.match(regExp)
+            let chatNameIndex = 0; //* - Индекс названия чата, с которого начинаем поиск очередной буквы из введённого пользователем значения.
+
+            for (let i=0; i < valueInChatsListInputLowerCase.length; i++) { //* - Проверяем по отдельности каждую введённую пользователем букву (символ).
+                const foundLetterIndex = chatNameLowerCase.indexOf(valueInChatsListInputLowerCase[i], chatNameIndex); //* - Поиск индекса названия чата, на котором найдена искомая буква (символ) из введённого пользователем значения. Первый аргумент в методе ".indexOf()" - это искомая буква (символ) из введённого пользователем значения; второй аргумент - это индекс названия чата, с которого начинаем поиск буквы (символа).
+
+                if (foundLetterIndex > -1) { //* - Искомая буква найдена в названии чата.
+                    chatNameIndex = foundLetterIndex + 1; //* - Поиск следующеё буквы из введённого пользователем значения будет осуществляться с индекса названия чата, идущего следующим после индекса, на котором была найдена буква (символ).
+
+                    if (i === valueInChatsListInputLowerCase.length - 1) { //* - Последняя буква из введённого пользователем значения найдена.
+                        return true
+                    }
+                } else { //* - Искомая буква не найдена в названии чата.
+                    return false
+                }
+            }
+
+            return true //* - Пользователь ничего не вводил в поле поиска (ничего искать не надо).
         }
     };
 
@@ -58,7 +76,7 @@ export const ChatsList = () => {
         )) 
         : 
         chatsListRed
-        ).filter(chat => searchForEnteredValue(chat.name.toLowerCase())).map((item) => {
+        ).filter(chat => searchForEnteredValue(chat.name)).map((item) => {
         return (
             <ListItem className={`${classes.allChatsListItem} ${isBigChatOpen && isBigChatOpen === item.id && classes.allChatsListItem_openChat} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.allChatsListItem_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.allChatsListItem_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.allChatsListItem_sunnyTheme : null) : null}`} button to={`/messenger/${item.id}`} component={Link} key={item.id}>
                 <div className={classes.allChatsListItem_chatNameWrapper}>
