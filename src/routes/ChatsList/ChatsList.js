@@ -133,7 +133,7 @@ export const ChatsList = () => {
         ? 
         null 
         : 
-        <Box height='100%' width={isMobileDeviceBoolean ? '100%' : '19vw'} display={isBigChatOpen && isMobileDeviceBoolean ? 'none' : null}>
+        <Box height='100%' width={isMobileDeviceBoolean ? '100%' : '19vw'} display={isBigChatOpen && isMobileDeviceBoolean ? 'none' : 'flex'} flexDirection='column'>
             <ChangeChatsList></ChangeChatsList>
             <ChatsListUI classes={classes} newChatsListRed={newChatsListRed}></ChatsListUI>
         </Box>

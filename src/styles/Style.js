@@ -6,9 +6,10 @@ export const useStyles = makeStyles({
     padding: '0 calc((100% - 90vw) / 2)',
   },
   main: {
+    position: 'relative',
     height: '100vh',
     backgroundColor: styleConsts.backgroundColor.mainColor2,
-    padding: '0 0 10vh',
+    padding: '0',
   },
   main_darkTheme: {
     backgroundColor: styleConsts.backgroundColor.mainColor2DarkTheme,
@@ -70,7 +71,7 @@ export const useStyles = makeStyles({
     display: 'none !important',
   },
   field_mobileDevice: {
-    padding: '2vh 2vw 5vh !important',
+    padding: '2vh 2vw 10vh !important',
   },
   SigLogWrapper: {
     height: '100%',
@@ -391,6 +392,9 @@ export const useStyles = makeStyles({
     height: '55vh',
     overflow: 'auto',
     paddingRight: '2vw !important',
+    display: 'flex',
+    flexDirection: 'column',
+    flexGrow: '1',
   },
   chatList: {
     width: '100%',
@@ -892,7 +896,7 @@ export const useStyles = makeStyles({
     margin: '2vh 2vw',
   },
   deviceOnTheNetwork__wrapper: {
-    position: 'fixed',
+    position: 'absolute',
     top: '2vh',
     right: '2vw',
     height: '6vh',
