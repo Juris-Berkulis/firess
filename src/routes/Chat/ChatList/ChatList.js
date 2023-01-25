@@ -173,7 +173,7 @@ export const ChatList = () => {
         let newText;
         const listWithStringLinks = text.match(regExp);
         if (listWithStringLinks !== null) {
-            newText = text.split(' ').map((e) => (regExp.test(e) ? `<a href=${e} target="_blank">${e}</a>` : e)).join(' ')
+            newText = text.split('\n').map((textString) => textString.split(' ').map((e) => (regExp.test(e) ? `<a href=${e} target="_blank">${e}</a>` : e)).join(' ')).join('\n');
         } else {
             newText = text;
         }
