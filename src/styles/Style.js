@@ -444,6 +444,7 @@ export const useStyles = makeStyles({
   chatListItemMessageText: {
     marginBottom: '5px',
     fontSize: '20px',
+    whiteSpace: 'pre-line',
   },
   chatListItemMessageTextMobileDevice: {
     marginBottom: '2px',
