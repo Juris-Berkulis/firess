@@ -8,6 +8,8 @@ const APP_THEME = 'APP_THEME';
 const ONLY_SELECTED_CHATS = 'ONLY_SELECTED_CHATS';
 const CHATS_COUNT = 'CHATS_COUNT';
 const EVENT_FOR_PWA_INSTALLATION = 'EVENT_FOR_PWA_INSTALLATION';
+const DEVICE_ON_THE_NETWORK_ACTION = 'DEVICE_ON_THE_NETWORK_ACTION';
+const IS_STRICT_SEARCH_ACTION = 'IS_STRICT_SEARCH_ACTION';
 
 export const emailVerificationConfirmationWaitingIsTrue = {
     type: EMAIL_VERIFICATION_CONFIRMATION_WAITING_IS_TRUE,
@@ -47,4 +49,12 @@ export const chatsCount = {
 
 export const eventForPWAInstallation = {
     type: EVENT_FOR_PWA_INSTALLATION,
+};
+
+export const deviceOnTheNetworkAction = {
+    type: DEVICE_ON_THE_NETWORK_ACTION,
+};
+
+export const isStrictSearchAction = {
+    type: IS_STRICT_SEARCH_ACTION,
 };

@@ -97,24 +97,20 @@ export const Signup = () => {
     });
   };
 
-  const changeInfoMessage = () => {
+  const changeInfoMessage = async () => {
     setError('');
     setInfoMessage('');
 
     countdownForLetterRequestWithLink(dispatch, startValueForTimer);
 
-    const intervalId = setInterval(async () => {
-      try {
-        const text = await requestTheLetter(myEmail);
-        if (text) {
-          setInfoMessage(text);
-        }
-      } catch (error) {
-        setError(error.message);
+    try {
+      const text = await requestTheLetter(myEmail);
+      if (text) {
+        setInfoMessage(text);
       }
-
-      return clearInterval(intervalId)
-    }, 1000)
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   useUserVerificationWaiting(verificationWaitingBoolean, push);
@@ -125,7 +121,7 @@ export const Signup = () => {
     ? 
     <div className={classes.SigLogActionWaiting}>
       <h1 className={classes.SigLogTitle}>Верификация</h1>
-      <p className={classes.SigLogActionWaitingText}>Ожидание подтверждения электронной почты{infoMessage ? null : `${myEmail ? ` ${myEmail}.` : null}`}</p>
+      <p className={classes.SigLogActionWaitingText}>Ожидание подтверждения электронной почты{infoMessage ? null : (myEmail ? ' ' + myEmail : null)}</p>
       <img className={classes.SigLogActionPreloader} src={preloader} alt='preloader' width='5vw' />
       {
         infoMessage 

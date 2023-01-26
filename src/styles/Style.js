@@ -6,9 +6,10 @@ export const useStyles = makeStyles({
     padding: '0 calc((100% - 90vw) / 2)',
   },
   main: {
+    position: 'relative',
     height: '100vh',
     backgroundColor: styleConsts.backgroundColor.mainColor2,
-    padding: '0 0 10vh',
+    padding: '0',
   },
   main_darkTheme: {
     backgroundColor: styleConsts.backgroundColor.mainColor2DarkTheme,
@@ -70,7 +71,7 @@ export const useStyles = makeStyles({
     display: 'none !important',
   },
   field_mobileDevice: {
-    padding: '2vh 2vw 5vh !important',
+    padding: '2vh 2vw 10vh !important',
   },
   SigLogWrapper: {
     height: '100%',
@@ -199,14 +200,6 @@ export const useStyles = makeStyles({
   headerNavItemMobile: {
     display: 'none',
   },
-  chatsListActionResaltInfo: {
-    textAlign: 'center',
-    backgroundColor: '#eeeeee',
-    margin: '0 2.5vw',
-    padding: '0 2.5vw',
-    borderBottomLeftRadius: '2.5vw',
-    borderBottomRightRadius: '2.5vw',
-  },
   chatsListActionResaltInfo_attention: {
     color: '#ff0000',
   },
@@ -217,11 +210,41 @@ export const useStyles = makeStyles({
     width: '100%',
     padding: '0 5px',
   },
+  changeContactNameInfo: {
+    textAlign: 'center',
+    backgroundColor: '#eeeeee',
+    margin: '0 2.5vw',
+    padding: '0 2.5vw',
+    borderBottomLeftRadius: '2.5vw',
+    borderBottomRightRadius: '2.5vw',
+  },
   changeContactNameInput: {
     width: '100%',
     backgroundColor: '#eeeeee',
-    padding: '0 2.5vw',
+    padding: '10px 2.5vw',
     borderRadius: '2.5vw',
+    border: 'none',
+    '&:focus': {
+      outline: 'none',
+    }
+  },
+  changeChatsSearchMode: {
+    width: '100%',
+    marginBottom: '5px',
+    padding: '5px',
+    backgroundColor: '#dddddd',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: '#cccccc',
+    }
+  },
+  changeChatsSearchMode_success: {
+    color: '#33aa33',
+  },
+  changeChatsSearchMode_attention: {
+    color: '#ff0000',
   },
   changeContactNameButtons: {
     display: 'flex',
@@ -257,6 +280,12 @@ export const useStyles = makeStyles({
     justifyContent: 'space-between !important',
     alignItems: 'center !important',
     padding: '8px 5px 8px 16px !important',
+    '&:hover': {
+      backgroundColor: '#aaaaee',
+    },
+  },
+  allChatsListItem_openChat: {
+    backgroundColor: '#bbbbee',
   },
   allChatsListItem_darkTheme: {
     color: styleConsts.color.chatsListColorDarkTheme,
@@ -363,6 +392,9 @@ export const useStyles = makeStyles({
     height: '55vh',
     overflow: 'auto',
     paddingRight: '2vw !important',
+    display: 'flex',
+    flexDirection: 'column',
+    flexGrow: '1',
   },
   chatList: {
     width: '100%',
@@ -412,6 +444,7 @@ export const useStyles = makeStyles({
   chatListItemMessageText: {
     marginBottom: '5px',
     fontSize: '20px',
+    whiteSpace: 'pre-line',
   },
   chatListItemMessageTextMobileDevice: {
     marginBottom: '2px',
@@ -862,5 +895,76 @@ export const useStyles = makeStyles({
     height: '10vw',
     width: 'auto',
     margin: '2vh 2vw',
-  }
+  },
+  deviceOnTheNetwork__wrapper: {
+    position: 'absolute',
+    top: '2vh',
+    right: '2vw',
+    height: '6vh',
+    width: '6vh',
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    cursor: 'help',
+    zIndex: '1',
+  },
+  deviceOnTheNetwork__lamp: {
+    height: '1vh',
+    width: '1vh',
+    border: 'solid 0.2vh #111111',
+    borderRadius: '50%',
+    backgroundColor: '#cccccc',
+  },
+  deviceOnTheNetwork__lamp_connectNetwork_1: {
+    animation: "$pulseConnectNetwork 5s linear infinite 0.1s"
+  },
+  deviceOnTheNetwork__lamp_connectNetwork_2: {
+    animation: "$pulseConnectNetwork 5s linear infinite 0.35s"
+  },
+  deviceOnTheNetwork__lamp_connectNetwork_3: {
+    animation: "$pulseConnectNetwork 5s linear infinite 0.6s"
+  },
+  "@keyframes pulseConnectNetwork": {
+    "0%": {
+      backgroundColor: '#cccccc',
+    },
+    "47%": {
+      backgroundColor: '#cccccc',
+    },
+    "47.5%": {
+      backgroundColor: '#00cc00',
+    },
+    "52.5%": {
+      backgroundColor: '#00cc00',
+    },
+    "53%": {
+      backgroundColor: '#cccccc',
+    },
+    "100%": {
+      backgroundColor: '#cccccc',
+    },
+  },
+  deviceOnTheNetwork__lamp_disconnectNetwork: {
+    animation: "$pulseDisconnectNetwork 1s linear infinite 0.1s"
+  },
+  "@keyframes pulseDisconnectNetwork": {
+    "0%": {
+      backgroundColor: '#cccccc',
+    },
+    "24%": {
+      backgroundColor: '#cccccc',
+    },
+    "25%": {
+      backgroundColor: '#cc0000',
+    },
+    "74%": {
+      backgroundColor: '#cc0000',
+    },
+    "75%": {
+      backgroundColor: '#cccccc',
+    },
+    "100%": {
+      backgroundColor: '#cccccc',
+    },
+  },
 });

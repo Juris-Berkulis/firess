@@ -22,6 +22,7 @@ const app = firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 export const db = firebase.database();
 
+export const connectedRef = db.ref('.info/connected');
 export const profileRef = db.ref('profile');
 export const chatsRef = db.ref('chats');
 export const messagesRef = db.ref('messages');

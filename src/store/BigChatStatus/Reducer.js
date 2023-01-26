@@ -9,7 +9,7 @@ export const bigChatReducer = (state = initialState, action) => {
         case bigChatOpen.type: {
             return {
                 ...state,
-                isBigChatOpen: true,
+                isBigChatOpen: action.payload,
             }
         }
         case bigChatClose.type: {

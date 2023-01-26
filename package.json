@@ -11,6 +11,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "firebase": "^8.10.0",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
@@ -35,6 +36,8 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
+    "deploy": "npm run build && firebase deploy && netlify deploy --dir=build --prod && npm run copy_index_as_200 && surge --project ./build --domain https://firess.surge.sh && surge list",
+    "copy_index_as_200": "copy build\\index.html build\\200.html",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

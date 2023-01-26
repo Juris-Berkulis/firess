@@ -1,13 +1,16 @@
 import React from 'react';
-import { Box, InputBase, IconButton } from '@material-ui/core';
+import { Box, IconButton } from '@material-ui/core';
 import { PersonAdd, DeleteForever, AccessTime, Star, StarBorder } from '@material-ui/icons';
 
 export const ChangeChatsListUI = (props) => {
     return (
         <Box className={props.classes.changeContactNameForm} component='form' onSubmit={props.onSubmit}>
-            <InputBase className={props.classes.changeContactNameInput} placeholder="Название чата" label="Название чата" type="text" onChange={props.onSaveNameFromInput} value={props.valueName} />
-            {props.errorForProps}
-            {props.successForProps}
+            <input className={props.classes.changeContactNameInput} placeholder="Название чата" label="Название чата" type="text" onChange={props.onSaveNameFromInput} value={props.valueName} ref={props.refInput} />
+            <div className={props.classes.changeContactNameInfo}>
+                {props.isStrictSearchForProps}
+                {props.errorForProps}
+                {props.successForProps}
+            </div>
             <div className={`${props.classes.changeContactNameButtons} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.changeContactNameButtons_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.changeContactNameButtons_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.changeContactNameButtons_sunnyTheme : null) : null}`}>
                 <IconButton type='submit'>
                     <PersonAdd className={`${props.classes.changeContactNameIcon} ${props.appThemeSel && props.appThemeSel.themeNameEn ? (props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_2.nameEn ? props.classes.changeContactNameIcon_darkTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_3.nameEn ? props.classes.changeContactNameIcon_greyTheme : props.appThemeSel.themeNameEn === props.APP_THEMES_NAMES.theme_4.nameEn ? props.classes.changeContactNameIcon_sunnyTheme : null) : null}`} />

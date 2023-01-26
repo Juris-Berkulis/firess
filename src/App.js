@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation } from "react-router";
 import { Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,13 +24,13 @@ import { getMobileMenuIsOpenSelector } from './store/MobileMenuStatus/Selectors'
 import { bigChatClose } from './store/BigChatStatus/Action';
 import { useStyles } from './styles/Style';
 import { getStatusesInTheAppappThemeIsSelector, getStatusesInTheAppIsAquariumOpenSelector, getStatusesInTheAppLastAuthorizationDateAndTimeSelector } from './store/AppSwitches/Selectors';
-import { auth } from './firebase/firebase';
+import { auth, connectedRef } from './firebase/firebase';
 import { Aquarium } from './routes/ChatsList/Aquarium/Aquarium';
 import { getBigChatIsOpenSelector } from '../src/store/BigChatStatus/Selectors';
-import { dropMessagesInStateAction } from './store/ChatList/Action';
-import { dropChatsListInStateAction } from './store/ChatsList/Action';
-import { appTheme, eventForPWAInstallation } from './store/AppSwitches/Action';
+import { appTheme, deviceOnTheNetworkAction, eventForPWAInstallation } from './store/AppSwitches/Action';
 import { styleConsts } from './styles/StyleConsts';
+import { StartingScreensaver } from './routes/StartingScreensaver/StartingScreensaver';
+import { DeviceOnTheNetwork } from './routes/DeviceOnTheNetwork/DeviceOnTheNetwork';
 
 export const App = () => {
   const classes = useStyles();
@@ -186,57 +186,70 @@ export const App = () => {
     return () => unsubscribe()
   }, [lastAuthorizationDateAndTime]);
 
-  useLayoutEffect(() => {
-    dispatch({
-      type: dropChatsListInStateAction.type,
-    });
-
-    dispatch({
-      type: dropMessagesInStateAction.type,
-    });
-  }, [dispatch]);
-
   useEffect(() => {
     changeThemeInApp();
   }, [changeThemeInApp, booleanForChangeTheme]);
 
+  useEffect(() => {
+    connectedRef.on("value", (snapshot) => {
+      if (snapshot.val() === true) {
+        dispatch({
+          type: deviceOnTheNetworkAction.type,
+          payload: true,
+        });
+      } else {
+        dispatch({
+          type: deviceOnTheNetworkAction.type,
+          payload: false,
+        });
+      }
+    });
+  }, [dispatch]);
+
   return (
     <PersistGate loading={<Preloader />} persistor={persistor}>
     <div className={`${classes.main} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.main_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.main_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.main_sunnyTheme : null) : null}`}>
-    <Switch>
-    <>
-      <Header></Header>
-      <Box className={`${classes.field} ${mobileMenuOpen ? classes.field_mobileMenuOpen : null} ${isMobileDeviceBoolean ? classes.field_mobileDevice : null}`}>
-        <Route exact path={allAppComponentsWithPageTitle.home.path}>
-          <Home></Home>
-        </Route>
-        <PrivateRoute path={allAppComponentsWithPageTitle.profile.path} authenticated={emailVerificationStatus}>
-          <Profile></Profile>
-        </PrivateRoute>
-        <PrivateRoute path={allAppComponentsWithPageTitle.messenger.path} authenticated={emailVerificationStatus}>
-          <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white" height='100%'>
-            {isMobileDeviceBoolean && isAquariumStatus ? null : <ChatsList></ChatsList>}
-            {isBigChatOpen ? null : <Aquarium></Aquarium>}
-            <Route path={allAppComponentsWithPageTitle.error404.path}>
-              <Error404></Error404>
+      {
+        emailVerificationStatus !== null
+        ? 
+        <Switch>
+        <>
+          <DeviceOnTheNetwork></DeviceOnTheNetwork>
+          <Header></Header>
+          <Box className={`${classes.field} ${mobileMenuOpen ? classes.field_mobileMenuOpen : null} ${isMobileDeviceBoolean ? classes.field_mobileDevice : null}`}>
+            <Route exact path={allAppComponentsWithPageTitle.home.path}>
+              <Home></Home>
             </Route>
-            <Route path={allAppComponentsWithPageTitle.openChat.path}>
-              <Chat></Chat>
+            <PrivateRoute path={allAppComponentsWithPageTitle.profile.path} authenticated={emailVerificationStatus}>
+              <Profile></Profile>
+            </PrivateRoute>
+            <PrivateRoute path={allAppComponentsWithPageTitle.messenger.path} authenticated={emailVerificationStatus}>
+              <Box display="flex" justifyContent="space-between" bgcolor="trancend" color="white" height='100%'>
+                {isMobileDeviceBoolean && isAquariumStatus ? null : <ChatsList></ChatsList>}
+                {isBigChatOpen ? null : <Aquarium></Aquarium>}
+                <Route path={allAppComponentsWithPageTitle.error404.path}>
+                  <Error404></Error404>
+                </Route>
+                <Route path={allAppComponentsWithPageTitle.openChat.path}>
+                  <Chat></Chat>
+                </Route>
+              </Box>
+            </PrivateRoute>
+            <Route path={allAppComponentsWithPageTitle.usersApi.path}>
+              <ApiUsers></ApiUsers>
             </Route>
+            <PublicRoute path={allAppComponentsWithPageTitle.signup.path} authenticated={emailVerificationStatus}>
+              <Signup></Signup>
+            </PublicRoute>
+            <PublicRoute path={allAppComponentsWithPageTitle.login.path} authenticated={emailVerificationStatus}>
+              <Login></Login>
+            </PublicRoute>
           </Box>
-        </PrivateRoute>
-        <Route path={allAppComponentsWithPageTitle.usersApi.path}>
-          <ApiUsers></ApiUsers>
-        </Route>
-        <PublicRoute path={allAppComponentsWithPageTitle.signup.path} authenticated={emailVerificationStatus}>
-          <Signup></Signup>
-        </PublicRoute>
-        <PublicRoute path={allAppComponentsWithPageTitle.login.path} authenticated={emailVerificationStatus}>
-          <Login></Login>
-        </PublicRoute>
-      </Box>
-    </>
-    </Switch>
+        </>
+        </Switch>
+        :
+        <StartingScreensaver></StartingScreensaver>
+      }
     </div>
     </PersistGate>
   );

@@ -37,13 +37,14 @@ export const Chat = () => {
 
         dispatch({
             type: bigChatOpen.type,
+            payload: chatId,
         });
         return () => {
             dispatch({
                 type: bigChatClose.type,
             });
         };
-    }, [dispatch]);
+    }, [dispatch, chatId]);
 
     const chatsListRed = useSelector(getChatsListChatsKindOfListSelector);
 
