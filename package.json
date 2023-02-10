@@ -36,7 +36,8 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "deploy": "npm run build && firebase deploy && netlify deploy --dir=build --prod && npm run copy_index_as_200 && surge --project ./build --domain https://firess.surge.sh && surge list",
+    "deploy_to_gh_pages": "gh-pages -d build",
+    "deploy": "npm run build && firebase deploy && netlify deploy --dir=build --prod && netlify status && npm run copy_index_as_200 && surge --project ./build --domain https://firess.surge.sh && surge list && npm run deploy_to_gh_pages",
     "copy_index_as_200": "copy build\\index.html build\\200.html",
     "start": "react-scripts start",
     "build": "react-scripts build",
