@@ -408,9 +408,19 @@ export const useStyles = makeStyles({
     },
   },
   imgBtnText: {
-    fontSize: '24px',
+    fontSize: '16px',
     lineHeight: '32px',
     transform: 'rotateZ(30deg)',
+  },
+  imgError: {
+    position: 'absolute',
+    right: '0',
+    bottom: '100%',
+    width: '150px',
+    padding: '5px',
+    borderRadius: '5px',
+    backgroundColor: '#ffcccc',
+    cursor: 'no-drop',
   },
   imgBtn: {
     position: 'absolute',

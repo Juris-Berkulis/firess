@@ -13,6 +13,11 @@ export const ChartFormUI = (props) => {
             }
             <div className={props.classes.imgBtnWrapper}>
                 <p className={props.classes.imgBtnText}>&#128206;</p>
+                {
+                    props.imgError
+                    &&
+                    <p className={props.classes.imgError} onClick={props.resetAttachPicture}>{props.imgError}</p>
+                }
                 <input className={props.classes.imgBtn} onChange={props.attachPictures} onClick={props.resetAttachPicture} type="file" ref={props.refImgBtn}></input>
             </div>
             <IconButton type='submit' style={{height: `${props.inputMinHeight}px`, padding: `${(props.inputMinHeight - 24) / 2}px 1vw`, fontSize: '24px'}}>

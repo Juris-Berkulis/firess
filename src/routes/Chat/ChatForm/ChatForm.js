@@ -22,6 +22,7 @@ export const ChartForm = () => {
   const [value, setValue] = useState('');
   const [inputHeight, setInputHeight] = useState(inputMinHeight);
   const [imgSrcForSendMessage, setImgSrcForSendMessage] = useState('');
+  const [imgError, setImgError] = useState('');
 
   const refInput = useRef(null);
   const refImgBtn = useRef(null);
@@ -65,6 +66,7 @@ export const ChartForm = () => {
   };
 
   const resetAttachPicture = () => {
+    setImgError('');
     setImgSrcForSendMessage('');
     refImgBtn.current.value = '';
   };
@@ -91,7 +93,9 @@ export const ChartForm = () => {
     if (attachImages.length > 0) {
       const attachImage = attachImages[0];
 
-      if (attachImage.type.split('/')[0] === 'image' && attachImage.size < maxImgSizeForMessage) {
+      const fileType = attachImage.type.split('/')[0];
+
+      if (fileType === 'image' && attachImage.size <= maxImgSizeForMessage) {
         const fileReader = new FileReader();
 
         fileReader.onload = (e) => {
@@ -103,6 +107,14 @@ export const ChartForm = () => {
         fileReader.readAsDataURL(attachImage);
       } else {
         resetAttachPicture();
+
+        if (fileType !== 'image') {
+          setImgError('Только картинки!');
+        }
+
+        if (attachImage.size > maxImgSizeForMessage) {
+          setImgError(`Не более ${maxImgSizeForMessage / 1024}Кб.\nТекущий размер: ${(attachImage.size / 1024).toFixed(2)}Кб.`);
+        }
       }
     }
   };
@@ -118,6 +130,6 @@ export const ChartForm = () => {
   }, []);
 
   return (
-    <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={value} inputHeight={inputHeight} inputMinHeight={inputMinHeight} isMobileDeviceBoolean={isMobileDeviceBoolean} attachPictures={attachPictures} imgSrcForSendMessage={imgSrcForSendMessage} resetAttachPicture={resetAttachPicture} refImgBtn={refImgBtn}></ChartFormUI>
+    <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={value} inputHeight={inputHeight} inputMinHeight={inputMinHeight} isMobileDeviceBoolean={isMobileDeviceBoolean} attachPictures={attachPictures} imgSrcForSendMessage={imgSrcForSendMessage} resetAttachPicture={resetAttachPicture} refImgBtn={refImgBtn} imgError={imgError}></ChartFormUI>
   )
 };
