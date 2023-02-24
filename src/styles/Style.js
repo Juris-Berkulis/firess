@@ -367,6 +367,7 @@ export const useStyles = makeStyles({
     justifyContent: 'flex-end',
   },
   form: {
+    height: '32px',
     width: '100%',
     display: 'flex',
     alignItems: 'flex-end',
@@ -387,6 +388,37 @@ export const useStyles = makeStyles({
   input_mobileDevice: {
     fontSize: '14px',
     padding: '9px 1vw',
+  },
+  imgInInput: {
+    margin: '0 5px',
+    height: '100%',
+    cursor: 'no-drop',
+  },
+  imgBtnWrapper: {
+    position: 'relative',
+    display: 'inline-block',
+    height: '32px',
+    width: '32px',
+    borderRadius: '8px',
+    textAlign: 'center',
+    color: '#333333',
+    backgroundColor: 'transparent',
+    '&:hover': {
+      backgroundColor: '#99999922',
+    },
+  },
+  imgBtnText: {
+    fontSize: '24px',
+    lineHeight: '32px',
+    transform: 'rotateZ(30deg)',
+  },
+  imgBtn: {
+    position: 'absolute',
+    top: '0',
+    left: '0',
+    height: '100%',
+    width: '100%',
+    opacity: '0',
   },
   chatsList: {
     height: '55vh',
@@ -440,6 +472,9 @@ export const useStyles = makeStyles({
   },
   chatListItemMessageAuthorMobileDevice: {
     fontSize: '10px',
+  },
+  chatListItemMessageImg: {
+    width: '100%',
   },
   chatListItemMessageText: {
     marginBottom: '5px',

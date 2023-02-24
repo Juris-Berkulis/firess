@@ -12,6 +12,8 @@ import { autoEditInputText, getKeyForTheChatByChatId, isMobileDevice } from '../
 export const ChartForm = () => {
   const classes = useStyles();
 
+  const maxImgSizeForMessage = 25600;
+
   const isMobileDeviceBoolean = isMobileDevice();
 
   const inputMinHeight = 32;
@@ -19,8 +21,10 @@ export const ChartForm = () => {
 
   const [value, setValue] = useState('');
   const [inputHeight, setInputHeight] = useState(inputMinHeight);
+  const [imgSrcForSendMessage, setImgSrcForSendMessage] = useState('');
 
   const refInput = useRef(null);
+  const refImgBtn = useRef(null);
 
   const { chatId } = useParams();
 
@@ -60,14 +64,20 @@ export const ChartForm = () => {
     resetInputHeight();
   };
 
+  const resetAttachPicture = () => {
+    setImgSrcForSendMessage('');
+    refImgBtn.current.value = '';
+  };
+
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
-    if (value !== '') {
+    if (value !== '' || imgSrcForSendMessage !== '') {
       const now = new Date();
       const messageUTCDateAndTime = now.toUTCString();
       const newMessage = autoEditInputText(value, classes);
-      dispatch(addMessageInChatListWithThunkAction(openChatKey, openContact.name, openContact.id, newMessage, author, messageUTCDateAndTime));
+      dispatch(addMessageInChatListWithThunkAction(openChatKey, openContact.name, openContact.id, newMessage, imgSrcForSendMessage, author, messageUTCDateAndTime));
       resetValue();
+      resetAttachPicture();
     }
   };
 
@@ -75,11 +85,39 @@ export const ChartForm = () => {
     refInput.current.focus();
   };
 
+  const attachPictures = (event) => {
+    const attachImages = event.target.files;
+
+    if (attachImages.length > 0) {
+      const attachImage = attachImages[0];
+
+      if (attachImage.type.split('/')[0] === 'image' && attachImage.size < maxImgSizeForMessage) {
+        const fileReader = new FileReader();
+
+        fileReader.onload = (e) => {
+          const imgSrc = e.target.result;
+  
+          setImgSrcForSendMessage(imgSrc);
+        }
+  
+        fileReader.readAsDataURL(attachImage);
+      } else {
+        resetAttachPicture();
+      }
+    }
+  };
+
   useEffect(() => {
     focusOnInput();
   }, [chatListMessagesRed]); 
 
+  useEffect(() => {
+    return () => {
+      setImgSrcForSendMessage('');
+    }
+  }, []);
+
   return (
-    <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={value} inputHeight={inputHeight} inputMinHeight={inputMinHeight} isMobileDeviceBoolean={isMobileDeviceBoolean}></ChartFormUI>
+    <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={value} inputHeight={inputHeight} inputMinHeight={inputMinHeight} isMobileDeviceBoolean={isMobileDeviceBoolean} attachPictures={attachPictures} imgSrcForSendMessage={imgSrcForSendMessage} resetAttachPicture={resetAttachPicture} refImgBtn={refImgBtn}></ChartFormUI>
   )
 };
