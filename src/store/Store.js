@@ -25,6 +25,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
     key: 'root',
     storage,
+    blacklist: ['chatListReducer']
 };
 
 const persistedReduser = persistReducer(persistConfig, rootReducer);

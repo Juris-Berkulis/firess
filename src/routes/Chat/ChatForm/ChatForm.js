@@ -12,7 +12,7 @@ import { autoEditInputText, getKeyForTheChatByChatId, isMobileDevice } from '../
 export const ChartForm = () => {
   const classes = useStyles();
 
-  const maxImgSizeForMessage = 25600;
+  const maxImgSizeForMessage = 26214400;
 
   const isMobileDeviceBoolean = isMobileDevice();
 
