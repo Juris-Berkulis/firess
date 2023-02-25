@@ -460,6 +460,8 @@ export const useStyles = makeStyles({
     wordBreak: 'break-word',
     minWidth: '50%',
     maxWidth: '85%',
+    maxHeight: '50vh',
+    overflowY: 'auto',
     padding: '8px 16px',
   },
   chatListItemMessageMe: {
