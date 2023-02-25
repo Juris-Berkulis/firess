@@ -483,8 +483,13 @@ export const useStyles = makeStyles({
   chatListItemMessageAuthorMobileDevice: {
     fontSize: '10px',
   },
+  chatListItemMessageImgWrapper: {
+    maxWidth: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
   chatListItemMessageImg: {
-    width: '100%',
+    maxWidth: '100%',
   },
   chatListItemMessageText: {
     marginBottom: '5px',

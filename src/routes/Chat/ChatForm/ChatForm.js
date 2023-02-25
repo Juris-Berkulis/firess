@@ -12,7 +12,7 @@ import { autoEditInputText, getKeyForTheChatByChatId, isMobileDevice } from '../
 export const ChartForm = () => {
   const classes = useStyles();
 
-  const maxImgSizeForMessage = 26214400;
+  const maxImgSizeForMessage = 1048576;
 
   const isMobileDeviceBoolean = isMobileDevice();
 
@@ -113,7 +113,7 @@ export const ChartForm = () => {
         }
 
         if (attachImage.size > maxImgSizeForMessage) {
-          setImgError(`Не более ${maxImgSizeForMessage / 1024}Кб.\nТекущий размер: ${(attachImage.size / 1024).toFixed(2)}Кб.`);
+          setImgError(`Не более ${maxImgSizeForMessage / 1024 / 1024}Мб.\nТекущий размер: ${(attachImage.size / 1024 / 1024).toFixed(2)}Мб.`);
         }
       }
     }

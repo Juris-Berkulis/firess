@@ -188,7 +188,9 @@ export const ChatList = () => {
                 {
                     item.imgSrc
                     &&
-                    <img className={classes.chatListItemMessageImg} src={item.imgSrc} alt='img'></img>
+                    <div className={classes.chatListItemMessageImgWrapper}>
+                        <img className={classes.chatListItemMessageImg} src={item.imgSrc} alt='img'></img>
+                    </div>
                 }
                 <p className={`${classes.chatListItemMessageText} ${isMobileDeviceBoolean ? classes.chatListItemMessageTextMobileDevice : null}`} dangerouslySetInnerHTML={{__html: convertStringLinksToWorkingLinks(item.text)}}></p>
                 <p className={`${classes.chatListItemMessageDateAndTime} ${isMobileDeviceBoolean ? classes.chatListItemMessageDateAndTimeMobileDevice : null}`}>{item.messageUTCDateAndTime ? getLocalDateAndTime(item.messageUTCDateAndTime) : 'Нет данных'}</p>
