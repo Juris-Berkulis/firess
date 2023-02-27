@@ -367,7 +367,6 @@ export const useStyles = makeStyles({
     justifyContent: 'flex-end',
   },
   form: {
-    height: '32px',
     width: '100%',
     display: 'flex',
     alignItems: 'flex-end',
@@ -391,7 +390,7 @@ export const useStyles = makeStyles({
   },
   imgInInput: {
     margin: '0 5px',
-    height: '100%',
+    height: '32px',
     cursor: 'no-drop',
   },
   imgBtnWrapper: {
