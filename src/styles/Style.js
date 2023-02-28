@@ -459,8 +459,6 @@ export const useStyles = makeStyles({
     wordBreak: 'break-word',
     minWidth: '50%',
     maxWidth: '85%',
-    maxHeight: '50vh',
-    overflowY: 'auto',
     padding: '8px 16px',
   },
   chatListItemMessageMe: {
@@ -491,6 +489,10 @@ export const useStyles = makeStyles({
   },
   chatListItemMessageImg: {
     maxWidth: '100%',
+  },
+  chatListItemMessageTextWrapper: {
+    maxHeight: '50vh',
+    overflowY: 'auto',
   },
   chatListItemMessageText: {
     marginBottom: '5px',
