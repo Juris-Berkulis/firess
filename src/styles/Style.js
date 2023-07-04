@@ -462,6 +462,9 @@ export const useStyles = makeStyles({
     maxWidth: '85%',
     padding: '8px 16px',
   },
+  chatListItemMessageEditable: {
+    outline: '2px solid blue',
+  },
   chatListItemMessageMe: {
     textAlign: 'left !important',
     margin: '0 2% 1vh 0',

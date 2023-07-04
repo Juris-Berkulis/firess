@@ -74,12 +74,12 @@ export const ChartForm = (props) => {
     if (props.inputValue.trim() !== '' || imgSrcForSendMessage !== '') {
       let message = null;
 
-      if (props.editMessage) {
-        props.editMessage.text = autoEditInputText(props.inputValue, classes);
+      if (props.editableMessage) {
+        props.editableMessage.text = autoEditInputText(props.inputValue, classes);
 
-        message = props.editMessage;
+        message = props.editableMessage;
 
-        props.setEditMessage(null);
+        props.setEditableMessage(null);
       } else {
         const now = new Date();
         const messageUTCDateAndTime = now.toUTCString();

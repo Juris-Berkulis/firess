@@ -20,8 +20,8 @@ export const ChatUI = (props) => {
                     ) 
                     ? 
                     <>
-                        <ChatList inputValue={props.inputValue} setInputValue={props.setInputValue} editMessage={props.editMessage} setEditMessage={props.setEditMessage} focusOnInput={props.focusOnInput}></ChatList>
-                        <ChartForm inputValue={props.inputValue} setInputValue={props.setInputValue} editMessage={props.editMessage} setEditMessage={props.setEditMessage} refInput={props.refInput} focusOnInput={props.focusOnInput}></ChartForm>
+                        <ChatList inputValue={props.inputValue} setInputValue={props.setInputValue} editableMessage={props.editableMessage} setEditableMessage={props.setEditableMessage} focusOnInput={props.focusOnInput}></ChatList>
+                        <ChartForm inputValue={props.inputValue} setInputValue={props.setInputValue} editableMessage={props.editableMessage} setEditableMessage={props.setEditableMessage} refInput={props.refInput} focusOnInput={props.focusOnInput}></ChartForm>
                     </>
                     : 
                     <YouAreDeniedAccessToTheChat></YouAreDeniedAccessToTheChat>

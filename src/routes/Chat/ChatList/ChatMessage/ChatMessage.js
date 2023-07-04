@@ -15,6 +15,7 @@ export const ChatMessage = ({
     chatListRed, 
     editMessage, 
     deleteMessage,
+    editableMessage,
 }) => {
     const classes = useStyles();
 
@@ -25,6 +26,14 @@ export const ChatMessage = ({
     const appThemeSel = useSelector(getStatusesInTheAppappThemeIsSelector);
 
     const [isShowMessageOptions, setIsShowMessageOptions] = useState(false);
+
+    const toggleMessageOptions = () => {
+        if (isShowMessageOptions) {
+            editMessage(null);
+        }
+
+        setIsShowMessageOptions(!isShowMessageOptions);
+    };
 
     return (
         <ChatMessageUI 
@@ -42,6 +51,8 @@ export const ChatMessage = ({
             editMessage={editMessage} 
             deleteMessage={deleteMessage}
             APP_THEMES_NAMES={APP_THEMES_NAMES}
+            editableMessage={editableMessage} 
+            toggleMessageOptions={toggleMessageOptions}
         ></ChatMessageUI>
     )
 };

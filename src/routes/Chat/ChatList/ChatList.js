@@ -174,8 +174,8 @@ export const ChatList = (props) => {
     };
 
     const editMessage = (message) => {
-        props.setEditMessage(message);
-        props.setInputValue(message.text);
+        props.setEditableMessage(message);
+        props.setInputValue(message?.text || '');
         props.focusOnInput();
     };
 
@@ -192,6 +192,7 @@ export const ChatList = (props) => {
             chatListRed={chatListRed} 
             editMessage={editMessage} 
             deleteMessage={deleteMessage}
+            editableMessage={props.editableMessage}
         ></ChatMessage>
     ));
 

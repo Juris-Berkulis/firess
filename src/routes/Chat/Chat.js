@@ -19,7 +19,7 @@ export const Chat = () => {
     const refInput = useRef(null);
 
     const [inputValue, setInputValue] = useState('');
-    const [editMessage, setEditMessage] = useState(null)
+    const [editableMessage, setEditableMessage] = useState(null)
 
     const isMobileDeviceBoolean = isMobileDevice();
 
@@ -66,6 +66,6 @@ export const Chat = () => {
     };
 
     return (
-        <ChatUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} privateChat={privateChat} canIReadThisChatBoolean={canIReadThisChatBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES} inputValue={inputValue} setInputValue={setInputValue} editMessage={editMessage} setEditMessage={setEditMessage} refInput={refInput} focusOnInput={focusOnInput}></ChatUI>
+        <ChatUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} privateChat={privateChat} canIReadThisChatBoolean={canIReadThisChatBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES} inputValue={inputValue} setInputValue={setInputValue} editableMessage={editableMessage} setEditableMessage={setEditableMessage} refInput={refInput} focusOnInput={focusOnInput}></ChatUI>
     )
 };
