@@ -513,14 +513,22 @@ export const useStyles = makeStyles({
   },
   chatListItemMessageIconsWrapper: {
     position: 'absolute',
-    top: '5px',
-    right: '5px',
+    top: '8px',
+    right: '16px',
     display: 'flex',
     alignItems: 'center',
   },
   chatListItemMessageIcon: {
     marginLeft: '5px',
+    padding: '1px',
     cursor: 'pointer',
+    backgroundColor: '#cccccc',
+    borderRadius: '20%',
+    fontSize: '8px',
+    lineHeight: '1',
+  },
+  chatListItemMessageIconEdit: {
+    transform: 'rotateY(180deg)',
   },
   chatControlPanel: {
     width: '100%',
