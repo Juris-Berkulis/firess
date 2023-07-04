@@ -9,7 +9,7 @@ import { ChartFormUI } from '../../../ui_components/ChatFormUI.jsx';
 import { auth } from '../../../firebase/firebase';
 import { autoEditInputText, getKeyForTheChatByChatId, isMobileDevice } from '../../../helper/helper';
 
-export const ChartForm = () => {
+export const ChartForm = (props) => {
   const classes = useStyles();
 
   const maxImgSizeForMessage = 1048576;
@@ -19,7 +19,6 @@ export const ChartForm = () => {
   const inputMinHeight = 32;
   const inputMaxHeight = 90;
 
-  const [value, setValue] = useState('');
   const [inputHeight, setInputHeight] = useState(inputMinHeight);
   const [imgSrcForSendMessage, setImgSrcForSendMessage] = useState('');
   const [imgError, setImgError] = useState('');
@@ -46,7 +45,7 @@ export const ChartForm = () => {
   };
 
   const onSaveValueFromInput = (event) => {
-    setValue(event.target.value);
+    props.setInputValue(event.target.value);
 
     resetInputHeight();
   };
@@ -57,10 +56,10 @@ export const ChartForm = () => {
     } else {
       setInputHeight(`${inputMaxHeight}px`)
     }
-  }, [value]);
+  }, [props.inputValue]);
 
   const resetValue = () => {
-    setValue('');
+    props.setInputValue('');
 
     resetInputHeight();
   };
@@ -73,11 +72,32 @@ export const ChartForm = () => {
 
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
-    if (value !== '' || imgSrcForSendMessage !== '') {
-      const now = new Date();
-      const messageUTCDateAndTime = now.toUTCString();
-      const newMessage = autoEditInputText(value, classes);
-      dispatch(addMessageInChatListWithThunkAction(openChatKey, openContact.name, openContact.id, newMessage, imgSrcForSendMessage, author, messageUTCDateAndTime));
+    if (props.inputValue.trim() !== '' || imgSrcForSendMessage !== '') {
+      let message = null;
+
+      if (props.editMessage) {
+        props.editMessage.text = autoEditInputText(props.inputValue, classes);
+
+        message = props.editMessage;
+      } else {
+        const now = new Date();
+        const messageUTCDateAndTime = now.toUTCString();
+        const newMessage = autoEditInputText(props.inputValue, classes);
+        const messageId = `${now.getTime()}--${author.split('.').join(',')}`;
+
+        message = {
+          contactKey: openChatKey, 
+          contactName: openContact.name, 
+          contactId: openContact.id, 
+          text: newMessage, 
+          imgSrc: imgSrcForSendMessage, 
+          author, 
+          messageUTCDateAndTime, 
+          messageId,
+        };
+      }
+
+      dispatch(addMessageInChatListWithThunkAction(message));
       resetValue();
       resetAttachPicture();
     }
@@ -130,6 +150,6 @@ export const ChartForm = () => {
   }, []);
 
   return (
-    <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={value} inputHeight={inputHeight} inputMinHeight={inputMinHeight} isMobileDeviceBoolean={isMobileDeviceBoolean} attachPictures={attachPictures} imgSrcForSendMessage={imgSrcForSendMessage} resetAttachPicture={resetAttachPicture} refImgBtn={refImgBtn} imgError={imgError}></ChartFormUI>
+    <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={props.inputValue} inputHeight={inputHeight} inputMinHeight={inputMinHeight} isMobileDeviceBoolean={isMobileDeviceBoolean} attachPictures={attachPictures} imgSrcForSendMessage={imgSrcForSendMessage} resetAttachPicture={resetAttachPicture} refImgBtn={refImgBtn} imgError={imgError}></ChartFormUI>
   )
 };

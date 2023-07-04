@@ -10,9 +10,13 @@ import { getKeyForTheChatByChatId, isMobileDevice } from '../../helper/helper';
 import { aquariumStatus } from '../../store/AppSwitches/Action';
 import { auth } from '../../firebase/firebase';
 import { getStatusesInTheAppappThemeIsSelector } from '../../store/AppSwitches/Selectors';
+import { useState } from 'react';
 
 export const Chat = () => {
     const classes = useStyles();
+
+    const [inputValue, setInputValue] = useState('');
+    const [editMessage, setEditMessage] = useState(null)
 
     const isMobileDeviceBoolean = isMobileDevice();
 
@@ -55,6 +59,6 @@ export const Chat = () => {
     };
 
     return (
-        <ChatUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} privateChat={privateChat} canIReadThisChatBoolean={canIReadThisChatBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES}></ChatUI>
+        <ChatUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} privateChat={privateChat} canIReadThisChatBoolean={canIReadThisChatBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES} inputValue={inputValue} setInputValue={setInputValue} editMessage={editMessage} setEditMessage={setEditMessage}></ChatUI>
     )
 };

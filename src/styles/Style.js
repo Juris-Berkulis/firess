@@ -453,6 +453,7 @@ export const useStyles = makeStyles({
     justifyContent: 'flex-start !important',
   },
   chatListItemMessage: {
+    position: 'relative',
     color: '#555555',
     display: 'inline-block',
     borderRadius: '15px',
@@ -509,6 +510,17 @@ export const useStyles = makeStyles({
   },
   chatListItemMessageDateAndTimeMobileDevice: {
     fontSize: '10px',
+  },
+  chatListItemMessageIconsWrapper: {
+    position: 'absolute',
+    top: '5px',
+    right: '5px',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  chatListItemMessageIcon: {
+    marginLeft: '5px',
+    cursor: 'pointer',
   },
   chatControlPanel: {
     width: '100%',

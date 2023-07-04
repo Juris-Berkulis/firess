@@ -8,11 +8,11 @@ import { ChatListUI } from '../../../ui_components/ChatListUI.jsx';
 import { getChatsListChatsKindOfDictSelector } from '../../../store/ChatsList/Selectors';
 import { auth } from '../../../firebase/firebase';
 import { getKeyForTheChatByChatId, isMobileDevice } from '../../../helper/helper';
-import { dropMessagesInStateAction, offTrackingChangeValueInMessagesListFromOpenChatWithThunkAction, onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction } from '../../../store/ChatList/Action';
+import { deleteMessageInChatListWithThunkAction, dropMessagesInStateAction, offTrackingChangeValueInMessagesListFromOpenChatWithThunkAction, onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction } from '../../../store/ChatList/Action';
 import { getStatusesInTheAppappThemeIsSelector } from '../../../store/AppSwitches/Selectors';
 import { APP_THEMES_NAMES } from '../../../data/consts';
 
-export const ChatList = () => {
+export const ChatList = (props) => {
     const classes = useStyles();
 
     const isMobileDeviceBoolean = isMobileDevice();
@@ -180,8 +180,18 @@ export const ChatList = () => {
 
         return newText
     };
-    
-    const chatListRedForProps = chatListRed.map((item) => (
+
+    const editMessage = (message) => {
+        props.setEditMessage(message);
+
+        props.setInputValue(message.text);
+    };
+
+    const deleteMessage = (message) => {
+        deleteMessageInChatListWithThunkAction(message);
+    };
+
+    const chatListRedForProps = chatListRed.map((item, index) => (
         <ListItem className={`${classes.chatListItem} ${item.author === myEmail ? classes.chatListItemMe : classes.chatListItemSomebody}`} key={`${item.author} ${item.messageUTCDateAndTime}`}>
             <div className={`${classes.chatListItemMessage} ${item.author === myEmail ? classes.chatListItemMessageMe : `${classes.chatListItemMessageSomebody} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.chatListItemMessageSomebody_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.chatListItemMessageSomebody_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.chatListItemMessageSomebody_sunnyTheme : null) : null}`}`}>
                 <p className={`${classes.chatListItemMessageAuthor} ${isMobileDeviceBoolean ? classes.chatListItemMessageAuthorMobileDevice : null}`}>[{item.author}]:</p>
@@ -196,6 +206,18 @@ export const ChatList = () => {
                     <p className={`${classes.chatListItemMessageText} ${isMobileDeviceBoolean ? classes.chatListItemMessageTextMobileDevice : null}`} dangerouslySetInnerHTML={{__html: convertStringLinksToWorkingLinks(item.text)}}></p>
                 </div>
                 <p className={`${classes.chatListItemMessageDateAndTime} ${isMobileDeviceBoolean ? classes.chatListItemMessageDateAndTimeMobileDevice : null}`}>{item.messageUTCDateAndTime ? getLocalDateAndTime(item.messageUTCDateAndTime) : 'Нет данных'}</p>
+                {
+                    index === chatListRed.length - 1
+                    &&
+                    item.author === myEmail
+                    &&
+                    item.messageId
+                    &&
+                    <div className={`${classes.chatListItemMessageIconsWrapper}`}>
+                        <div className={`${classes.chatListItemMessageIcon} ${classes.chatListItemMessageIconEdit}`} onClick={() => editMessage(item)}>Ред.</div>
+                        <div className={`${classes.chatListItemMessageIcon} ${classes.chatListItemMessageIconCross}`} onClick={() => deleteMessage(item)}>Уд.</div>
+                    </div>
+                }
             </div>
         </ListItem>
     ));
