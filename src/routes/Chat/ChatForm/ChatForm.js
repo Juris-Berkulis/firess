@@ -23,7 +23,6 @@ export const ChartForm = (props) => {
   const [imgSrcForSendMessage, setImgSrcForSendMessage] = useState('');
   const [imgError, setImgError] = useState('');
 
-  const refInput = useRef(null);
   const refImgBtn = useRef(null);
 
   const { chatId } = useParams();
@@ -39,7 +38,7 @@ export const ChartForm = (props) => {
   const dispatch = useDispatch();
 
   const resetInputHeight = () => {
-    if (refInput) {
+    if (props.refInput) {
       setInputHeight(`${inputMinHeight}px`);
     }
   };
@@ -51,12 +50,12 @@ export const ChartForm = (props) => {
   };
 
   useEffect(() => {
-    if (refInput.current.scrollHeight < inputMaxHeight) {
-      setInputHeight(`${refInput.current.scrollHeight}px`);
+    if (props.refInput.current.scrollHeight < inputMaxHeight) {
+      setInputHeight(`${props.refInput.current.scrollHeight}px`);
     } else {
       setInputHeight(`${inputMaxHeight}px`)
     }
-  }, [props.inputValue]);
+  }, [props.inputValue, props.refInput]);
 
   const resetValue = () => {
     props.setInputValue('');
@@ -79,6 +78,8 @@ export const ChartForm = (props) => {
         props.editMessage.text = autoEditInputText(props.inputValue, classes);
 
         message = props.editMessage;
+
+        props.setEditMessage(null);
       } else {
         const now = new Date();
         const messageUTCDateAndTime = now.toUTCString();
@@ -101,10 +102,6 @@ export const ChartForm = (props) => {
       resetValue();
       resetAttachPicture();
     }
-  };
-
-  const focusOnInput = () => {
-    refInput.current.focus();
   };
 
   const attachPictures = (event) => {
@@ -140,8 +137,8 @@ export const ChartForm = (props) => {
   };
 
   useEffect(() => {
-    focusOnInput();
-  }, [chatListMessagesRed]); 
+    props.focusOnInput();
+  }, [chatListMessagesRed, props]); 
 
   useEffect(() => {
     return () => {
@@ -150,6 +147,6 @@ export const ChartForm = (props) => {
   }, []);
 
   return (
-    <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={props.inputValue} inputHeight={inputHeight} inputMinHeight={inputMinHeight} isMobileDeviceBoolean={isMobileDeviceBoolean} attachPictures={attachPictures} imgSrcForSendMessage={imgSrcForSendMessage} resetAttachPicture={resetAttachPicture} refImgBtn={refImgBtn} imgError={imgError}></ChartFormUI>
+    <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={props.refInput} onSaveValueFromInput={onSaveValueFromInput} value={props.inputValue} inputHeight={inputHeight} inputMinHeight={inputMinHeight} isMobileDeviceBoolean={isMobileDeviceBoolean} attachPictures={attachPictures} imgSrcForSendMessage={imgSrcForSendMessage} resetAttachPicture={resetAttachPicture} refImgBtn={refImgBtn} imgError={imgError}></ChartFormUI>
   )
 };

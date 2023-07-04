@@ -11,9 +11,12 @@ import { aquariumStatus } from '../../store/AppSwitches/Action';
 import { auth } from '../../firebase/firebase';
 import { getStatusesInTheAppappThemeIsSelector } from '../../store/AppSwitches/Selectors';
 import { useState } from 'react';
+import { useRef } from 'react';
 
 export const Chat = () => {
     const classes = useStyles();
+
+    const refInput = useRef(null);
 
     const [inputValue, setInputValue] = useState('');
     const [editMessage, setEditMessage] = useState(null)
@@ -32,6 +35,10 @@ export const Chat = () => {
     const privateChat = (openContact && openContact.chatIsPrivate === true) ? true : false;
     const myUID = auth.currentUser !== null ? auth.currentUser.uid : null;
     const canIReadThisChatBoolean = openContact && (!openContact.theyCanReadThisChat || (openContact.chatAuthor && openContact.chatAuthor === myUID) || (openContact.theyCanReadThisChat && Object.values(openContact.theyCanReadThisChat).find((usersUID) => usersUID === myUID))) ? true : false;
+
+    const focusOnInput = () => {
+        refInput.current.focus();
+    };
 
     useEffect(() => {
         dispatch({
@@ -59,6 +66,6 @@ export const Chat = () => {
     };
 
     return (
-        <ChatUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} privateChat={privateChat} canIReadThisChatBoolean={canIReadThisChatBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES} inputValue={inputValue} setInputValue={setInputValue} editMessage={editMessage} setEditMessage={setEditMessage}></ChatUI>
+        <ChatUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} privateChat={privateChat} canIReadThisChatBoolean={canIReadThisChatBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES} inputValue={inputValue} setInputValue={setInputValue} editMessage={editMessage} setEditMessage={setEditMessage} refInput={refInput} focusOnInput={focusOnInput}></ChatUI>
     )
 };

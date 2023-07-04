@@ -175,8 +175,8 @@ export const ChatList = (props) => {
 
     const editMessage = (message) => {
         props.setEditMessage(message);
-
         props.setInputValue(message.text);
+        props.focusOnInput();
     };
 
     const deleteMessage = (message) => {
