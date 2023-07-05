@@ -28,15 +28,15 @@ export const ChatMessageUI = ({classes, item, index, myEmail, isShowMessageOptio
                             isShowMessageOptions
                             &&
                             <>
-                                <div className={`${classes.chatListItemMessageIcon} ${classes.chatListItemMessageIconEdit}`} onClick={() => editMessage(item)}>&#9998;</div>
-                                <div className={`${classes.chatListItemMessageIcon} ${classes.chatListItemMessageIconCross}`} onClick={() => deleteMessage(item)}>&#10060;</div>
+                                <button className={`${classes.chatListItemMessageIcon} ${classes.chatListItemMessageIconCross}`} onClick={() => deleteMessage(item)}>&#128465;</button>
+                                <button className={`${classes.chatListItemMessageIcon} ${classes.chatListItemMessageIconEdit}`} onClick={() => editMessage(item)}>&#9998;</button>
                             </>
                         }
-                        <div className={`${classes.chatListItemMessageIcon} ${classes.chatListItemMessageIconBurger}`} onClick={toggleMessageOptions}>
+                        <button className={`${classes.chatListItemMessageIcon} ${classes.chatListItemMessageIconBurger}`} onClick={toggleMessageOptions}>
                             <span className={`${classes.chatListItemMessageIconBurgerPoint}`}></span>
                             <span className={`${classes.chatListItemMessageIconBurgerPoint}`}></span>
                             <span className={`${classes.chatListItemMessageIconBurgerPoint}`}></span>
-                        </div>
+                        </button>
                     </div>
                 }
             </div>
