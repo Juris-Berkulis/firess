@@ -15,16 +15,17 @@ export const dropMessagesInStateAction = {
 
 export const addMessageInChatListWithThunkAction = ({contactKey, contactName, contactId, text, imgSrc, author, messageUTCDateAndTime, messageId}) => () => {
     messagesRef.child(contactKey).update({
-        [messageId]: '',
+        [messageId]: {
+            'contactKey': contactKey, 
+            'contactName': contactName, 
+            'contactId': contactId, 
+            'text': text, 
+            'imgSrc': imgSrc, 
+            'author': author, 
+            'messageUTCDateAndTime': messageUTCDateAndTime, 
+            'messageId': messageId, 
+        },
     });
-    messagesRef.child(contactKey).child(messageId).child('contactKey').set(contactKey);
-    messagesRef.child(contactKey).child(messageId).child('contactName').set(contactName);
-    messagesRef.child(contactKey).child(messageId).child('contactId').set(contactId);
-    messagesRef.child(contactKey).child(messageId).child('text').set(text);
-    messagesRef.child(contactKey).child(messageId).child('imgSrc').set(imgSrc);
-    messagesRef.child(contactKey).child(messageId).child('author').set(author);
-    messagesRef.child(contactKey).child(messageId).child('messageUTCDateAndTime').set(messageUTCDateAndTime);
-    messagesRef.child(contactKey).child(messageId).child('messageId').set(messageId);
 };
 
 export const deleteMessageInChatListWithThunkAction = (message) => {

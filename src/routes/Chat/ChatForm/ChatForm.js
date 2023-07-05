@@ -8,7 +8,7 @@ import { ChartFormUI } from '../../../ui_components/ChatFormUI.jsx';
 import { auth } from '../../../firebase/firebase';
 import { autoEditInputText, getKeyForTheChatByChatId, isMobileDevice } from '../../../helper/helper';
 
-export const ChartForm = (props) => {
+export const ChartForm = ({refInput, inputValue, setInputValue, editableMessage, setEditableMessage, focusOnInput, scrollDown}) => {
   const classes = useStyles();
 
   const maxImgSizeForMessage = 1048576;
@@ -35,27 +35,27 @@ export const ChartForm = (props) => {
   const dispatch = useDispatch();
 
   const resetInputHeight = () => {
-    if (props.refInput) {
+    if (refInput) {
       setInputHeight(`${inputMinHeight}px`);
     }
   };
 
   const onSaveValueFromInput = (event) => {
-    props.setInputValue(event.target.value);
+    setInputValue(event.target.value);
 
     resetInputHeight();
   };
 
   useEffect(() => {
-    if (props.refInput.current.scrollHeight < inputMaxHeight) {
-      setInputHeight(`${props.refInput.current.scrollHeight}px`);
+    if (refInput.current.scrollHeight < inputMaxHeight) {
+      setInputHeight(`${refInput.current.scrollHeight}px`);
     } else {
       setInputHeight(`${inputMaxHeight}px`)
     }
-  }, [props.inputValue, props.refInput]);
+  }, [inputValue, refInput]);
 
   const resetValue = () => {
-    props.setInputValue('');
+    setInputValue('');
 
     resetInputHeight();
   };
@@ -68,19 +68,19 @@ export const ChartForm = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault(); //* Cancel page reload.
-    if (props.inputValue.trim() !== '' || imgSrcForSendMessage !== '') {
+    if (inputValue.trim() !== '' || imgSrcForSendMessage !== '') {
       let message = null;
 
-      if (props.editableMessage) {
-        props.editableMessage.text = autoEditInputText(props.inputValue, classes);
+      if (editableMessage) {
+        editableMessage.text = autoEditInputText(inputValue, classes);
 
-        message = props.editableMessage;
+        message = editableMessage;
 
-        props.setEditableMessage(null);
+        setEditableMessage(null);
       } else {
         const now = new Date();
         const messageUTCDateAndTime = now.toUTCString();
-        const newMessage = autoEditInputText(props.inputValue, classes);
+        const newMessage = autoEditInputText(inputValue, classes);
         const messageId = `${now.getTime()}--${author.split('.').join(',')}`;
 
         message = {
@@ -100,7 +100,8 @@ export const ChartForm = (props) => {
       resetAttachPicture();
     }
 
-    props.focusOnInput();
+    focusOnInput();
+    scrollDown();
   };
 
   const attachPictures = (event) => {
@@ -136,12 +137,16 @@ export const ChartForm = (props) => {
   };
 
   useEffect(() => {
+    focusOnInput();
+  }, [focusOnInput]);
+
+  useEffect(() => {
     return () => {
       setImgSrcForSendMessage('');
     }
   }, []);
 
   return (
-    <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={props.refInput} onSaveValueFromInput={onSaveValueFromInput} value={props.inputValue} inputHeight={inputHeight} inputMinHeight={inputMinHeight} isMobileDeviceBoolean={isMobileDeviceBoolean} attachPictures={attachPictures} imgSrcForSendMessage={imgSrcForSendMessage} resetAttachPicture={resetAttachPicture} refImgBtn={refImgBtn} imgError={imgError}></ChartFormUI>
+    <ChartFormUI classes={classes} onSubmit={onSubmit} refInput={refInput} onSaveValueFromInput={onSaveValueFromInput} value={inputValue} inputHeight={inputHeight} inputMinHeight={inputMinHeight} isMobileDeviceBoolean={isMobileDeviceBoolean} attachPictures={attachPictures} imgSrcForSendMessage={imgSrcForSendMessage} resetAttachPicture={resetAttachPicture} refImgBtn={refImgBtn} imgError={imgError}></ChartFormUI>
   )
 };

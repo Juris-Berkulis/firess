@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getChatListChatKindOfListById } from '../../../store/ChatList/Selectors';
@@ -9,12 +9,10 @@ import { getKeyForTheChatByChatId } from '../../../helper/helper';
 import { deleteMessageInChatListWithThunkAction, dropMessagesInStateAction, offTrackingChangeValueInMessagesListFromOpenChatWithThunkAction, onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction } from '../../../store/ChatList/Action';
 import { ChatMessage } from './ChatMessage/ChatMessage';
 
-export const ChatList = (props) => {
+export const ChatList = ({setEditableMessage, setInputValue, focusOnInput, scrollDown, editableMessage, refOpenChat}) => {
     const classes = useStyles();
 
     const { chatId } = useParams();
-
-    const refOpenChat = useRef(null);
 
     const dispatch = useDispatch();
 
@@ -23,21 +21,9 @@ export const ChatList = (props) => {
 
     const chatListRed = useSelector(getChatListChatKindOfListById(openChatKey));
 
-    const scrollDown = () => {
-        if (refOpenChat.current) {
-            const scrollHeight = Math.max(
-                refOpenChat.current.scrollHeight,
-                refOpenChat.current.offsetHeight,
-                refOpenChat.current.clientHeight,
-            );
-        
-            refOpenChat.current.scrollTo(0, scrollHeight);
-        }
-    };
-
     useEffect(() => {
         scrollDown();
-    }, [chatListRed]);
+    }, [scrollDown]);
 
     useLayoutEffect(() => {
         dispatch(onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction(openChatKey));
@@ -174,15 +160,15 @@ export const ChatList = (props) => {
     };
 
     const editMessage = (message) => {
-        props.setEditableMessage(message);
-        props.setInputValue(message?.text || '');
-        props.focusOnInput();
+        setEditableMessage(message);
+        setInputValue(message?.text || '');
+        focusOnInput();
     };
 
     const deleteMessage = (message) => {
         deleteMessageInChatListWithThunkAction(message);
-        props.setEditableMessage(null);
-        props.focusOnInput();
+        setEditableMessage(null);
+        focusOnInput();
     };
 
     const chatListRedForProps = chatListRed.map((item, index) => (
@@ -194,7 +180,7 @@ export const ChatList = (props) => {
             chatListRed={chatListRed} 
             editMessage={editMessage} 
             deleteMessage={deleteMessage}
-            editableMessage={props.editableMessage}
+            editableMessage={editableMessage}
         ></ChatMessage>
     ));
 

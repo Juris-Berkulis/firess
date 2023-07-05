@@ -17,6 +17,7 @@ export const Chat = () => {
     const classes = useStyles();
 
     const refInput = useRef(null);
+    const refOpenChat = useRef(null);
 
     const [inputValue, setInputValue] = useState('');
     const [editableMessage, setEditableMessage] = useState(null)
@@ -35,6 +36,18 @@ export const Chat = () => {
     const privateChat = (openContact && openContact.chatIsPrivate === true) ? true : false;
     const myUID = auth.currentUser !== null ? auth.currentUser.uid : null;
     const canIReadThisChatBoolean = openContact && (!openContact.theyCanReadThisChat || (openContact.chatAuthor && openContact.chatAuthor === myUID) || (openContact.theyCanReadThisChat && Object.values(openContact.theyCanReadThisChat).find((usersUID) => usersUID === myUID))) ? true : false;
+
+    const scrollDown = () => {
+        if (refOpenChat.current) {
+            const scrollHeight = Math.max(
+                refOpenChat.current.scrollHeight,
+                refOpenChat.current.offsetHeight,
+                refOpenChat.current.clientHeight,
+            );
+        
+            refOpenChat.current.scrollTo(0, scrollHeight);
+        }
+    };
 
     const focusOnInput = () => {
         refInput.current.focus();
@@ -66,6 +79,6 @@ export const Chat = () => {
     };
 
     return (
-        <ChatUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} privateChat={privateChat} canIReadThisChatBoolean={canIReadThisChatBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES} inputValue={inputValue} setInputValue={setInputValue} editableMessage={editableMessage} setEditableMessage={setEditableMessage} refInput={refInput} focusOnInput={focusOnInput}></ChatUI>
+        <ChatUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} privateChat={privateChat} canIReadThisChatBoolean={canIReadThisChatBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES} inputValue={inputValue} setInputValue={setInputValue} editableMessage={editableMessage} setEditableMessage={setEditableMessage} refInput={refInput} focusOnInput={focusOnInput} refOpenChat={refOpenChat} scrollDown={scrollDown}></ChatUI>
     )
 };
