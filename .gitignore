@@ -30,3 +30,5 @@ src/firebase/
 
 # Local Netlify folder
 .netlify
+
+.firebase

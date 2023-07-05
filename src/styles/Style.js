@@ -388,6 +388,47 @@ export const useStyles = makeStyles({
     fontSize: '14px',
     padding: '9px 1vw',
   },
+  imgInInput: {
+    margin: '0 5px',
+    height: '32px',
+    cursor: 'no-drop',
+  },
+  imgBtnWrapper: {
+    position: 'relative',
+    display: 'inline-block',
+    height: '32px',
+    width: '32px',
+    borderRadius: '8px',
+    textAlign: 'center',
+    color: '#333333',
+    backgroundColor: 'transparent',
+    '&:hover': {
+      backgroundColor: '#99999922',
+    },
+  },
+  imgBtnText: {
+    fontSize: '16px',
+    lineHeight: '32px',
+    transform: 'rotateZ(30deg)',
+  },
+  imgError: {
+    position: 'absolute',
+    right: '0',
+    bottom: '100%',
+    width: '150px',
+    padding: '5px',
+    borderRadius: '5px',
+    backgroundColor: '#ffcccc',
+    cursor: 'no-drop',
+  },
+  imgBtn: {
+    position: 'absolute',
+    top: '0',
+    left: '0',
+    height: '100%',
+    width: '100%',
+    opacity: '0',
+  },
   chatsList: {
     height: '55vh',
     overflow: 'auto',
@@ -412,6 +453,7 @@ export const useStyles = makeStyles({
     justifyContent: 'flex-start !important',
   },
   chatListItemMessage: {
+    position: 'relative',
     color: '#555555',
     display: 'inline-block',
     borderRadius: '15px',
@@ -419,6 +461,9 @@ export const useStyles = makeStyles({
     minWidth: '50%',
     maxWidth: '85%',
     padding: '8px 16px',
+  },
+  chatListItemMessageEditable: {
+    outline: '2px solid blue',
   },
   chatListItemMessageMe: {
     textAlign: 'left !important',
@@ -436,10 +481,23 @@ export const useStyles = makeStyles({
   chatListItemMessageAuthor: {
     color: '#777777',
     fontSize: '16px',
+    lineHeight: '1',
     marginBottom: '2px',
   },
   chatListItemMessageAuthorMobileDevice: {
     fontSize: '10px',
+  },
+  chatListItemMessageImgWrapper: {
+    maxWidth: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  chatListItemMessageImg: {
+    maxWidth: '100%',
+  },
+  chatListItemMessageTextWrapper: {
+    maxHeight: '50vh',
+    overflowY: 'auto',
   },
   chatListItemMessageText: {
     marginBottom: '5px',
@@ -456,6 +514,43 @@ export const useStyles = makeStyles({
   },
   chatListItemMessageDateAndTimeMobileDevice: {
     fontSize: '10px',
+  },
+  chatListItemMessageIconsWrapper: {
+    position: 'absolute',
+    top: '8px',
+    right: '4px',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  chatListItemMessageIcon: {
+    minWidth: '12px',
+    marginLeft: '5px',
+    padding: '1px',
+    cursor: 'pointer',
+    backgroundColor: '#cccccc',
+    borderRadius: '20%',
+    border: 'none',
+    fontSize: '10px',
+    lineHeight: '1',
+  },
+  chatListItemMessageIconEdit: {
+    transform: 'rotateY(180deg)',
+  },
+  chatListItemMessageIconBurger: {
+    height: '12px',
+    width: '12px',
+    padding: '2px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  chatListItemMessageIconBurgerPoint: {
+    display: 'block',
+    height: '2px',
+    width: '2px',
+    borderRadius: '50%',
+    backgroundColor: '#000000',
   },
   chatControlPanel: {
     width: '100%',

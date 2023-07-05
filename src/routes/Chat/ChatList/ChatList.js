@@ -1,25 +1,25 @@
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getChatListChatKindOfListById } from '../../../store/ChatList/Selectors';
-import { ListItem } from '@material-ui/core';
 import { useStyles } from '../../../styles/Style';
 import { ChatListUI } from '../../../ui_components/ChatListUI.jsx';
 import { getChatsListChatsKindOfDictSelector } from '../../../store/ChatsList/Selectors';
-import { auth } from '../../../firebase/firebase';
-import { getKeyForTheChatByChatId, isMobileDevice } from '../../../helper/helper';
-import { dropMessagesInStateAction, offTrackingChangeValueInMessagesListFromOpenChatWithThunkAction, onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction } from '../../../store/ChatList/Action';
-import { getStatusesInTheAppappThemeIsSelector } from '../../../store/AppSwitches/Selectors';
-import { APP_THEMES_NAMES } from '../../../data/consts';
+import { getKeyForTheChatByChatId } from '../../../helper/helper';
+import { deleteMessageInChatListWithThunkAction, dropMessagesInStateAction, offTrackingChangeValueInMessagesListFromOpenChatWithThunkAction, onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction } from '../../../store/ChatList/Action';
+import { ChatMessage } from './ChatMessage/ChatMessage';
 
-export const ChatList = () => {
+export const ChatList = ({
+    setEditableMessage, 
+    setInputValue, 
+    focusOnInput, 
+    scrollDown, 
+    editableMessage, 
+    refOpenChat
+}) => {
     const classes = useStyles();
 
-    const isMobileDeviceBoolean = isMobileDevice();
-
     const { chatId } = useParams();
-
-    const refOpenChat = useRef(null);
 
     const dispatch = useDispatch();
 
@@ -27,23 +27,10 @@ export const ChatList = () => {
     const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
 
     const chatListRed = useSelector(getChatListChatKindOfListById(openChatKey));
-    const appThemeSel = useSelector(getStatusesInTheAppappThemeIsSelector);
-
-    const scrollDown = () => {
-        if (refOpenChat.current) {
-            const scrollHeight = Math.max(
-                refOpenChat.current.scrollHeight,
-                refOpenChat.current.offsetHeight,
-                refOpenChat.current.clientHeight,
-            );
-        
-            refOpenChat.current.scrollTo(0, scrollHeight);
-        }
-    };
 
     useEffect(() => {
         scrollDown();
-    }, [chatListRed]);
+    }, [scrollDown]);
 
     useLayoutEffect(() => {
         dispatch(onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction(openChatKey));
@@ -59,8 +46,6 @@ export const ChatList = () => {
     if (chatListRed.length === 0) {
         return null
     }
-
-    const myEmail = (auth.currentUser !== null ? auth.currentUser.email : null);
 
     const localTimezone = new Date().getTimezoneOffset() / -60;
 
@@ -180,15 +165,30 @@ export const ChatList = () => {
 
         return newText
     };
-    
+
+    const editMessage = (message) => {
+        setEditableMessage(message);
+        setInputValue(message?.text || '');
+        focusOnInput();
+    };
+
+    const deleteMessage = (message) => {
+        deleteMessageInChatListWithThunkAction(message);
+        setEditableMessage(null);
+        focusOnInput();
+    };
+
     const chatListRedForProps = chatListRed.map((item, index) => (
-        <ListItem className={`${classes.chatListItem} ${item.author === myEmail ? classes.chatListItemMe : classes.chatListItemSomebody}`} key={index}>
-            <div className={`${classes.chatListItemMessage} ${item.author === myEmail ? classes.chatListItemMessageMe : `${classes.chatListItemMessageSomebody} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.chatListItemMessageSomebody_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.chatListItemMessageSomebody_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.chatListItemMessageSomebody_sunnyTheme : null) : null}`}`}>
-                <p className={`${classes.chatListItemMessageAuthor} ${isMobileDeviceBoolean ? classes.chatListItemMessageAuthorMobileDevice : null}`}>[{item.author}]:</p>
-                <p className={`${classes.chatListItemMessageText} ${isMobileDeviceBoolean ? classes.chatListItemMessageTextMobileDevice : null}`} dangerouslySetInnerHTML={{__html: convertStringLinksToWorkingLinks(item.text)}}></p>
-                <p className={`${classes.chatListItemMessageDateAndTime} ${isMobileDeviceBoolean ? classes.chatListItemMessageDateAndTimeMobileDevice : null}`}>{item.messageUTCDateAndTime ? getLocalDateAndTime(item.messageUTCDateAndTime) : 'Нет данных'}</p>
-            </div>
-        </ListItem>
+        <ChatMessage key={`${item.author} ${item.messageUTCDateAndTime}`} 
+            item={item} 
+            index={index} 
+            convertStringLinksToWorkingLinks={convertStringLinksToWorkingLinks} 
+            getLocalDateAndTime={getLocalDateAndTime} 
+            chatListRed={chatListRed} 
+            editMessage={editMessage} 
+            deleteMessage={deleteMessage}
+            editableMessage={editableMessage}
+        ></ChatMessage>
     ));
 
     return (

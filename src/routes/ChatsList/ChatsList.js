@@ -76,7 +76,7 @@ export const ChatsList = () => {
         )) 
         : 
         chatsListRed
-        ).filter(chat => searchForEnteredValue(chat.name)).map((item) => {
+    ).filter(chat => searchForEnteredValue(chat.name)).map((item) => {
         return (
             <ListItem className={`${classes.allChatsListItem} ${isBigChatOpen && isBigChatOpen === item.id && classes.allChatsListItem_openChat} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.allChatsListItem_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.allChatsListItem_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.allChatsListItem_sunnyTheme : null) : null}`} button to={`/messenger/${item.id}`} component={Link} key={item.id}>
                 <div className={classes.allChatsListItem_chatNameWrapper}>

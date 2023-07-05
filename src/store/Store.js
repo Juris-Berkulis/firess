@@ -25,6 +25,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
     key: 'root',
     storage,
+    blacklist: ['chatListReducer'] //* - This blacklist lists, in quotes as strings, reducers that should not be stored in the browser's "local store" because it has a size limit of about 5Mb.
 };
 
 const persistedReduser = persistReducer(persistConfig, rootReducer);
