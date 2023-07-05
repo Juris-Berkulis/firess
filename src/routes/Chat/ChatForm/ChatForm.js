@@ -8,7 +8,15 @@ import { ChartFormUI } from '../../../ui_components/ChatFormUI.jsx';
 import { auth } from '../../../firebase/firebase';
 import { autoEditInputText, getKeyForTheChatByChatId, isMobileDevice } from '../../../helper/helper';
 
-export const ChartForm = ({refInput, inputValue, setInputValue, editableMessage, setEditableMessage, focusOnInput, scrollDown}) => {
+export const ChartForm = ({
+  refInput, 
+  inputValue, 
+  setInputValue, 
+  editableMessage, 
+  setEditableMessage, 
+  focusOnInput, 
+  scrollDown
+}) => {
   const classes = useStyles();
 
   const maxImgSizeForMessage = 1048576;
@@ -101,7 +109,11 @@ export const ChartForm = ({refInput, inputValue, setInputValue, editableMessage,
     }
 
     focusOnInput();
-    scrollDown();
+    
+    const timerId = setTimeout(() => {
+      scrollDown();
+      clearTimeout(timerId);
+    }, 0);
   };
 
   const attachPictures = (event) => {

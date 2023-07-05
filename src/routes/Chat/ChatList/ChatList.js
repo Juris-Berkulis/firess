@@ -9,7 +9,14 @@ import { getKeyForTheChatByChatId } from '../../../helper/helper';
 import { deleteMessageInChatListWithThunkAction, dropMessagesInStateAction, offTrackingChangeValueInMessagesListFromOpenChatWithThunkAction, onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction } from '../../../store/ChatList/Action';
 import { ChatMessage } from './ChatMessage/ChatMessage';
 
-export const ChatList = ({setEditableMessage, setInputValue, focusOnInput, scrollDown, editableMessage, refOpenChat}) => {
+export const ChatList = ({
+    setEditableMessage, 
+    setInputValue, 
+    focusOnInput, 
+    scrollDown, 
+    editableMessage, 
+    refOpenChat
+}) => {
     const classes = useStyles();
 
     const { chatId } = useParams();

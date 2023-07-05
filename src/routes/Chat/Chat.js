@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getChatsListChatsKindOfDictSelector, getChatsListChatsKindOfListSelector } from '../../store/ChatsList/Selectors';
@@ -37,7 +37,7 @@ export const Chat = () => {
     const myUID = auth.currentUser !== null ? auth.currentUser.uid : null;
     const canIReadThisChatBoolean = openContact && (!openContact.theyCanReadThisChat || (openContact.chatAuthor && openContact.chatAuthor === myUID) || (openContact.theyCanReadThisChat && Object.values(openContact.theyCanReadThisChat).find((usersUID) => usersUID === myUID))) ? true : false;
 
-    const scrollDown = () => {
+    const scrollDown = useCallback(() => {
         if (refOpenChat.current) {
             const scrollHeight = Math.max(
                 refOpenChat.current.scrollHeight,
@@ -47,11 +47,11 @@ export const Chat = () => {
         
             refOpenChat.current.scrollTo(0, scrollHeight);
         }
-    };
+    }, []);
 
-    const focusOnInput = () => {
+    const focusOnInput = useCallback(() => {
         refInput.current.focus();
-    };
+    }, []);
 
     useEffect(() => {
         dispatch({
