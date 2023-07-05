@@ -109,11 +109,7 @@ export const ChartForm = ({
     }
 
     focusOnInput();
-    
-    const timerId = setTimeout(() => {
-      scrollDown();
-      clearTimeout(timerId);
-    }, 0);
+    scrollDown();
   };
 
   const attachPictures = (event) => {

@@ -38,15 +38,19 @@ export const Chat = () => {
     const canIReadThisChatBoolean = openContact && (!openContact.theyCanReadThisChat || (openContact.chatAuthor && openContact.chatAuthor === myUID) || (openContact.theyCanReadThisChat && Object.values(openContact.theyCanReadThisChat).find((usersUID) => usersUID === myUID))) ? true : false;
 
     const scrollDown = useCallback(() => {
-        if (refOpenChat.current) {
-            const scrollHeight = Math.max(
-                refOpenChat.current.scrollHeight,
-                refOpenChat.current.offsetHeight,
-                refOpenChat.current.clientHeight,
-            );
-        
-            refOpenChat.current.scrollTo(0, scrollHeight);
-        }
+        const intervalId = setInterval(() => {
+            if (refOpenChat?.current) {
+                const scrollHeight = Math.max(
+                    refOpenChat.current.scrollHeight,
+                    refOpenChat.current.offsetHeight,
+                    refOpenChat.current.clientHeight,
+                );
+                
+                refOpenChat.current.scrollTo(0, scrollHeight);
+                
+                clearInterval(intervalId);
+            }
+        }, 4);
     }, []);
 
     const focusOnInput = useCallback(() => {
