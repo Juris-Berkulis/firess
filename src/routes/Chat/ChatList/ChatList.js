@@ -181,6 +181,8 @@ export const ChatList = (props) => {
 
     const deleteMessage = (message) => {
         deleteMessageInChatListWithThunkAction(message);
+        props.setEditableMessage(null);
+        props.focusOnInput();
     };
 
     const chatListRedForProps = chatListRed.map((item, index) => (

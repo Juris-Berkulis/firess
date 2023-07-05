@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessageInChatListWithThunkAction } from '../../../store/ChatList/Action';
 import { getChatsListChatsKindOfDictSelector } from '../../../store/ChatsList/Selectors';
-import { getChatListMessagesSelector } from '../../../store/ChatList/Selectors';
 import { useStyles } from '../../../styles/Style';
 import { ChartFormUI } from '../../../ui_components/ChatFormUI.jsx';
 import { auth } from '../../../firebase/firebase';
@@ -30,8 +29,6 @@ export const ChartForm = (props) => {
   const chatsListChatsKindOfDictRed = useSelector(getChatsListChatsKindOfDictSelector);
   const openChatKey = getKeyForTheChatByChatId(chatsListChatsKindOfDictRed, chatId);
   const openContact = chatsListChatsKindOfDictRed[openChatKey];
-
-  const chatListMessagesRed = useSelector(getChatListMessagesSelector);
 
   const author = (auth.currentUser !== null ? auth.currentUser.email : null);
 
@@ -102,6 +99,8 @@ export const ChartForm = (props) => {
       resetValue();
       resetAttachPicture();
     }
+
+    props.focusOnInput();
   };
 
   const attachPictures = (event) => {
@@ -135,10 +134,6 @@ export const ChartForm = (props) => {
       }
     }
   };
-
-  useEffect(() => {
-    props.focusOnInput();
-  }, [chatListMessagesRed, props]); 
 
   useEffect(() => {
     return () => {
