@@ -481,6 +481,7 @@ export const useStyles = makeStyles({
   chatListItemMessageAuthor: {
     color: '#777777',
     fontSize: '16px',
+    lineHeight: '1',
     marginBottom: '2px',
   },
   chatListItemMessageAuthorMobileDevice: {
@@ -532,6 +533,21 @@ export const useStyles = makeStyles({
   },
   chatListItemMessageIconEdit: {
     transform: 'rotateY(180deg)',
+  },
+  chatListItemMessageIconBurger: {
+    height: '10px',
+    width: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  chatListItemMessageIconBurgerPoint: {
+    display: 'block',
+    height: '2px',
+    width: '2px',
+    borderRadius: '50%',
+    backgroundColor: '#000000',
   },
   chatControlPanel: {
     width: '100%',

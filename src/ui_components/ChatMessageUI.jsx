@@ -32,7 +32,11 @@ export const ChatMessageUI = ({classes, item, index, myEmail, isShowMessageOptio
                                 <div className={`${classes.chatListItemMessageIcon} ${classes.chatListItemMessageIconCross}`} onClick={() => deleteMessage(item)}>&#10060;</div>
                             </>
                         }
-                        <div className={`${classes.chatListItemMessageIcon}`} onClick={toggleMessageOptions}>М</div>
+                        <div className={`${classes.chatListItemMessageIcon} ${classes.chatListItemMessageIconBurger}`} onClick={toggleMessageOptions}>
+                            <span className={`${classes.chatListItemMessageIconBurgerPoint}`}></span>
+                            <span className={`${classes.chatListItemMessageIconBurgerPoint}`}></span>
+                            <span className={`${classes.chatListItemMessageIconBurgerPoint}`}></span>
+                        </div>
                     </div>
                 }
             </div>
