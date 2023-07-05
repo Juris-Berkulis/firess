@@ -35,6 +35,9 @@
     "workbox-strategies": "^5.1.4",
     "workbox-streams": "^5.1.4"
   },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  },
   "scripts": {
     "deploy_to_gh_pages": "gh-pages -d build",
     "deploy": "npm run build && firebase deploy && netlify deploy --dir=build --prod && netlify status && npm run copy_index_as_200 && surge --project ./build --domain https://firess.surge.sh && surge list && npm run deploy_to_gh_pages",
