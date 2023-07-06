@@ -41,9 +41,10 @@
   "scripts": {
     "deploy_to_firebase": "firebase deploy",
     "deploy_to_netlify": "netlify deploy --dir=build --prod && netlify sites:list && netlify status",
+    "deploy_to_vercel": "vercel deploy --prebuilt --prod && vercel list",
     "deploy_to_surge": "npm run copy_index_as_200 && surge --project ./build --domain https://firess.surge.sh && surge list",
     "deploy_to_gh_pages": "gh-pages -d build",
-    "deploy": "npm run build && npm run deploy_to_firebase && npm run deploy_to_netlify && npm run deploy_to_surge && npm run deploy_to_gh_pages && npm run update_git_branches",
+    "deploy": "npm run build && npm run deploy_to_firebase && npm run deploy_to_netlify && npm run deploy_to_vercel && npm run deploy_to_surge && npm run deploy_to_gh_pages && npm run update_git_branches",
     "copy_index_as_200": "copy build\\index.html build\\200.html",
     "update_git_branches": "git fetch",
     "start": "react-scripts start",
