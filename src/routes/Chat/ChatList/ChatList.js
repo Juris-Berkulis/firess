@@ -29,8 +29,10 @@ export const ChatList = ({
     const chatListRed = useSelector(getChatListChatKindOfListById(openChatKey));
 
     useEffect(() => {
-        scrollDown();
-    }, [scrollDown]);
+        if (openChatKey) {
+            scrollDown();
+        }
+    }, [scrollDown, openChatKey]);
 
     useLayoutEffect(() => {
         dispatch(onTrackingChangeValueInMessagesListFromOpenChatWithThunkAction(openChatKey));
