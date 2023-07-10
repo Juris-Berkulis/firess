@@ -9,13 +9,18 @@ import { auth } from '../../../firebase/firebase';
 import { autoEditInputText, getKeyForTheChatByChatId, isMobileDevice } from '../../../helper/helper';
 
 export const ChartForm = ({
+  inputMinHeight, 
+  inputMaxHeight, 
+  inputHeight, 
+  setInputHeight, 
+  resetInputHeight, 
   refInput, 
   inputValue, 
   setInputValue, 
   editableMessage, 
   setEditableMessage, 
   focusOnInput, 
-  scrollDown
+  scrollDown,
 }) => {
   const classes = useStyles();
 
@@ -23,10 +28,6 @@ export const ChartForm = ({
 
   const isMobileDeviceBoolean = isMobileDevice();
 
-  const inputMinHeight = 32;
-  const inputMaxHeight = 90;
-
-  const [inputHeight, setInputHeight] = useState(inputMinHeight);
   const [imgSrcForSendMessage, setImgSrcForSendMessage] = useState('');
   const [imgError, setImgError] = useState('');
 
@@ -42,12 +43,6 @@ export const ChartForm = ({
 
   const dispatch = useDispatch();
 
-  const resetInputHeight = () => {
-    if (refInput) {
-      setInputHeight(`${inputMinHeight}px`);
-    }
-  };
-
   const onSaveValueFromInput = (event) => {
     setInputValue(event.target.value);
 
@@ -60,7 +55,7 @@ export const ChartForm = ({
     } else {
       setInputHeight(`${inputMaxHeight}px`)
     }
-  }, [inputValue, refInput]);
+  }, [inputValue, refInput, setInputHeight, inputMaxHeight]);
 
   const resetValue = () => {
     setInputValue('');

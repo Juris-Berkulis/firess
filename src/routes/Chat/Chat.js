@@ -19,6 +19,10 @@ export const Chat = () => {
     const refInput = useRef(null);
     const refOpenChat = useRef(null);
 
+    const inputMinHeight = 32;
+    const inputMaxHeight = 90;
+
+    const [inputHeight, setInputHeight] = useState(inputMinHeight);
     const [inputValue, setInputValue] = useState('');
     const [editableMessage, setEditableMessage] = useState(null)
 
@@ -36,6 +40,12 @@ export const Chat = () => {
     const privateChat = (openContact && openContact.chatIsPrivate === true) ? true : false;
     const myUID = auth.currentUser !== null ? auth.currentUser.uid : null;
     const canIReadThisChatBoolean = openContact && (!openContact.theyCanReadThisChat || (openContact.chatAuthor && openContact.chatAuthor === myUID) || (openContact.theyCanReadThisChat && Object.values(openContact.theyCanReadThisChat).find((usersUID) => usersUID === myUID))) ? true : false;
+
+    const resetInputHeight = useCallback(() => {
+        if (refInput) {
+            setInputHeight(`${inputMinHeight}px`);
+        }
+    }, [refInput]);
 
     const scrollDown = useCallback(() => {
         const intervalId = setInterval(() => {
@@ -83,6 +93,6 @@ export const Chat = () => {
     };
 
     return (
-        <ChatUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} privateChat={privateChat} canIReadThisChatBoolean={canIReadThisChatBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES} inputValue={inputValue} setInputValue={setInputValue} editableMessage={editableMessage} setEditableMessage={setEditableMessage} refInput={refInput} focusOnInput={focusOnInput} refOpenChat={refOpenChat} scrollDown={scrollDown}></ChatUI>
+        <ChatUI classes={classes} isMobileDeviceBoolean={isMobileDeviceBoolean} privateChat={privateChat} canIReadThisChatBoolean={canIReadThisChatBoolean} appThemeSel={appThemeSel} APP_THEMES_NAMES={APP_THEMES_NAMES} inputValue={inputValue} setInputValue={setInputValue} editableMessage={editableMessage} setEditableMessage={setEditableMessage} refInput={refInput} focusOnInput={focusOnInput} refOpenChat={refOpenChat} scrollDown={scrollDown} inputMinHeight={inputMinHeight} inputMaxHeight={inputMaxHeight} inputHeight={inputHeight} setInputHeight={setInputHeight} resetInputHeight={resetInputHeight}></ChatUI>
     )
 };

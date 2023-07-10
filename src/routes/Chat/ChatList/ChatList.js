@@ -10,12 +10,13 @@ import { deleteMessageInChatListWithThunkAction, dropMessagesInStateAction, offT
 import { ChatMessage } from './ChatMessage/ChatMessage';
 
 export const ChatList = ({
+    resetInputHeight, 
     setEditableMessage, 
     setInputValue, 
     focusOnInput, 
     scrollDown, 
     editableMessage, 
-    refOpenChat
+    refOpenChat,
 }) => {
     const classes = useStyles();
 
@@ -171,6 +172,7 @@ export const ChatList = ({
     const editMessage = (message) => {
         setEditableMessage(message);
         setInputValue(message?.text || '');
+        resetInputHeight();
         focusOnInput();
     };
 

@@ -20,8 +20,8 @@ export const ChatUI = (props) => {
                     ) 
                     ? 
                     <>
-                        <ChatList inputValue={props.inputValue} setInputValue={props.setInputValue} editableMessage={props.editableMessage} setEditableMessage={props.setEditableMessage} focusOnInput={props.focusOnInput} refOpenChat={props.refOpenChat} scrollDown={props.scrollDown}></ChatList>
-                        <ChartForm inputValue={props.inputValue} setInputValue={props.setInputValue} editableMessage={props.editableMessage} setEditableMessage={props.setEditableMessage} refInput={props.refInput} focusOnInput={props.focusOnInput} scrollDown={props.scrollDown}></ChartForm>
+                        <ChatList inputValue={props.inputValue} setInputValue={props.setInputValue} editableMessage={props.editableMessage} setEditableMessage={props.setEditableMessage} focusOnInput={props.focusOnInput} refOpenChat={props.refOpenChat} scrollDown={props.scrollDown} resetInputHeight={props.resetInputHeight}></ChatList>
+                        <ChartForm inputValue={props.inputValue} setInputValue={props.setInputValue} editableMessage={props.editableMessage} setEditableMessage={props.setEditableMessage} refInput={props.refInput} focusOnInput={props.focusOnInput} scrollDown={props.scrollDown} inputMinHeight={props.inputMinHeight} inputMaxHeight={props.inputMaxHeight} inputHeight={props.inputHeight} setInputHeight={props.setInputHeight} resetInputHeight={props.resetInputHeight}></ChartForm>
                     </>
                     : 
                     <YouAreDeniedAccessToTheChat></YouAreDeniedAccessToTheChat>
