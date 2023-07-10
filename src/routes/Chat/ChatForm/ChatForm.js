@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessageInChatListWithThunkAction } from '../../../store/ChatList/Action';
@@ -57,11 +57,10 @@ export const ChartForm = ({
     }
   }, [inputValue, refInput, setInputHeight, inputMaxHeight]);
 
-  const resetValue = () => {
+  const resetValue = useCallback(() => {
     setInputValue('');
-
     resetInputHeight();
-  };
+  }, [setInputValue, resetInputHeight]);
 
   const resetAttachPicture = () => {
     setImgError('');
@@ -141,7 +140,12 @@ export const ChartForm = ({
 
   useEffect(() => {
     focusOnInput();
-  }, [focusOnInput]);
+  }, [focusOnInput, openChatKey]);
+
+  useEffect(() => {
+    setEditableMessage(null);
+    resetValue();
+  }, [openChatKey, resetValue, setEditableMessage]);
 
   useEffect(() => {
     return () => {
