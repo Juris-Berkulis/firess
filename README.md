@@ -1,5 +1,28 @@
 # ℱírεss ℳεssεngεr
 
+- [USAGE](#usage)
+- [DESCRIPTION](#description)
+- [APP FUNCTIONALITY](#app-functionality)
+- [WHY FIRESS](#why-firess)
+  - [SMALL SIZE](#small-size)
+  - [CONVENIENCE](#convenience)
+  - [SPEED](#speed)
+  - [SYNCHRONIZATION](#synchronization)
+  - [NO LIMITS](#no-limits)
+  - [WIDE OPPORTUNITIES](#wide-opportunities)
+  - [RELIABILITY](#reliability)
+  - [SIMPLICITY](#simplicity)
+  - [FREE SERVICE](#free-service)
+  - [NO INTERNATIONAL FEES](#no-international-fees)
+  - [CALM](#calm)
+  - [GROUP CHATS](#group-chats)
+  - [CHATS WITHOUT LIMITS](#chats-without-limits)
+  - [LEAVE NO TRACES ON THE NET](#leave-no-traces-on-the-net)
+  - [SAVE MESSAGES WHILE YOU ARE OFFLINE](#save-messages-while-you-are-offline)
+  - [UNLIMITED LENGTH OF MESSAGES](#unlimited-length-of-messages)
+  - [FORMING THE TEXT](#forming-the-text)
+  - [COMFORT](#comfort)
+
 ## USAGE:
 
 To use the Firess app, simply go to any of the URLs:
@@ -22,50 +45,6 @@ Create chats with an unlimited number of participants! The free Firess messenger
 
 In Firess, users can communicate with each other by creating public chats, which are available to all users, and private chats, which are available only to a group of users. Other users can enter public chats and fully communicate with each other, only users who have access to them can communicate in private chats. In addition, Firess has the ability to create an unlimited number of chats with yourself.
 
-## WHY FIRESS:
-
-**SMALL SIZE**. Thanks to its tiny size, which is much less than 1MB (the size of the Firess application is thousands of times smaller than other popular messengers), Firess is a great addition to the arsenal of applications on your device. You will even be able to install it on a smartphone, on which any other instant messengers can no longer be downloaded due to lack of space.
-
-**CONVENIENCE**. Chatting with users from all over the world for free is equally convenient:
-
-- computer / smartphone;
-- website / application Firess;
-- landscape/portrait modes.
-
-In Firess, you can send and receive messages both on the site directly in the browser of your smartphone or computer, and through an application that is available for installation on both smartphones and computers.
-
-**SPEED**. Instant message delivery.
-
-SYNCHRONIZATION. You can send and receive messages, view the history of correspondence and use all other Firess functionality from several devices at the same time, including computers, tablets and smartphones. All data will remain with you, even if you buy a new smartphone or lose your old one.
-
-**NO LIMITS**. The entire history of correspondence is stored on the server and takes up almost no space on your devices.
-
-**WIDE OPPORTUNITIES**. Each group in Firess chats can accommodate an unlimited number of participants. Firess is ideal for creating personal correspondence, online forums, online communities of interest and organizing workflows.
-
-**RELIABILITY**. You will be able to send and receive messages even on the weakest connections.
-
-**SIMPLICITY**. The Firess app is simple and straightforward. Thanks to its minimalist design, Firess is easy to master, regardless of your level of technical literacy.
-
-**FREE SERVICE**. The Firess app is completely free, without any paid subscriptions or annoying ads. Firess uses your device's Internet connection (4G/3G/2G/EDGE, home internet or Wi-Fi if available) for messaging, so you don't have to pay for each new message.
-
-**NO INTERNATIONAL FEES**. Firess does not charge any additional fees for sending messages abroad. Communicate with people around the world and do not overpay for international SMS. All messages in Firess are absolutely free.
-
-**CALM**. Strangers will never directly write to you in order to impose their services, promote their products, extort money and other offers - after all, you communicate in chat rooms that you visit at your own request.
-
-**GROUP CHATS**. Group chats help you easily stay in touch with both friends and relatives, as well as with completely unfamiliar people who have similar interests to you.
-
-**CHATS WITHOUT LIMITS**. Why limit yourself to one chat with a friend or any other person? In Firess, you can create an unlimited number of chats with each person, group of people, as well as with yourself. This is useful, for example, if you don't want the dialog to look like one continuous ribbon. You can create several chats with an interlocutor or with a group of interlocutors, divided, for example, by topic.
-
-**LEAVE NO TRACES ON THE NET**. If you do not want messages to remain on the Internet, or you send secret data that should not get to third parties, or you are simply afraid that someone else can read the dialogue, then you can create a separate chat with an interlocutor or with a group of interlocutors and delete this chat after communication. When a chat is deleted along with it, all messages of this chat are permanently deleted from all devices of all chat participants and from all servers, so there are no traces of correspondence left anywhere.
-
-**SAVE MESSAGES WHILE YOU ARE OFFLINE**. Even if you close the site, turn off the app, or turn off your smartphone completely, Firess will deliver the messages when you open the app or visit the site again.
-
-**UNLIMITED LENGTH OF MESSAGES**. Share long messages and prints without worrying about character limits or the format of the displayed text.
-
-**FORMING THE TEXT**. Your interlocutor will not miss anything. In Firess, a special syntax for text decoration is available to all users. Highlight especially important words, sentences and paragraphs in messages. Design options: italic, bold, underlined, strikethrough, with a background and any combination of these options, as well as separating paragraphs from each other using increased indentation.
-
-**COMFORT**. Your eyes won't get tired or hurt. Firess has several themes that switch automatically depending on the time of day.
-
 ## APP FUNCTIONALITY:
 
 - creation of public, private and individual chats;
@@ -78,4 +57,84 @@ SYNCHRONIZATION. You can send and receive messages, view the history of correspo
 - automatic change of several themes of the application depending on the time of day;
 - other functionality.
 
-Thanks to the decentralization of the application, if the main site is closed for any reason (for example, due to sanctions), you will be able to continue communication on the backup Firess sites. All data will be saved.
+## WHY FIRESS:
+
+### SMALL SIZE
+
+Thanks to its tiny size, which is much less than 1MB (the size of the Firess application is thousands of times smaller than other popular messengers), Firess is a great addition to the arsenal of applications on your device. You will even be able to install it on a smartphone, on which any other instant messengers can no longer be downloaded due to lack of space.
+
+### CONVENIENCE
+
+Chatting with users from all over the world for free is equally convenient:
+
+- computer / smartphone;
+- website / application Firess;
+- landscape/portrait modes.
+
+In Firess, you can send and receive messages both on the site directly in the browser of your smartphone or computer, and through an application that is available for installation on both smartphones and computers.
+
+### SPEED
+
+Instant message delivery.
+
+### SYNCHRONIZATION
+
+You can send and receive messages, view the history of correspondence and use all other Firess functionality from several devices at the same time, including computers, tablets and smartphones. All data will remain with you, even if you buy a new smartphone or lose your old one.
+
+### NO LIMITS
+
+The entire history of correspondence is stored on the server and takes up almost no space on your devices.
+
+### WIDE OPPORTUNITIES
+
+Each group in Firess chats can accommodate an unlimited number of participants. Firess is ideal for creating personal correspondence, online forums, online communities of interest and organizing workflows.
+
+### RELIABILITY
+
+You will be able to send and receive messages even on the weakest connections.
+
+### SIMPLICITY
+
+The Firess app is simple and straightforward. Thanks to its minimalist design, Firess is easy to master, regardless of your level of technical literacy.
+
+### FREE SERVICE
+
+The Firess app is completely free, without any paid subscriptions or annoying ads. Firess uses your device's Internet connection (4G/3G/2G/EDGE, home internet or Wi-Fi if available) for messaging, so you don't have to pay for each new message.
+
+### NO INTERNATIONAL FEES
+
+Firess does not charge any additional fees for sending messages abroad. Communicate with people around the world and do not overpay for international SMS. All messages in Firess are absolutely free.
+
+### CALM
+
+Strangers will never directly write to you in order to impose their services, promote their products, extort money and other offers - after all, you communicate in chat rooms that you visit at your own request.
+
+### GROUP CHATS
+
+Group chats help you easily stay in touch with both friends and relatives, as well as with completely unfamiliar people who have similar interests to you.
+
+### CHATS WITHOUT LIMITS
+
+Why limit yourself to one chat with a friend or any other person? In Firess, you can create an unlimited number of chats with each person, group of people, as well as with yourself. This is useful, for example, if you don't want the dialog to look like one continuous ribbon. You can create several chats with an interlocutor or with a group of interlocutors, divided, for example, by topic.
+
+### LEAVE NO TRACES ON THE NET
+
+If you do not want messages to remain on the Internet, or you send secret data that should not get to third parties, or you are simply afraid that someone else can read the dialogue, then you can create a separate chat with an interlocutor or with a group of interlocutors and delete this chat after communication. When a chat is deleted along with it, all messages of this chat are permanently deleted from all devices of all chat participants and from all servers, so there are no traces of correspondence left anywhere.
+
+### SAVE MESSAGES WHILE YOU ARE OFFLINE
+
+Even if you close the site, turn off the app, or turn off your smartphone completely, Firess will deliver the messages when you open the app or visit the site again.
+
+### UNLIMITED LENGTH OF MESSAGES
+
+Share long messages and prints without worrying about character limits or the format of the displayed text.
+
+### FORMING THE TEXT
+
+Your interlocutor will not miss anything. In Firess, a special syntax for text decoration is available to all users. Highlight especially important words, sentences and paragraphs in messages. Design options: italic, bold, underlined, strikethrough, with a background and any combination of these options, as well as separating paragraphs from each other using increased indentation.
+
+### COMFORT
+
+Your eyes won't get tired or hurt. Firess has several themes that switch automatically depending on the time of day.
+
+Thanks to the decentralization of the application, if one or more sites are closed for any reason (for example, due to sanctions), you will be able to continue communication on the backup Firess sites. All data will be saved.
