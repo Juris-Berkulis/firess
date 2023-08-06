@@ -51,7 +51,7 @@ In Firess, users can communicate with each other by creating public chats, which
 - deleting your own chats and all messages in them from all devices;
 - transferring your public chats to private ones and vice versa;
 - adding favorite chats to favorites;
-- sending and receiving messages in real time;
+- sending and receiving messages in real time (including pictures and gif-files);
 - editing and deleting your latest chat messages;
 - special syntax for highlighting important text fragments in sent messages by users;
 - automatic change of several themes of the application depending on the time of day;
