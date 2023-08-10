@@ -12,7 +12,7 @@ import { isMobileDevice, isNumberOrString, sortingConditions } from '../../helpe
 import { bigChatClose } from '../../store/BigChatStatus/Action';
 import { getStatusesInTheAppappThemeIsSelector, getStatusesInTheAppIsStrictSearchSelector, getStatusesInTheAppOnlySelectedChatsBooleanSelector, getStatusesInTheAppValueInChatsListInputIsSelector } from '../../store/AppSwitches/Selectors';
 import { auth } from '../../firebase/firebase';
-import { APP_THEMES_NAMES } from '../../data/consts';
+import { APP_THEMES_NAMES, allAppComponentsWithPageTitle } from '../../data/consts';
 import { chatsCount } from '../../store/AppSwitches/Action';
 
 export const ChatsList = () => {
@@ -78,7 +78,7 @@ export const ChatsList = () => {
         chatsListRed
     ).filter(chat => searchForEnteredValue(chat.name)).map((item) => {
         return (
-            <ListItem className={`${classes.allChatsListItem} ${isBigChatOpen && isBigChatOpen === item.id && classes.allChatsListItem_openChat} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.allChatsListItem_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.allChatsListItem_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.allChatsListItem_sunnyTheme : null) : null}`} button to={`/messenger/${item.id}`} component={Link} key={item.id}>
+            <ListItem className={`${classes.allChatsListItem} ${isBigChatOpen && isBigChatOpen === item.id && classes.allChatsListItem_openChat} ${appThemeSel && appThemeSel.themeNameEn ? (appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_2.nameEn ? classes.allChatsListItem_darkTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_3.nameEn ? classes.allChatsListItem_greyTheme : appThemeSel.themeNameEn === APP_THEMES_NAMES.theme_4.nameEn ? classes.allChatsListItem_sunnyTheme : null) : null}`} button to={`${allAppComponentsWithPageTitle.messenger.path}/${item.id}`} component={Link} key={item.id}>
                 <div className={classes.allChatsListItem_chatNameWrapper}>
                     {
                         item.name

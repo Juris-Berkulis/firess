@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { APP_THEMES_NAMES, MAXIMUM_NUMBER_OF_CHARACTERS_FOR_A_CHAT_NAME } from '../../../data/consts';
+import { APP_THEMES_NAMES, MAXIMUM_NUMBER_OF_CHARACTERS_FOR_A_CHAT_NAME, allAppComponentsWithPageTitle } from '../../../data/consts';
 import { auth } from '../../../firebase/firebase';
 import { getKeyForTheChatByChatName, isMobileDevice } from '../../../helper/helper';
 import { aquariumStatus, isStrictSearchAction, onlySelectedChats, valueInChatsListInput } from '../../../store/AppSwitches/Action';
@@ -10,6 +10,7 @@ import { addInChatsListWithThunkAction, deleteSecretIntoAboutDeletedChatWithThun
 import { getChatsListChatsKindOfDictSelector, getChatsListChatsKindOfListSelector } from '../../../store/ChatsList/Selectors';
 import { useStyles } from '../../../styles/Style';
 import { ChangeChatsListUI } from '../../../ui_components/ChangeChatsListUI.jsx';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export const ChangeChatsList = () => {
   const classes = useStyles();
@@ -17,6 +18,8 @@ export const ChangeChatsList = () => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  const history = useHistory();
+  const myUID = auth.currentUser !== null ? auth.currentUser.uid : null;
   const errorForProps = error ? <p className={`${classes.chatsListActionResaltInfo} ${classes.chatsListActionResaltInfo_attention}`}>{error}</p> : null
   const successForProps = success ? <p className={`${classes.chatsListActionResaltInfo} ${classes.chatsListActionResaltInfo_success}`}>{success}</p> : null
 
@@ -68,6 +71,9 @@ export const ChangeChatsList = () => {
       id: now,
       chatAuthor: chatAuthor,
       name: newName,
+      theyLikeThisChat: {
+        [myUID]: myUID,
+      },
     };
     return newContact
   };
@@ -123,7 +129,7 @@ export const ChangeChatsList = () => {
   };
 
   const onSubmit = (event) => {
-    event.preventDefault(); //* Cancel page reload.
+    event.preventDefault();
     setError(false);
     setSuccess(false);
     if (valueName !== '') {
@@ -142,6 +148,7 @@ export const ChangeChatsList = () => {
           dispatch(addInChatsListWithThunkAction(newContact));
           setSuccess(`Чат "${newValueName}" создан`);
           resetValue();
+          history.push(`${allAppComponentsWithPageTitle.messenger.path}/${newContact.id}`);
         } else {
           setError('Чат уже существует');
         }
